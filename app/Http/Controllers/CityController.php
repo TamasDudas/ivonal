@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class CityController extends Controller
 {
@@ -17,7 +18,7 @@ class CityController extends Controller
             ->latest()
             ->get();
 
-        return Inertia::render('Cities', [
+        return Inertia::render('cities', [
             'cities' => $cities
         ]);
     }
@@ -27,7 +28,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        return Inertia::render('CityCreate');
+        return Inertia::render('cityCreate');
     }
 
     /**
@@ -85,7 +86,7 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
-       return Inertia::render('CityUpdate');
+       return Inertia::render('cityUpdate');
     }
 
     /**

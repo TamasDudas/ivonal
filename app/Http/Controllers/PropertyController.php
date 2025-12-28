@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Property;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use App\Http\Resources\PropertyResource;
 
 class PropertyController extends Controller
@@ -20,7 +21,9 @@ class PropertyController extends Controller
             ->latest()
             ->get();
 
-        return Inertia::render('home', PropertyResource::collection($properties));
+        return Inertia::render('welcome', [
+            'properties' => PropertyResource::collection($properties)->toArray(request())
+        ]);
     }
 
     /**
@@ -28,7 +31,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return Inertia::render('PropertyCreate');
+        return Inertia::render('propertyCreate');
     }
 
     /**
@@ -108,7 +111,7 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        return Inertia::render('PropertyUpdate');
+        return Inertia::render('propertyUpdate');
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Models\Media;
 use App\Models\City;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MediaController extends Controller
 {
@@ -24,7 +25,7 @@ class MediaController extends Controller
 
         return Inertia::render('Media', [
             'images' => [
-                'data' => MediaResource::collection($images->items())->resolve(),
+                'data' => MediaResource::collection($images->items())->toArray(request()),
                 'current_page' => $images->currentPage(),
                 'last_page' => $images->lastPage(),
                 'per_page' => $images->perPage(),
