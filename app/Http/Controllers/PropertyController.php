@@ -31,7 +31,11 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return Inertia::render('propertyCreate');
+        $cities = City::select('id', 'name')->orderBy('name')->get();
+        
+        return Inertia::render('property-create', [
+            'cities' => $cities
+        ]);
     }
 
     /**
@@ -61,8 +65,8 @@ class PropertyController extends Controller
                 'heating_type' => 'nullable|string|max:255',
                 'parking' => 'nullable|string|max:255',
                 'air_conditioning' => 'string|in:igen,nem',
-                'smoking' => 'string|in:igen,nem',
-                'pets' => 'string|in:igen,nem',
+                'smoking' => 'string|in:nem,igen',
+                'pets' => 'string|in:nem,igen',
                 'elevator' => 'string|in:igen,nem',
                 'is_featured' => 'string|in:igen,nem',
                 'floor_area' => 'nullable|string|max:255',
@@ -84,15 +88,9 @@ class PropertyController extends Controller
 
             $property = Property::create($validated);
 
-            return response()->json([
-                'message' => 'Property created successfully',
-                'property' => new PropertyResource($property->load(['city', 'featuredImage', 'user']))
-            ], 201);
+            return redirect()->route('properties.index')->with('success', 'Ingatlan sikeresen létrehozva!');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error creating property',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors(['error' => 'Hiba történt az ingatlan létrehozása során: ' . $e->getMessage()]);
         }
     }
 
@@ -111,7 +109,7 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        return Inertia::render('propertyUpdate');
+        return Inertia::render('property-update');
     }
 
     /**
@@ -166,15 +164,9 @@ class PropertyController extends Controller
 
             $property->update($validated);
 
-            return response()->json([
-                'message' => 'Property updated successfully',
-                'property' => new PropertyResource($property->load(['city', 'featuredImage']))
-            ]);
+            return redirect()->route('properties.index')->with('success', 'Ingatlan sikeresen frissítve!');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error updating property',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors(['error' => 'Hiba történt az ingatlan frissítése során: ' . $e->getMessage()]);
         }
     }
 
@@ -191,14 +183,9 @@ class PropertyController extends Controller
         try {
             $property->delete();
 
-            return response()->json([
-                'message' => 'Property deleted successfully'
-            ]);
+            return redirect()->route('properties.index')->with('success', 'Ingatlan sikeresen törölve!');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error deleting property',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors(['error' => 'Hiba történt az ingatlan törlése során: ' . $e->getMessage()]);
         }
     }
 }

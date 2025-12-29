@@ -10,8 +10,6 @@ use App\Http\Controllers\MediaController;
 // Nyilvános route-ok (ingatlanok és városok megtekintése)
 Route::get('/', [CityController::class, 'index'])->name('home');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
-Route::get('/cities/{city}', [CityController::class, 'show'])->name('cities.show');
-Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
@@ -36,5 +34,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Média CRUD (védett)
     Route::resource('media', MediaController::class);
 });
+
+// Nyilvános ingatlan és város megtekintés - ezek UTOLJÁRA kellenek, hogy a /create ne ütközzön velük
+Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
+Route::get('/cities/{city}', [CityController::class, 'show'])->name('cities.show');
 
 require __DIR__.'/settings.php';

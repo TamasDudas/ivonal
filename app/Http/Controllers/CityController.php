@@ -28,7 +28,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        return Inertia::render('cityCreate');
+        return Inertia::render('city-create');
     }
 
     /**
@@ -57,15 +57,9 @@ class CityController extends Controller
 
             $city = City::create($validated);
 
-            return response()->json([
-                'message' => 'City created successfully',
-                'city' => $city->load('featuredImage')
-            ], 201);
+            return redirect()->route('home')->with('success', 'Város sikeresen létrehozva!');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error creating city',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors(['error' => 'Hiba történt a város létrehozása során: ' . $e->getMessage()]);
         }
     }
 
@@ -86,7 +80,7 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
-       return Inertia::render('cityUpdate');
+       return Inertia::render('city-update');
     }
 
     /**
@@ -117,15 +111,9 @@ class CityController extends Controller
 
             $city->update($validated);
 
-            return response()->json([
-                'message' => 'City updated successfully',
-                'city' => $city->load('featuredImage')
-            ]);
+            return redirect()->route('home')->with('success', 'Város sikeresen frissítve!');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error updating city',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors(['error' => 'Hiba történt a város frissítése során: ' . $e->getMessage()]);
         }
     }
 
@@ -142,14 +130,9 @@ class CityController extends Controller
         try {
             $city->delete();
 
-            return response()->json([
-                'message' => 'City deleted successfully'
-            ]);
+            return redirect()->route('home')->with('success', 'Város sikeresen törölve!');
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error deleting city',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors(['error' => 'Hiba történt a város törlése során: ' . $e->getMessage()]);
         }
     }
 }
