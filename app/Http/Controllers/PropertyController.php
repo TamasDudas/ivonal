@@ -43,40 +43,40 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $validated = $request->validate([
-                'city_id' => 'required|exists:cities,id',
-                'featured_img_id' => 'nullable|exists:media,id',
-                'street' => 'required|string|max:255',
-                'slug' => 'nullable|string|max:255|unique:properties,slug',
-                'latitude' => 'nullable|numeric|between:-90,90',
-                'longitude' => 'nullable|numeric|between:-180,180',
-                'rental_price' => 'nullable|string|max:255',
-                'size' => 'nullable|string|max:255',
-                'sale_price' => 'nullable|string|max:255',
-                'minimum_rental_period' => 'nullable|string|max:255',
-                'year_built' => 'nullable|string|max:255',
-                'building_floors' => 'nullable|string|max:255',
-                'floor' => 'nullable|string|max:255',
-                'balcony' => 'nullable|string|max:255',
-                'furniture' => 'string|in:igen,nem',
-                'appliances' => 'string|in:igen,nem',
-                'view' => 'nullable|string|max:255',
-                'heating_type' => 'nullable|string|max:255',
-                'parking' => 'nullable|string|max:255',
-                'air_conditioning' => 'string|in:igen,nem',
-                'smoking' => 'string|in:nem,igen',
-                'pets' => 'string|in:nem,igen',
-                'elevator' => 'string|in:igen,nem',
-                'is_featured' => 'string|in:igen,nem',
-                'floor_area' => 'nullable|string|max:255',
-                'short_description' => 'nullable|string|max:500',
-                'description' => 'nullable|string',
-                'meta_title' => 'nullable|string|max:255',
-                'meta_description' => 'nullable|string|max:500',
-                'meta_keywords' => 'nullable|string|max:500',
-            ]);
+        $validated = $request->validate([
+            'city_id' => 'required|exists:cities,id',
+            'featured_img_id' => 'nullable|exists:media,id',
+            'street' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:properties,slug',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
+            'rental_price' => 'nullable|string|max:255',
+            'size' => 'nullable|string|max:255',
+            'sale_price' => 'nullable|string|max:255',
+            'minimum_rental_period' => 'nullable|string|max:255',
+            'year_built' => 'nullable|string|max:255',
+            'building_floors' => 'nullable|string|max:255',
+            'floor' => 'nullable|string|max:255',
+            'balcony' => 'nullable|string|max:255',
+            'furniture' => 'required|string|in:igen,nem',
+            'appliances' => 'required|string|in:igen,nem',
+            'view' => 'nullable|string|max:255',
+            'heating_type' => 'nullable|string|max:255',
+            'parking' => 'nullable|string|max:255',
+            'air_conditioning' => 'required|string|in:igen,nem',
+            'smoking' => 'required|string|in:nem,igen',
+            'pets' => 'required|string|in:nem,igen',
+            'elevator' => 'required|string|in:igen,nem',
+            'is_featured' => 'required|string|in:igen,nem',
+            'floor_area' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string|max:500',
+            'description' => 'nullable|string',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:500',
+        ]);
 
+        try {
             // Automatikus slug generálás ha nincs megadva
             if (empty($validated['slug'])) {
                 $city = City::find($validated['city_id']);
@@ -90,7 +90,7 @@ class PropertyController extends Controller
 
             return redirect()->route('properties.index')->with('success', 'Ingatlan sikeresen létrehozva!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Hiba történt az ingatlan létrehozása során: ' . $e->getMessage()]);
+            return redirect()->back()->withInput()->withErrors(['error' => 'Hiba történt az ingatlan létrehozása során: ' . $e->getMessage()]);
         }
     }
 

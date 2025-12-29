@@ -36,17 +36,17 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'slug' => 'nullable|string|max:255|unique:cities,slug',
-                'description' => 'nullable|string|max:1000',
-                'featured_img_id' => 'nullable|exists:media,id',
-                'meta_title' => 'nullable|string|max:255',
-                'meta_description' => 'nullable|string|max:500',
-                'meta_keywords' => 'nullable|string|max:500',
-            ]);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:cities,slug',
+            'description' => 'nullable|string|max:1000',
+            'featured_img_id' => 'nullable|exists:media,id',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:500',
+        ]);
 
+        try {
             // Automatikus slug generálás ha nincs megadva
             if (empty($validated['slug'])) {
                 $validated['slug'] = Str::slug($validated['name']);
@@ -59,7 +59,7 @@ class CityController extends Controller
 
             return redirect()->route('home')->with('success', 'Város sikeresen létrehozva!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Hiba történt a város létrehozása során: ' . $e->getMessage()]);
+            return redirect()->back()->withInput()->withErrors(['error' => 'Hiba történt a város létrehozása során: ' . $e->getMessage()]);
         }
     }
 
@@ -93,17 +93,17 @@ class CityController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'slug' => 'nullable|string|max:255|unique:cities,slug,' . $city->id,
-                'description' => 'nullable|string|max:1000',
-                'featured_img_id' => 'nullable|exists:media,id',
-                'meta_title' => 'nullable|string|max:255',
-                'meta_description' => 'nullable|string|max:500',
-                'meta_keywords' => 'nullable|string|max:500',
-            ]);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:cities,slug,' . $city->id,
+            'description' => 'nullable|string|max:1000',
+            'featured_img_id' => 'nullable|exists:media,id',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:500',
+        ]);
 
+        try {
             // Automatikus slug generálás ha nincs megadva
             if (empty($validated['slug'])) {
                 $validated['slug'] = Str::slug($validated['name']);
@@ -113,7 +113,7 @@ class CityController extends Controller
 
             return redirect()->route('home')->with('success', 'Város sikeresen frissítve!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Hiba történt a város frissítése során: ' . $e->getMessage()]);
+            return redirect()->back()->withInput()->withErrors(['error' => 'Hiba történt a város frissítése során: ' . $e->getMessage()]);
         }
     }
 
