@@ -21,7 +21,7 @@ class PropertyController extends Controller
             ->latest()
             ->get();
 
-        return Inertia::render('welcome', [
+        return Inertia::render('properties', [
             'properties' => PropertyResource::collection($properties)->toArray(request())
         ]);
     }

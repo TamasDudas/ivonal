@@ -8,8 +8,8 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\MediaController;
 
 // Nyilvános route-ok (ingatlanok és városok megtekintése)
-Route::get('/', [PropertyController::class, 'index'])->name('home');
-Route::get('/cities', [CityController::class, 'index'])->name('cities.index');
+Route::get('/', [CityController::class, 'index'])->name('home');
+Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/cities/{city}', [CityController::class, 'show'])->name('cities.show');
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 

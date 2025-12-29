@@ -18,7 +18,7 @@ class CityController extends Controller
             ->latest()
             ->get();
 
-        return Inertia::render('cities', [
+        return Inertia::render('home', [
             'cities' => $cities
         ]);
     }
