@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Resources\CityResource;
 
 class CityController extends Controller
 {
@@ -19,8 +20,14 @@ class CityController extends Controller
             ->get();
 
         return Inertia::render('home', [
-            'cities' => $cities
+            'cities' => CityResource::collection($cities)
         ]);
+    }
+
+    public function cityHandle(){
+        $cities = City::all();
+
+        return Inertia::render('cities', ["cities" => CityResource::collection($cities)]);
     }
 
     /**

@@ -31,6 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('cities/{city}/edit', [CityController::class, 'edit'])->name('cities.edit');
     Route::put('cities/{city}', [CityController::class, 'update'])->name('cities.update');
     Route::delete('cities/{city}', [CityController::class, 'destroy'])->name('cities.destroy');
+    Route::get('cities', [CityController::class, 'cityHandle'])->name('cities.handle');
 
     // Média CRUD (védett)
     Route::get('media/create', [MediaController::class, 'create'])->name('media.create');
