@@ -10,6 +10,7 @@ use App\Http\Controllers\MediaController;
 // Nyilvános route-ok (ingatlanok és városok megtekintése)
 Route::get('/', [CityController::class, 'index'])->name('home');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+Route::get('/media', [MediaController::class, 'index'])->name('media.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
@@ -32,11 +33,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('cities/{city}', [CityController::class, 'destroy'])->name('cities.destroy');
 
     // Média CRUD (védett)
-    Route::resource('media', MediaController::class);
+    Route::get('media/create', [MediaController::class, 'create'])->name('media.create');
+    Route::post('media', [MediaController::class, 'store'])->name('media.store');
+    Route::get('media/{media}/edit', [MediaController::class, 'edit'])->name('media.edit');
+    Route::put('media/{media}', [MediaController::class, 'update'])->name('media.update');
+    Route::delete('media/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
 });
 
 // Nyilvános ingatlan és város megtekintés - ezek UTOLJÁRA kellenek, hogy a /create ne ütközzön velük
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 Route::get('/cities/{city}', [CityController::class, 'show'])->name('cities.show');
+Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
 
 require __DIR__.'/settings.php';

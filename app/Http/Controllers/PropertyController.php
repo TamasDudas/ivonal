@@ -80,7 +80,16 @@ class PropertyController extends Controller
             // Automatikus slug generálás ha nincs megadva
             if (empty($validated['slug'])) {
                 $city = City::find($validated['city_id']);
-                $validated['slug'] = Str::slug($validated['street'] . '-' . $city->name . '-' . uniqid());
+                $baseSlug = Str::slug($validated['street'] . '-' . $city->name);
+                $slug = $baseSlug;
+                $counter = 1;
+                
+                while (Property::where('slug', $slug)->exists()) {
+                    $slug = $baseSlug . '-' . $counter;
+                    $counter++;
+                }
+                
+                $validated['slug'] = $slug;
             }
 
             // User ID hozzáadása
@@ -88,7 +97,7 @@ class PropertyController extends Controller
 
             $property = Property::create($validated);
 
-            return redirect()->route('properties.index')->with('success', 'Ingatlan sikeresen létrehozva!');
+            return redirect()->route('home')->with('success', 'Ingatlan sikeresen létrehozva!');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['error' => 'Hiba történt az ingatlan létrehozása során: ' . $e->getMessage()]);
         }
@@ -159,7 +168,16 @@ class PropertyController extends Controller
             // Automatikus slug generálás ha nincs megadva
             if (empty($validated['slug'])) {
                 $city = City::find($validated['city_id']);
-                $validated['slug'] = Str::slug($validated['street'] . '-' . $city->name . '-' . uniqid());
+                $baseSlug = Str::slug($validated['street'] . '-' . $city->name);
+                $slug = $baseSlug;
+                $counter = 1;
+                
+                while (Property::where('slug', $slug)->exists()) {
+                    $slug = $baseSlug . '-' . $counter;
+                    $counter++;
+                }
+                
+                $validated['slug'] = $slug;
             }
 
             $property->update($validated);

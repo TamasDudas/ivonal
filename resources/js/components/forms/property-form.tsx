@@ -71,7 +71,6 @@ export default function PropertyForm({ cities, property }: Props) {
         >
           {({ errors, processing, wasSuccessful }) => {
             // Debug: nézzük meg, milyen hibák vannak
-            console.log('Form errors:', errors);
 
             return (
               <div className="w-full max-w-2xl space-y-4 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
