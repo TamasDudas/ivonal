@@ -137,7 +137,7 @@ class CityController extends Controller
         try {
             $city->delete();
 
-            return redirect()->route('home')->with('success', 'Város sikeresen törölve!');
+            return redirect()->back()->with('success', 'Város sikeresen törölve!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Hiba történt a város törlése során: ' . $e->getMessage()]);
         }
