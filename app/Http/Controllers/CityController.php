@@ -27,7 +27,7 @@ class CityController extends Controller
     public function cityHandle(){
         $cities = City::all();
 
-        return Inertia::render('cities', ["cities" => CityResource::collection($cities)]);
+        return Inertia::render('city/cities', ["cities" => CityResource::collection($cities)]);
     }
 
     /**
@@ -35,7 +35,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        return Inertia::render('city-create');
+        return Inertia::render('city/city-create');
     }
 
     /**
@@ -77,7 +77,7 @@ class CityController extends Controller
     {
         $city->load(['featuredImage', 'properties']);
 
-        return Inertia::render('City', [
+        return Inertia::render('city/city', [
             'city' => $city
         ]);
     }
@@ -87,7 +87,9 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
-       return Inertia::render('city-update');
+       return Inertia::render('city/city-update', [
+           'city' => $city
+       ]);
     }
 
     /**

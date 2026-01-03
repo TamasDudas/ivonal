@@ -21,9 +21,19 @@ class PropertyController extends Controller
             ->latest()
             ->get();
 
-        return Inertia::render('properties', [
+        return Inertia::render('property/properties', [
             'properties' => PropertyResource::collection($properties)->toArray(request())
         ]);
+    }
+
+    public function listByCity(City $city){
+        if(!$city){
+            abort(404, 'Város nem található');
+        }
+
+        $properties = $city->properties()->select('id', 'street', 'featured_img_id', 'short_description' )->get();
+
+        return Inertia::render('property/propertiesByCities', ['city' => $city, 'propertis' => $properties]);
     }
 
     /**
@@ -33,7 +43,7 @@ class PropertyController extends Controller
     {
         $cities = City::select('id', 'name')->orderBy('name')->get();
         
-        return Inertia::render('property-create', [
+        return Inertia::render('property/property-create', [
             'cities' => $cities
         ]);
     }
@@ -110,7 +120,7 @@ class PropertyController extends Controller
     {
         $property->load(['city', 'featuredImage', 'media']);
 
-        return Inertia::render('property.show', new PropertyResource($property));
+        return Inertia::render('property/property', new PropertyResource($property));
     }
 
     /**
