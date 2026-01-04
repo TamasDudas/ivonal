@@ -26,6 +26,7 @@ class PropertyController extends Controller
         ]);
     }
 
+   //Ingatlanik a városok szerint
     public function listByCity(City $city){
         if(!$city){
             abort(404, 'Város nem található');
