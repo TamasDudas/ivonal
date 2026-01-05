@@ -1,3 +1,4 @@
+import EditableList from '@/components/editable-list';
 import {
  AlertDialog,
  AlertDialogAction,
@@ -8,7 +9,6 @@ import {
  AlertDialogHeader,
  AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { router } from '@inertiajs/react';
 
@@ -41,44 +41,18 @@ export default function cities({ cities }: Props) {
  return (
   <>
    <AppLayout>
-    <div className="py-12">
-     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div className="overflow-hidden shadow-xl sm:rounded-lg">
-       <div className="p-6">
-        <h2 className="mb-6 text-2xl font-bold">Városok kezelése</h2>
-        <div className="space-y-4">
-         {cities.data.map((city) => (
-          <div
-           key={city.id}
-           className="flex items-center justify-between rounded-lg border bg-card p-4"
-          >
-           <div className="text-lg font-medium">{city.name}</div>
-           <div className="space-x-4">
-            <Button
-             onClick={() => router.visit(`/cities/${city.id}/edit`)}
-             variant={'outline'}
-            >
-             Szerkesztés
-            </Button>
-            <Button
-             onClick={() => setCityIdToDelete(city.id)}
-             variant={'outline'}
-            >
-             Törlés
-            </Button>
-           </div>
-          </div>
-         ))}
-         {cities.data.length === 0 && (
-          <p className="text-center text-muted-foreground">
-           Még nincs Város létrehozva
-          </p>
-         )}
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
+    {/* Megjeleníti a listát a szerkesztéshez
+    Show the list to edit */}
+    <EditableList
+     items={cities}
+     editText="Szerkesztés"
+     deleteText="Törlés"
+     title="Városok kezelése"
+     displayField="name"
+     missingItemsText="Nincs  megjelenítendő város"
+     onEdit={(id) => router.visit(`/cities/${id}/edit`)}
+     setItemsIdToDelete={setCityIdToDelete}
+    />
    </AppLayout>
    {/* Alert dialóg a város törlésének megerősítésére */}
    <AlertDialog

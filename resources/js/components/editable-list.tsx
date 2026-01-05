@@ -1,9 +1,9 @@
 // Ezt használjuk a Properties és a cities kilistázásánál
-// Use it to list properties and cities in their components to edit
+// Use it to list properties and cities to edit in their components
 import { Button } from '@/components/ui/button';
 
 interface Item {
- name: string;
+ [key: string]: any;
  id: number;
 }
 
@@ -15,11 +15,12 @@ interface Props {
  deleteText: string;
  missingItemsText: string;
  title: string;
+ displayField?: string;
  onEdit: (id: number) => void;
  setItemsIdToDelete: (id: number) => void;
 }
 
-export default function ListItems({
+export default function EditableList({
  items,
  editText,
  title,
@@ -27,6 +28,7 @@ export default function ListItems({
  onEdit,
  setItemsIdToDelete,
  missingItemsText,
+ displayField = 'name',
 }: Props) {
  return (
   <div className="py-12">
@@ -40,7 +42,7 @@ export default function ListItems({
          key={item.id}
          className="flex items-center justify-between rounded-lg border bg-card p-4"
         >
-         <div className="text-lg font-medium">{item.name}</div>
+         <div className="text-lg font-medium">{item[displayField]}</div>
          <div className="space-x-4">
           <Button onClick={() => onEdit(item.id)} variant={'outline'}>
            {editText}

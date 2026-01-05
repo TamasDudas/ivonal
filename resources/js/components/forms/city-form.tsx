@@ -1,6 +1,7 @@
 import { store, update } from '@/actions/App/Http/Controllers/CityController';
 import AppLayout from '@/layouts/app-layout';
 import { Form } from '@inertiajs/react';
+import { Button } from '../ui/button';
 
 interface City {
  id: number;
@@ -24,7 +25,7 @@ export default function CityForm({ city }: Props) {
      action={isEditing ? update.url(city.id) : store.url()}
      method={isEditing ? 'patch' : 'post'}
      resetOnSuccess={!isEditing}
-     className="w-full max-w-md space-y-4 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-800"
+     className="w-3xl space-y-4 overflow-hidden px-4 py-6 shadow-xl sm:rounded-lg"
     >
      <h2 className="mb-6 text-2xl font-semibold">
       {isEditing ? 'Város Szerkesztése' : 'Város Létrehozása'}
@@ -40,7 +41,7 @@ export default function CityForm({ city }: Props) {
        defaultValue={city?.name || ''}
        id="name"
        required
-       className="w-full rounded-md border border-neutral-300 px-3 py-2 focus:border-neutral-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-700"
+       className="w-full rounded-md border px-3 py-2"
       />
      </div>
 
@@ -53,7 +54,7 @@ export default function CityForm({ city }: Props) {
        id="description"
        defaultValue={city?.description || ''}
        rows={4}
-       className="w-full rounded-md border border-neutral-300 px-3 py-2 focus:border-neutral-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-700"
+       className="w-full rounded-md border px-3 py-2"
       ></textarea>
      </div>
 
@@ -66,7 +67,7 @@ export default function CityForm({ city }: Props) {
        name="meta_title"
        id="meta_title"
        defaultValue={city?.meta_title || ''}
-       className="w-full rounded-md border border-neutral-300 px-3 py-2 focus:border-neutral-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-700"
+       className="w-full rounded-md border px-3 py-2"
       />
      </div>
 
@@ -79,7 +80,7 @@ export default function CityForm({ city }: Props) {
        id="meta_description"
        defaultValue={city?.meta_description || ''}
        rows={3}
-       className="w-full rounded-md border border-neutral-300 px-3 py-2 focus:border-neutral-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-700"
+       className="w-full rounded-md border px-3 py-2"
       ></textarea>
      </div>
 
@@ -92,16 +93,18 @@ export default function CityForm({ city }: Props) {
        name="meta_keywords"
        id="meta_keywords"
        defaultValue={city?.meta_keywords || ''}
-       className="w-full rounded-md border border-neutral-300 px-3 py-2 focus:border-neutral-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-700"
+       className="w-full rounded-md border px-3 py-2"
       />
      </div>
-
-     <button
-      type="submit"
-      className="w-full rounded-md bg-neutral-900 px-4 py-2 text-white hover:bg-neutral-800 focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 focus:outline-none dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
-     >
-      {isEditing ? 'Frissítés' : 'Létrehozás'}
-     </button>
+     <div className="flex justify-center py-4">
+      <Button
+       type="submit"
+       className="py- bg-chart-1 w-80 rounded-md px-8 py-2"
+       variant="outline"
+      >
+       {isEditing ? 'Frissítés' : 'Létrehozás'}
+      </Button>
+     </div>
     </Form>
    </div>
   </AppLayout>

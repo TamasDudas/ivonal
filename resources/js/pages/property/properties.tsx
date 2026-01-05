@@ -1,4 +1,8 @@
+import EditableList from '@/components/editable-list';
 import AppLayout from '@/layouts/app-layout';
+import { router } from '@inertiajs/react';
+import { useState } from 'react';
+
 interface Property {
  name: string;
  id: number;
@@ -11,5 +15,24 @@ interface Props {
 }
 
 export default function Properties({ properties }: Props) {
- return <AppLayout>P</AppLayout>;
+ const [propertyIdToDelete, setPropertyIdToDelete] = useState<number | null>(
+  null,
+ );
+
+ return (
+  <AppLayout>
+   {/* Megjeleníti a listát a szerkesztéshez
+     Show the list to edit */}
+   <EditableList
+    items={properties}
+    editText="Szerkesztés"
+    deleteText="Törlés"
+    title="Tulajdonságok kezelése"
+    missingItemsText="Nincs megjelenítendő tulajdonság"
+    displayField="street"
+    onEdit={(id) => router.visit(`/properties/${id}/edit`)}
+    setItemsIdToDelete={setPropertyIdToDelete}
+   />
+  </AppLayout>
+ );
 }

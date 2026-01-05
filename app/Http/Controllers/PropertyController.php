@@ -16,13 +16,10 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::withCount('media')
-            ->with('featuredImage', 'city')
-            ->latest()
-            ->get();
+        $properties = Property::all();
 
         return Inertia::render('property/properties', [
-            'properties' => PropertyResource::collection($properties)->toArray(request())
+            'properties' => PropertyResource::collection($properties)
         ]);
     }
 
@@ -129,7 +126,12 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        return Inertia::render('property-update');
+        $cities = City::select('id', 'name')->orderBy('name')->get();
+        
+        return Inertia::render('property/property-update', [
+            'property' => $property,
+            'cities' => $cities
+        ]);
     }
 
     /**
