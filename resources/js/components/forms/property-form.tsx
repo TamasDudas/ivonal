@@ -94,7 +94,7 @@ export default function PropertyForm({ cities, property }: Props) {
           name="city_id"
           id="city_id"
           defaultValue={property?.city_id}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          >
           <option value="">Válassz várost...</option>
           {cities.map((city) => (
@@ -119,7 +119,7 @@ export default function PropertyForm({ cities, property }: Props) {
           name="street"
           id="street"
           defaultValue={property?.street}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          />
          {errors.street && (
           <div className="text-sm text-red-600 dark:text-red-400">
@@ -139,7 +139,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="latitude"
            id="latitude"
            defaultValue={property?.latitude ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
 
@@ -153,7 +153,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="longitude"
            id="longitude"
            defaultValue={property?.longitude ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
         </div>
@@ -173,7 +173,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="rental_price"
            id="rental_price"
            defaultValue={property?.rental_price ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
           {errors.rental_price && (
            <div className="text-sm text-red-600 dark:text-red-400">
@@ -191,7 +191,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="sale_price"
            id="sale_price"
            defaultValue={property?.sale_price ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
           {errors.sale_price && (
            <div className="text-sm text-red-600 dark:text-red-400">
@@ -211,7 +211,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="size"
            id="size"
            defaultValue={property?.size ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
 
@@ -224,7 +224,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="floor_area"
            id="floor_area"
            defaultValue={property?.floor_area ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
         </div>
@@ -241,7 +241,7 @@ export default function PropertyForm({ cities, property }: Props) {
           name="minimum_rental_period"
           id="minimum_rental_period"
           defaultValue={property?.minimum_rental_period ?? ''}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          />
         </div>
        </div>
@@ -260,7 +260,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="year_built"
            id="year_built"
            defaultValue={property?.year_built ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
 
@@ -276,7 +276,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="building_floors"
            id="building_floors"
            defaultValue={property?.building_floors ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
         </div>
@@ -291,7 +291,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="floor"
            id="floor"
            defaultValue={property?.floor ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
 
@@ -304,7 +304,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="balcony"
            id="balcony"
            defaultValue={property?.balcony ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
         </div>
@@ -319,7 +319,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="view"
            id="view"
            defaultValue={property?.view ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
 
@@ -332,7 +332,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="heating_type"
            id="heating_type"
            defaultValue={property?.heating_type ?? ''}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
         </div>
@@ -346,7 +346,7 @@ export default function PropertyForm({ cities, property }: Props) {
           name="parking"
           id="parking"
           defaultValue={property?.parking ?? ''}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          />
         </div>
        </div>
@@ -364,7 +364,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="furniture"
            id="furniture"
            defaultValue={property?.furniture ?? 'nem'}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           >
            <option value="igen">Igen</option>
            <option value="nem">Nem</option>
@@ -384,7 +384,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="appliances"
            id="appliances"
            defaultValue={property?.appliances ?? 'nem'}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           >
            <option value="igen">Igen</option>
            <option value="nem">Nem</option>
@@ -409,7 +409,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="air_conditioning"
            id="air_conditioning"
            defaultValue={property?.air_conditioning ?? 'nem'}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           >
            <option value="igen">Igen</option>
            <option value="nem">Nem</option>
@@ -429,7 +429,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="elevator"
            id="elevator"
            defaultValue={property?.elevator ?? 'nem'}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           >
            <option value="igen">Igen</option>
            <option value="nem">Nem</option>
@@ -451,7 +451,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="smoking"
            id="smoking"
            defaultValue={property?.smoking ?? 'nem'}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           >
            <option value="nem">Nem</option>
            <option value="igen">Igen</option>
@@ -471,7 +471,7 @@ export default function PropertyForm({ cities, property }: Props) {
            name="pets"
            id="pets"
            defaultValue={property?.pets ?? 'nem'}
-           className="w-full rounded-md border px-3 py-2"
+           className="w-full rounded-md border-3 px-3 py-2"
           >
            <option value="nem">Nem</option>
            <option value="igen">Igen</option>
@@ -492,7 +492,7 @@ export default function PropertyForm({ cities, property }: Props) {
           name="is_featured"
           id="is_featured"
           defaultValue={property?.is_featured ?? 'nem'}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          >
           <option value="igen">Igen</option>
           <option value="nem">Nem</option>
@@ -522,7 +522,7 @@ export default function PropertyForm({ cities, property }: Props) {
           rows={3}
           maxLength={500}
           defaultValue={property?.short_description ?? ''}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          />
         </div>
 
@@ -535,7 +535,7 @@ export default function PropertyForm({ cities, property }: Props) {
           id="description"
           rows={6}
           defaultValue={property?.description ?? ''}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          />
         </div>
        </div>
@@ -554,7 +554,7 @@ export default function PropertyForm({ cities, property }: Props) {
           id="meta_title"
           maxLength={255}
           defaultValue={property?.meta_title ?? ''}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          />
         </div>
 
@@ -571,7 +571,7 @@ export default function PropertyForm({ cities, property }: Props) {
           rows={3}
           maxLength={500}
           defaultValue={property?.meta_description ?? ''}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          />
         </div>
 
@@ -585,7 +585,7 @@ export default function PropertyForm({ cities, property }: Props) {
           id="meta_keywords"
           maxLength={500}
           defaultValue={property?.meta_keywords ?? ''}
-          className="w-full rounded-md border px-3 py-2"
+          className="w-full rounded-md border-3 px-3 py-2"
          />
         </div>
        </div>
@@ -594,7 +594,7 @@ export default function PropertyForm({ cities, property }: Props) {
         <Button
          type="submit"
          disabled={processing}
-         className="bg-chart-1 w-80 rounded-md px-8 py-2"
+         className="w-80 rounded-md bg-chart-1 px-8 py-2"
          variant="outline"
         >
          {processing
