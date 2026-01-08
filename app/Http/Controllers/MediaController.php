@@ -45,7 +45,7 @@ class MediaController extends Controller
         $cities = City::where('user_id', auth()->id())->get();
         $properties = Property::where('user_id', auth()->id())->get();
 
-        return Inertia::render('GalleryImageCreate', ['cities' => $cities, 'properties' => $properties]);
+        return Inertia::render('gallery/gallery-image-create', ['cities' => $cities, 'properties' => $properties]);
     }
 
     /**
@@ -59,8 +59,7 @@ class MediaController extends Controller
                 'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
                 'alt_text' => 'nullable|string|max:255',
                 'city_id' => 'nullable|exists:cities,id',
-                'property_ids' => 'nullable|array',
-                'property_ids.*' => 'exists:properties,id',
+                'property_id' => 'nullable|exists:properties,id',
                 'is_featured' => 'boolean'
             ]);
 
@@ -98,19 +97,17 @@ class MediaController extends Controller
                     }
                 }
 
-                if (!empty($validated['property_ids'])) {
-                    foreach ($validated['property_ids'] as $propertyId) {
-                        // Ellenőrizzük, hogy az ingatlan a felhasználóhoz tartozik
-                        $property = Property::where('id', $propertyId)
-                                           ->where('user_id', auth()->id())
-                                           ->first();
-                        if ($property) {
-                            if ($validated['is_featured'] ?? false) {
-                                $property->update(['featured_img_id' => $media->id]);
-                            } else {
-                                // Galéria kép hozzáadása
-                                $property->media()->attach($media->id, ['order' => 0]);
-                            }
+                if (!empty($validated['property_id'])) {
+                    // Ellenőrizzük, hogy az ingatlan a felhasználóhoz tartozik
+                    $property = Property::where('id', $validated['property_id'])
+                                       ->where('user_id', auth()->id())
+                                       ->first();
+                    if ($property) {
+                        if ($validated['is_featured'] ?? false) {
+                            $property->update(['featured_img_id' => $media->id]);
+                        } else {
+                            // Galéria kép hozzáadása
+                            $property->media()->attach($media->id, ['order' => 0]);
                         }
                     }
                 }

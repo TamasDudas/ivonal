@@ -1,4 +1,3 @@
-import mainPicture from '@/assets/sarosi_halo_nyito.jpg';
 import { Card } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { Head } from '@inertiajs/react';
@@ -21,8 +20,8 @@ export default function Home({ cities }: Props) {
   <AppLayout>
    <Head title="Home" />
 
-   <div className="flex flex-col gap-6 px-6 py-6 md:flex-row md:items-center">
-    <Card className="flex flex-col items-center justify-center px-3 md:flex-1">
+   <div className="flex gap-6 px-6 py-6 md:flex-row md:items-stretch">
+    <Card className="flex flex-col items-center justify-center px-3 md:flex-[2]">
      <p className="text-3xl">Elérhető ingatlanok Budapesten és Szegeden.</p>
      <hr className="w-full border-t border-chart-4" />
      <p className="">
@@ -37,14 +36,7 @@ export default function Home({ cities }: Props) {
       kínálat szélesítése, ajánlás alapján a tulajdonosi kör bővítésével is.
      </p>
     </Card>
-    <div className="relative flex h-52 w-full items-center justify-center sm:h-44 md:h-80 md:flex-[2] lg:h-[28rem]">
-     <img
-      src={mainPicture}
-      alt="Borító kép"
-      className="h-full w-full rounded-2xl object-cover"
-     />
-     <div className="absolute inset-0 rounded-2xl bg-popover/30"></div>
-    </div>
+    <div className="flex flex-col gap-6 md:flex-[1.8]"></div>
    </div>
    <div className="py-4"></div>
   </AppLayout>
