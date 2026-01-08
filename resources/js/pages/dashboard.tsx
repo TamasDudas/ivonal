@@ -42,6 +42,11 @@ export default function Dashboard() {
        <Link href="media/create">Kép feltöltése</Link>
       </CardContent>
      </Card>
+     <Card className="flex h-50 items-center justify-center overflow-hidden">
+      <CardContent className="p-6">
+       <Link href="media">Kép Kezelése</Link>
+      </CardContent>
+     </Card>
     </div>
    </div>
   </AppLayout>

@@ -24,7 +24,7 @@ class MediaController extends Controller
             $cities = City::where('user_id', auth()->id())->get();
             $properties = Property::where('user_id', auth()->id())->get();
 
-        return Inertia::render('media', [
+        return Inertia::render('gallery/media', [
             'images' => [
                 'data' => MediaResource::collection($images->items())->toArray(request()),
                 'current_page' => $images->currentPage(),
@@ -110,8 +110,88 @@ class MediaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Assign media as featured image for a city.
      */
+    public function assignCityFeatured(Request $request, Media $media)
+    {
+        $request->validate([
+            'city_id' => 'required|exists:cities,id',
+        ]);
+
+        // Ellenőrizzük, hogy a kép és a város a felhasználóhoz tartozik
+        if ($media->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $city = City::where('id', $request->city_id)->where('user_id', auth()->id())->first();
+        if (!$city) {
+            abort(403, 'Unauthorized');
+        }
+
+        // Előző featured kép eltávolítása, ha volt
+        City::where('featured_img_id', $media->id)->update(['featured_img_id' => null]);
+
+        $city->update(['featured_img_id' => $media->id]);
+
+        return redirect()->back()->with('success', 'Kép beállítva featured-ként a városnak.');
+    }
+
+    /**
+     * Assign media as featured image for a property.
+     */
+    public function assignPropertyFeatured(Request $request, Media $media)
+    {
+        $request->validate([
+            'property_id' => 'required|exists:properties,id',
+        ]);
+
+        // Ellenőrizzük, hogy a kép és az ingatlan a felhasználóhoz tartozik
+        if ($media->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $property = Property::where('id', $request->property_id)->where('user_id', auth()->id())->first();
+        if (!$property) {
+            abort(403, 'Unauthorized');
+        }
+
+        // Előző featured kép eltávolítása, ha volt
+        Property::where('featured_img_id', $media->id)->update(['featured_img_id' => null]);
+
+        $property->update(['featured_img_id' => $media->id]);
+
+        return redirect()->back()->with('success', 'Kép beállítva featured-ként az ingatlannak.');
+    }
+
+    /**
+     * Assign media to property gallery.
+     */
+    public function assignPropertyGallery(Request $request, Media $media)
+    {
+        $request->validate([
+            'property_id' => 'required|exists:properties,id',
+        ]);
+
+        // Ellenőrizzük, hogy a kép és az ingatlan a felhasználóhoz tartozik
+        if ($media->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        $property = Property::where('id', $request->property_id)->where('user_id', auth()->id())->first();
+        if (!$property) {
+            abort(403, 'Unauthorized');
+        }
+
+        // Hozzáadás a galériához, ha még nincs
+        if (!$property->media()->where('media_id', $media->id)->exists()) {
+            $property->media()->attach($media->id, ['order' => $property->media()->count() + 1]);
+        }
+
+        return redirect()->back()->with('success', 'Kép hozzáadva az ingatlan galériájához.');
+    }
+
+
+    //Kép törlése
     public function destroy(Media $media)
     {
         // Ellenőrizzük, hogy a kép a felhasználóhoz tartozik

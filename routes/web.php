@@ -37,6 +37,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Média CRUD (védett)
     Route::get('media/create', [MediaController::class, 'create'])->name('media.create');
     Route::post('media', [MediaController::class, 'store'])->name('media.store');
+    Route::patch('media/{media}/assign-city', [MediaController::class, 'assignCityFeatured'])->name('media.assign-city');
+    Route::patch('media/{media}/assign-property', [MediaController::class, 'assignPropertyFeatured'])->name('media.assign-property');
+    Route::patch('media/{media}/assign-gallery', [MediaController::class, 'assignPropertyGallery'])->name('media.assign-gallery');
     Route::delete('media/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
 });
 

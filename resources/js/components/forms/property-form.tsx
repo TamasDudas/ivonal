@@ -5,6 +5,16 @@ import {
 import AppLayout from '@/layouts/app-layout';
 import { Form } from '@inertiajs/react';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import {
+ Select,
+ SelectContent,
+ SelectItem,
+ SelectTrigger,
+ SelectValue,
+} from '../ui/select';
+import { Textarea } from '../ui/textarea';
 
 interface Property {
  id: number;
@@ -87,22 +97,21 @@ export default function PropertyForm({ cities, property }: Props) {
         <h3 className="text-lg font-medium">Alapadatok</h3>
 
         <div className="space-y-2">
-         <label htmlFor="city_id" className="block text-sm font-medium">
+         <Label htmlFor="city_id" className="text-sm font-medium">
           Város *
-         </label>
-         <select
-          name="city_id"
-          id="city_id"
-          defaultValue={property?.city_id}
-          className="w-full rounded-md border-3 px-3 py-2"
-         >
-          <option value="">Válassz várost...</option>
-          {cities.map((city) => (
-           <option key={city.id} value={city.id}>
-            {city.name}
-           </option>
-          ))}
-         </select>
+         </Label>
+         <Select name="city_id" defaultValue={property?.city_id?.toString()}>
+          <SelectTrigger id="city_id">
+           <SelectValue placeholder="Válassz várost..." />
+          </SelectTrigger>
+          <SelectContent>
+           {cities.map((city) => (
+            <SelectItem key={city.id} value={city.id.toString()}>
+             {city.name}
+            </SelectItem>
+           ))}
+          </SelectContent>
+         </Select>
          {errors.city_id && (
           <div className="text-sm text-red-600 dark:text-red-400">
            {errors.city_id}
@@ -111,15 +120,14 @@ export default function PropertyForm({ cities, property }: Props) {
         </div>
 
         <div className="space-y-2">
-         <label htmlFor="street" className="block text-sm font-medium">
+         <Label htmlFor="street" className="text-sm font-medium">
           Utca *
-         </label>
-         <input
+         </Label>
+         <Input
           type="text"
           name="street"
           id="street"
           defaultValue={property?.street}
-          className="w-full rounded-md border-3 px-3 py-2"
          />
          {errors.street && (
           <div className="text-sm text-red-600 dark:text-red-400">
@@ -130,30 +138,28 @@ export default function PropertyForm({ cities, property }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label htmlFor="latitude" className="block text-sm font-medium">
+          <Label htmlFor="latitude" className="text-sm font-medium">
            Földrajzi szélesség
-          </label>
-          <input
+          </Label>
+          <Input
            type="number"
            step="any"
            name="latitude"
            id="latitude"
            defaultValue={property?.latitude ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
 
          <div className="space-y-2">
-          <label htmlFor="longitude" className="block text-sm font-medium">
+          <Label htmlFor="longitude" className="text-sm font-medium">
            Földrajzi hosszúság
-          </label>
-          <input
+          </Label>
+          <Input
            type="number"
            step="any"
            name="longitude"
            id="longitude"
            defaultValue={property?.longitude ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
         </div>
@@ -165,15 +171,14 @@ export default function PropertyForm({ cities, property }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label htmlFor="rental_price" className="block text-sm font-medium">
+          <Label htmlFor="rental_price" className="text-sm font-medium">
            Bérleti díj
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="rental_price"
            id="rental_price"
            defaultValue={property?.rental_price ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
           />
           {errors.rental_price && (
            <div className="text-sm text-red-600 dark:text-red-400">
@@ -183,15 +188,14 @@ export default function PropertyForm({ cities, property }: Props) {
          </div>
 
          <div className="space-y-2">
-          <label htmlFor="sale_price" className="block text-sm font-medium">
+          <Label htmlFor="sale_price" className="text-sm font-medium">
            Eladási ár
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="sale_price"
            id="sale_price"
            defaultValue={property?.sale_price ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
           />
           {errors.sale_price && (
            <div className="text-sm text-red-600 dark:text-red-400">
@@ -203,45 +207,39 @@ export default function PropertyForm({ cities, property }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label htmlFor="size" className="block text-sm font-medium">
+          <Label htmlFor="size" className="text-sm font-medium">
            Méret
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="size"
            id="size"
            defaultValue={property?.size ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
 
          <div className="space-y-2">
-          <label htmlFor="floor_area" className="block text-sm font-medium">
+          <Label htmlFor="floor_area" className="text-sm font-medium">
            Alapterület
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="floor_area"
            id="floor_area"
            defaultValue={property?.floor_area ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
           />
          </div>
         </div>
 
         <div className="space-y-2">
-         <label
-          htmlFor="minimum_rental_period"
-          className="block text-sm font-medium"
-         >
+         <Label htmlFor="minimum_rental_period" className="text-sm font-medium">
           Minimális bérleti időszak
-         </label>
-         <input
+         </Label>
+         <Input
           type="text"
           name="minimum_rental_period"
           id="minimum_rental_period"
           defaultValue={property?.minimum_rental_period ?? ''}
-          className="w-full rounded-md border-3 px-3 py-2"
          />
         </div>
        </div>
@@ -252,101 +250,101 @@ export default function PropertyForm({ cities, property }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label htmlFor="year_built" className="block text-sm font-medium">
+          <Label htmlFor="year_built" className="block text-sm font-medium">
            Építés éve
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="year_built"
            id="year_built"
            defaultValue={property?.year_built ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
+           className="w-full rounded-md px-3 py-2"
           />
          </div>
 
          <div className="space-y-2">
-          <label
+          <Label
            htmlFor="building_floors"
            className="block text-sm font-medium"
           >
            Épület szintjei
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="building_floors"
            id="building_floors"
            defaultValue={property?.building_floors ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
+           className="w-full rounded-md px-3 py-2"
           />
          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label htmlFor="floor" className="block text-sm font-medium">
+          <Label htmlFor="floor" className="block text-sm font-medium">
            Emelet
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="floor"
            id="floor"
            defaultValue={property?.floor ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
+           className="w-full rounded-md px-3 py-2"
           />
          </div>
 
          <div className="space-y-2">
-          <label htmlFor="balcony" className="block text-sm font-medium">
+          <Label htmlFor="balcony" className="block text-sm font-medium">
            Erkély
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="balcony"
            id="balcony"
            defaultValue={property?.balcony ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
+           className="w-full rounded-md px-3 py-2"
           />
          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label htmlFor="view" className="block text-sm font-medium">
+          <Label htmlFor="view" className="block text-sm font-medium">
            Kilátás
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="view"
            id="view"
            defaultValue={property?.view ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
+           className="w-full rounded-md px-3 py-2"
           />
          </div>
 
          <div className="space-y-2">
-          <label htmlFor="heating_type" className="block text-sm font-medium">
+          <Label htmlFor="heating_type" className="block text-sm font-medium">
            Fűtés típusa
-          </label>
-          <input
+          </Label>
+          <Input
            type="text"
            name="heating_type"
            id="heating_type"
            defaultValue={property?.heating_type ?? ''}
-           className="w-full rounded-md border-3 px-3 py-2"
+           className="w-full rounded-md px-3 py-2"
           />
          </div>
         </div>
 
         <div className="space-y-2">
-         <label htmlFor="parking" className="block text-sm font-medium">
+         <Label htmlFor="parking" className="block text-sm font-medium">
           Parkolás
-         </label>
-         <input
+         </Label>
+         <Input
           type="text"
           name="parking"
           id="parking"
           defaultValue={property?.parking ?? ''}
-          className="w-full rounded-md border-3 px-3 py-2"
+          className="w-full rounded-md px-3 py-2"
          />
         </div>
        </div>
@@ -357,18 +355,18 @@ export default function PropertyForm({ cities, property }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label htmlFor="furniture" className="block text-sm font-medium">
+          <Label htmlFor="furniture" className="block text-sm font-medium">
            Bútorozott
-          </label>
-          <select
-           name="furniture"
-           id="furniture"
-           defaultValue={property?.furniture ?? 'nem'}
-           className="w-full rounded-md border-3 px-3 py-2"
-          >
-           <option value="igen">Igen</option>
-           <option value="nem">Nem</option>
-          </select>
+          </Label>
+          <Select name="furniture" defaultValue={property?.furniture ?? 'nem'}>
+           <SelectTrigger id="furniture">
+            <SelectValue />
+           </SelectTrigger>
+           <SelectContent>
+            <SelectItem value="igen">Igen</SelectItem>
+            <SelectItem value="nem">Nem</SelectItem>
+           </SelectContent>
+          </Select>
           {errors.furniture && (
            <div className="text-sm text-red-600 dark:text-red-400">
             {errors.furniture}
@@ -377,18 +375,21 @@ export default function PropertyForm({ cities, property }: Props) {
          </div>
 
          <div className="space-y-2">
-          <label htmlFor="appliances" className="block text-sm font-medium">
+          <Label htmlFor="appliances" className="block text-sm font-medium">
            Gépesített
-          </label>
-          <select
+          </Label>
+          <Select
            name="appliances"
-           id="appliances"
            defaultValue={property?.appliances ?? 'nem'}
-           className="w-full rounded-md border-3 px-3 py-2"
           >
-           <option value="igen">Igen</option>
-           <option value="nem">Nem</option>
-          </select>
+           <SelectTrigger id="appliances">
+            <SelectValue />
+           </SelectTrigger>
+           <SelectContent>
+            <SelectItem value="igen">Igen</SelectItem>
+            <SelectItem value="nem">Nem</SelectItem>
+           </SelectContent>
+          </Select>
           {errors.appliances && (
            <div className="text-sm text-red-600 dark:text-red-400">
             {errors.appliances}
@@ -399,21 +400,24 @@ export default function PropertyForm({ cities, property }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label
+          <Label
            htmlFor="air_conditioning"
            className="block text-sm font-medium"
           >
            Légkondicionáló
-          </label>
-          <select
+          </Label>
+          <Select
            name="air_conditioning"
-           id="air_conditioning"
            defaultValue={property?.air_conditioning ?? 'nem'}
-           className="w-full rounded-md border-3 px-3 py-2"
           >
-           <option value="igen">Igen</option>
-           <option value="nem">Nem</option>
-          </select>
+           <SelectTrigger id="air_conditioning">
+            <SelectValue />
+           </SelectTrigger>
+           <SelectContent>
+            <SelectItem value="igen">Igen</SelectItem>
+            <SelectItem value="nem">Nem</SelectItem>
+           </SelectContent>
+          </Select>
           {errors.air_conditioning && (
            <div className="text-sm text-red-600 dark:text-red-400">
             {errors.air_conditioning}
@@ -422,18 +426,18 @@ export default function PropertyForm({ cities, property }: Props) {
          </div>
 
          <div className="space-y-2">
-          <label htmlFor="elevator" className="block text-sm font-medium">
+          <Label htmlFor="elevator" className="block text-sm font-medium">
            Lift
-          </label>
-          <select
-           name="elevator"
-           id="elevator"
-           defaultValue={property?.elevator ?? 'nem'}
-           className="w-full rounded-md border-3 px-3 py-2"
-          >
-           <option value="igen">Igen</option>
-           <option value="nem">Nem</option>
-          </select>
+          </Label>
+          <Select name="elevator" defaultValue={property?.elevator ?? 'nem'}>
+           <SelectTrigger id="elevator">
+            <SelectValue />
+           </SelectTrigger>
+           <SelectContent>
+            <SelectItem value="igen">Igen</SelectItem>
+            <SelectItem value="nem">Nem</SelectItem>
+           </SelectContent>
+          </Select>
           {errors.elevator && (
            <div className="text-sm text-red-600 dark:text-red-400">
             {errors.elevator}
@@ -444,18 +448,18 @@ export default function PropertyForm({ cities, property }: Props) {
 
         <div className="grid grid-cols-2 gap-4">
          <div className="space-y-2">
-          <label htmlFor="smoking" className="block text-sm font-medium">
+          <Label htmlFor="smoking" className="block text-sm font-medium">
            Dohányzás engedélyezett
-          </label>
-          <select
-           name="smoking"
-           id="smoking"
-           defaultValue={property?.smoking ?? 'nem'}
-           className="w-full rounded-md border-3 px-3 py-2"
-          >
-           <option value="nem">Nem</option>
-           <option value="igen">Igen</option>
-          </select>
+          </Label>
+          <Select name="smoking" defaultValue={property?.smoking ?? 'nem'}>
+           <SelectTrigger id="smoking">
+            <SelectValue />
+           </SelectTrigger>
+           <SelectContent>
+            <SelectItem value="nem">Nem</SelectItem>
+            <SelectItem value="igen">Igen</SelectItem>
+           </SelectContent>
+          </Select>
           {errors.smoking && (
            <div className="text-sm text-red-600 dark:text-red-400">
             {errors.smoking}
@@ -464,18 +468,18 @@ export default function PropertyForm({ cities, property }: Props) {
          </div>
 
          <div className="space-y-2">
-          <label htmlFor="pets" className="block text-sm font-medium">
+          <Label htmlFor="pets" className="block text-sm font-medium">
            Háziállat engedélyezett
-          </label>
-          <select
-           name="pets"
-           id="pets"
-           defaultValue={property?.pets ?? 'nem'}
-           className="w-full rounded-md border-3 px-3 py-2"
-          >
-           <option value="nem">Nem</option>
-           <option value="igen">Igen</option>
-          </select>
+          </Label>
+          <Select name="pets" defaultValue={property?.pets ?? 'nem'}>
+           <SelectTrigger id="pets">
+            <SelectValue />
+           </SelectTrigger>
+           <SelectContent>
+            <SelectItem value="nem">Nem</SelectItem>
+            <SelectItem value="igen">Igen</SelectItem>
+           </SelectContent>
+          </Select>
           {errors.pets && (
            <div className="text-sm text-red-600 dark:text-red-400">
             {errors.pets}
@@ -485,18 +489,21 @@ export default function PropertyForm({ cities, property }: Props) {
         </div>
 
         <div className="space-y-2">
-         <label htmlFor="is_featured" className="block text-sm font-medium">
+         <Label htmlFor="is_featured" className="block text-sm font-medium">
           Kiemelt hirdetés
-         </label>
-         <select
+         </Label>
+         <Select
           name="is_featured"
-          id="is_featured"
           defaultValue={property?.is_featured ?? 'nem'}
-          className="w-full rounded-md border-3 px-3 py-2"
          >
-          <option value="igen">Igen</option>
-          <option value="nem">Nem</option>
-         </select>
+          <SelectTrigger id="is_featured">
+           <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+           <SelectItem value="igen">Igen</SelectItem>
+           <SelectItem value="nem">Nem</SelectItem>
+          </SelectContent>
+         </Select>
          {errors.is_featured && (
           <div className="text-sm text-red-600 dark:text-red-400">
            {errors.is_featured}
@@ -510,32 +517,32 @@ export default function PropertyForm({ cities, property }: Props) {
         <h3 className="text-lg font-medium">Leírások</h3>
 
         <div className="space-y-2">
-         <label
+         <Label
           htmlFor="short_description"
           className="block text-sm font-medium"
          >
           Rövid leírás
-         </label>
-         <textarea
+         </Label>
+         <Textarea
           name="short_description"
           id="short_description"
           rows={3}
           maxLength={500}
           defaultValue={property?.short_description ?? ''}
-          className="w-full rounded-md border-3 px-3 py-2"
+          className="w-full rounded-md px-3 py-2"
          />
         </div>
 
         <div className="space-y-2">
-         <label htmlFor="description" className="block text-sm font-medium">
+         <Label htmlFor="description" className="block text-sm font-medium">
           Részletes leírás
-         </label>
-         <textarea
+         </Label>
+         <Textarea
           name="description"
           id="description"
           rows={6}
           defaultValue={property?.description ?? ''}
-          className="w-full rounded-md border-3 px-3 py-2"
+          className="w-full rounded-md px-3 py-2"
          />
         </div>
        </div>
@@ -545,47 +552,47 @@ export default function PropertyForm({ cities, property }: Props) {
         <h3 className="text-lg font-medium">SEO</h3>
 
         <div className="space-y-2">
-         <label htmlFor="meta_title" className="block text-sm font-medium">
+         <Label htmlFor="meta_title" className="block text-sm font-medium">
           Meta cím
-         </label>
-         <input
+         </Label>
+         <Input
           type="text"
           name="meta_title"
           id="meta_title"
           maxLength={255}
           defaultValue={property?.meta_title ?? ''}
-          className="w-full rounded-md border-3 px-3 py-2"
+          className="w-full rounded-md px-3 py-2"
          />
         </div>
 
         <div className="space-y-2">
-         <label
+         <Label
           htmlFor="meta_description"
           className="block text-sm font-medium"
          >
           Meta leírás
-         </label>
-         <textarea
+         </Label>
+         <Textarea
           name="meta_description"
           id="meta_description"
           rows={3}
           maxLength={500}
           defaultValue={property?.meta_description ?? ''}
-          className="w-full rounded-md border-3 px-3 py-2"
+          className="w-full rounded-md px-3 py-2"
          />
         </div>
 
         <div className="space-y-2">
-         <label htmlFor="meta_keywords" className="block text-sm font-medium">
+         <Label htmlFor="meta_keywords" className="block text-sm font-medium">
           Meta kulcsszavak
-         </label>
-         <input
+         </Label>
+         <Input
           type="text"
           name="meta_keywords"
           id="meta_keywords"
           maxLength={500}
           defaultValue={property?.meta_keywords ?? ''}
-          className="w-full rounded-md border-3 px-3 py-2"
+          className="w-full rounded-md px-3 py-2"
          />
         </div>
        </div>

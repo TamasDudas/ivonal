@@ -2,6 +2,9 @@ import { store, update } from '@/actions/App/Http/Controllers/CityController';
 import AppLayout from '@/layouts/app-layout';
 import { Form } from '@inertiajs/react';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
 
 interface City {
  id: number;
@@ -32,74 +35,69 @@ export default function CityForm({ city }: Props) {
      </h2>
 
      <div className="space-y-2">
-      <label htmlFor="name" className="block text-sm font-medium">
+      <Label htmlFor="name" className="text-sm font-medium">
        Város neve
-      </label>
-      <input
+      </Label>
+      <Input
        type="text"
        name="name"
        defaultValue={city?.name || ''}
        id="name"
        required
-       className="w-full rounded-md border px-3 py-2"
       />
      </div>
 
      <div className="space-y-2">
-      <label htmlFor="description" className="block text-sm font-medium">
+      <Label htmlFor="description" className="text-sm font-medium">
        Város leírása
-      </label>
-      <textarea
+      </Label>
+      <Textarea
        name="description"
        id="description"
        defaultValue={city?.description || ''}
        rows={4}
-       className="w-full rounded-md border px-3 py-2"
-      ></textarea>
-     </div>
-
-     <div className="space-y-2">
-      <label htmlFor="meta_title" className="block text-sm font-medium">
-       SEO Meta cím
-      </label>
-      <input
-       type="text"
-       name="meta_title"
-       id="meta_title"
-       defaultValue={city?.meta_title || ''}
-       className="w-full rounded-md border px-3 py-2"
       />
      </div>
 
      <div className="space-y-2">
-      <label htmlFor="meta_description" className="block text-sm font-medium">
+      <Label htmlFor="meta_title" className="text-sm font-medium">
+       SEO Meta cím
+      </Label>
+      <Input
+       type="text"
+       name="meta_title"
+       id="meta_title"
+       defaultValue={city?.meta_title || ''}
+      />
+     </div>
+
+     <div className="space-y-2">
+      <Label htmlFor="meta_description" className="text-sm font-medium">
        SEO Meta leírás
-      </label>
-      <textarea
+      </Label>
+      <Textarea
        name="meta_description"
        id="meta_description"
        defaultValue={city?.meta_description || ''}
        rows={3}
-       className="w-full rounded-md border px-3 py-2"
-      ></textarea>
+      />
      </div>
 
      <div className="space-y-2">
-      <label htmlFor="meta_keywords" className="block text-sm font-medium">
+      <Label htmlFor="meta_keywords" className="text-sm font-medium">
        SEO Meta kulcsszó
-      </label>
-      <input
+      </Label>
+      <Input
        type="text"
        name="meta_keywords"
        id="meta_keywords"
        defaultValue={city?.meta_keywords || ''}
-       className="w-full rounded-md border px-3 py-2"
       />
      </div>
      <div className="flex justify-center py-4">
       <Button
        type="submit"
-       className="py- bg-chart-1 w-80 rounded-md px-8 py-2"
+       className="py- w-80 rounded-md bg-chart-1 px-8 py-2"
        variant="outline"
       >
        {isEditing ? 'Frissítés' : 'Létrehozás'}
