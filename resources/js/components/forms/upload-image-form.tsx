@@ -3,40 +3,12 @@ import { FormEventHandler, useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import {
- Select,
- SelectContent,
- SelectItem,
- SelectTrigger,
- SelectValue,
-} from '../ui/select';
 
-interface Property {
- id: number;
- street: string;
-}
-
-interface City {
- id: number;
- name: string;
-}
-
-interface Props {
- properties: {
-  data: Property[];
- };
- cities: {
-  data: City[];
- };
-}
-
-export default function UploadImageForm({ properties, cities }: Props) {
+export default function UploadImageForm() {
  const [previews, setPreviews] = useState<string[]>([]);
  const [processing, setProcessing] = useState(false);
  const [images, setImages] = useState<File[]>([]);
- const [altText, setAltText] = useState('');
- const [cityId, setCityId] = useState<number | null>(null);
- const [propertyId, setPropertyId] = useState<number | null>(null);
+ const [altTexts, setAltTexts] = useState<string[]>([]);
 
  //Képek kezelése
  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +17,9 @@ export default function UploadImageForm({ properties, cities }: Props) {
   if (selectedFiles.length === 0) return;
 
   setImages((prev) => [...prev, ...selectedFiles]);
+
+  const newAltTexts = selectedFiles.map(() => '');
+  setAltTexts((prev) => [...prev, ...newAltTexts]);
 
   const promises = selectedFiles.map(
    (file) =>
@@ -72,16 +47,7 @@ export default function UploadImageForm({ properties, cities }: Props) {
  const removeImage = (index: number) => {
   setImages((prev) => prev.filter((_, i) => i !== index));
   setPreviews((prev) => prev.filter((_, i) => i !== index));
- };
-
- //Város kezelése
- const handleCityChange = (selectedCityId: number) => {
-  setCityId(selectedCityId);
- };
-
- //Ingatlan kezelése
- const handlePropertyChange = (selectedPropertyId: number) => {
-  setPropertyId(selectedPropertyId);
+  setAltTexts((prev) => prev.filter((_, i) => i !== index));
  };
 
  //Form elküldése
@@ -101,26 +67,19 @@ export default function UploadImageForm({ properties, cities }: Props) {
    formData.append(`images[${index}]`, file);
   });
 
-  if (altText) {
-   formData.append('altText', altText);
-  }
-
-  if (cityId) {
-   formData.append('city_id', cityId.toString());
-  }
-
-  if (propertyId) {
-   formData.append('property_id', propertyId.toString());
-  }
+  altTexts.forEach((alt, index) => {
+   formData.append(`alt_texts[${index}]`, alt);
+  });
 
   router.post('/media', formData, {
    onSuccess: () => {
-    (setImages([]),
-     setAltText(''),
-     setCityId(null),
-     setPropertyId(null),
-     setPreviews([]),
-     setProcessing(false));
+    setProcessing(false);
+    setImages([]);
+    setAltTexts([]);
+    setPreviews([]);
+   },
+   onError: () => {
+    setProcessing(false);
    },
   });
  };
@@ -146,47 +105,35 @@ export default function UploadImageForm({ properties, cities }: Props) {
        <Label>Kiválasztott képek ({previews.length}):</Label>
        <div className="mt-2 grid grid-cols-4 gap-4">
         {previews.map((preview, index) => (
-         <div key={index}>
+         <div key={index} className="flex flex-col gap-2">
           <img
            src={preview}
            alt={`Előnézet ${index + 1}`}
            className="max-h-32 w-full rounded border object-cover"
           />
-          <button onClick={() => removeImage(index)}>x</button>
+          <Input
+           type="text"
+           value={altTexts[index] || ''}
+           onChange={(e) => {
+            const newAltTexts = [...altTexts];
+            newAltTexts[index] = e.target.value;
+            setAltTexts(newAltTexts);
+           }}
+           placeholder="Alt szöveg"
+           className="text-xs"
+          />
+          <button
+           type="button"
+           onClick={() => removeImage(index)}
+           className="text-red-500"
+          >
+           Eltávolít
+          </button>
          </div>
         ))}
        </div>
       </div>
      )}
-    </div>
-    <div>
-     <Label>Város kiválasztása</Label>
-     <Select onValueChange={(value) => handleCityChange(Number(value))}>
-      <SelectTrigger>
-       <SelectValue placeholder="Válassz várost" />
-      </SelectTrigger>
-      <SelectContent>
-       {cities.data.map((city) => (
-        <SelectItem key={city.id} value={city.id.toString()}>
-         {city.name}
-        </SelectItem>
-       ))}
-      </SelectContent>
-     </Select>
-     Ingatlan kiválasztása
-     <Label>Ingatlan</Label>
-     <Select onValueChange={(value) => handlePropertyChange(Number(value))}>
-      <SelectTrigger>
-       <SelectValue placeholder="Válassz ingatlant" />
-      </SelectTrigger>
-      <SelectContent>
-       {properties.data.map((property) => (
-        <SelectItem key={property.id} value={property.id.toString()}>
-         {property.street}
-        </SelectItem>
-       ))}
-      </SelectContent>
-     </Select>
     </div>
     <Button type="submit" disabled={processing}>
      {processing ? 'Feltöltés...' : 'Feltöltés'}

@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Resources\MediaResource;
 
 class MediaController extends Controller
 {
@@ -23,7 +24,7 @@ class MediaController extends Controller
             $cities = City::where('user_id', auth()->id())->get();
             $properties = Property::where('user_id', auth()->id())->get();
 
-        return Inertia::render('Media', [
+        return Inertia::render('media', [
             'images' => [
                 'data' => MediaResource::collection($images->items())->toArray(request()),
                 'current_page' => $images->currentPage(),
@@ -42,10 +43,7 @@ class MediaController extends Controller
      */
     public function create()
     {
-        $cities = City::where('user_id', auth()->id())->get();
-        $properties = Property::where('user_id', auth()->id())->get();
-
-        return Inertia::render('gallery/gallery-image-create', ['cities' => $cities, 'properties' => $properties]);
+        return Inertia::render('gallery/upload-image');
     }
 
     /**
@@ -57,15 +55,13 @@ class MediaController extends Controller
             $validated = $request->validate([
                 'images' => 'required|array|min:1|max:10',
                 'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-                'alt_text' => 'nullable|string|max:255',
-                'city_id' => 'nullable|exists:cities,id',
-                'property_id' => 'nullable|exists:properties,id',
-                'is_featured' => 'boolean'
+                'alt_texts' => 'nullable|array',
+                'alt_texts.*' => 'nullable|string|max:255'
             ]);
 
             $uploadedImages = [];
 
-            foreach ($request->file('images') as $image) {
+            foreach ($request->file('images') as $index => $image) {
                 // Fájl mentése
                 $path = $image->store('media', 'public');
 
@@ -83,48 +79,16 @@ class MediaController extends Controller
                     'mime_type' => $image->getMimeType(),
                     'width' => null, // TODO: kép feldolgozással kitölteni
                     'height' => null, // TODO: kép feldolgozással kitölteni
-                    'alt_text' => $validated['alt_text'] ?? null,
+                    'alt_text' => $validated['alt_texts'][$index] ?? null,
                 ]);
-
-                // Kapcsolatok létrehozása
-                if (!empty($validated['city_id'])) {
-                    // Ellenőrizzük, hogy a város a felhasználóhoz tartozik
-                    $city = City::where('id', $validated['city_id'])
-                               ->where('user_id', auth()->id())
-                               ->first();
-                    if ($city) {
-                        $city->update(['featured_img_id' => $media->id]);
-                    }
-                }
-
-                if (!empty($validated['property_id'])) {
-                    // Ellenőrizzük, hogy az ingatlan a felhasználóhoz tartozik
-                    $property = Property::where('id', $validated['property_id'])
-                                       ->where('user_id', auth()->id())
-                                       ->first();
-                    if ($property) {
-                        if ($validated['is_featured'] ?? false) {
-                            $property->update(['featured_img_id' => $media->id]);
-                        } else {
-                            // Galéria kép hozzáadása
-                            $property->media()->attach($media->id, ['order' => 0]);
-                        }
-                    }
-                }
 
                 $uploadedImages[] = $media;
             }
 
-            return response()->json([
-                'message' => 'Images uploaded successfully',
-                'images' => MediaResource::collection($uploadedImages)
-            ], 201);
+            return redirect()->back()->with('success', 'Images uploaded successfully');
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error uploading images',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors(['upload' => 'Error uploading images: ' . $e->getMessage()]);
         }
     }
 
@@ -143,60 +107,6 @@ class MediaController extends Controller
         return Inertia::render('MediaShow', [
             'media' => new MediaResource($media)
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Media $media)
-    {
-        // Ellenőrizzük, hogy a kép a felhasználóhoz tartozik
-        if ($media->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized');
-        }
-
-        $cities = City::where('user_id', auth()->id())->get();
-        $properties = Property::where('user_id', auth()->id())->get();
-
-        $media->load(['featuredInCities', 'featuredInProperties', 'properties']);
-
-        return Inertia::render('EditGalleryImage', [
-            'media' => new MediaResource($media),
-            'cities' => $cities,
-            'properties' => $properties
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Media $media)
-    {
-        // Ellenőrizzük, hogy a kép a felhasználóhoz tartozik
-        if ($media->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized');
-        }
-
-        try {
-            $validated = $request->validate([
-                'alt_text' => 'nullable|string|max:255'
-            ]);
-
-            $media->update([
-                'alt_text' => $validated['alt_text'] ?? $media->alt_text
-            ]);
-
-            return response()->json([
-                'message' => 'Image updated successfully',
-                'media' => new MediaResource($media)
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error updating image',
-                'error' => $e->getMessage()
-            ], 500);
-        }
     }
 
     /**
@@ -222,15 +132,10 @@ class MediaController extends Controller
 
             $media->delete();
 
-            return response()->json([
-                'message' => 'Image deleted successfully'
-            ]);
+            return redirect()->route('media.index')->with('success', 'Image deleted successfully');
 
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error deleting image',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()->back()->withErrors(['delete' => 'Error deleting image: ' . $e->getMessage()]);
         }
     }
 }
