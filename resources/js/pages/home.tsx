@@ -32,9 +32,9 @@ export default function Home({ cities }: Props) {
 
    <div className="flex px-6 py-6 md:flex-row">
     <Card className="flex flex-col items-center justify-center px-3 md:flex-[2]">
-     <p className="text-3xl">Kiadó ingatlanok Budapesten és Szegeden.</p>
+     <h2 className="text-4xl">Kiadó ingatlanok Budapesten és Szegeden.</h2>
      <hr className="w-full border-t border-chart-4" />
-     <p className="">
+     <p className="text-lg">
       Weboldalunkon olyan kiadó és eladó lakóingatlanokat talál, amelyeknek
       tulajdonosai régóta baráti társaságot alkotnak. Így az itt kínált lakások
       műszaki állapota és berendezése hasonló színvonalat nyújt, a bérlés
