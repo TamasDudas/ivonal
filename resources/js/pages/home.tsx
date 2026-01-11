@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { Head } from '@inertiajs/react';
+import mainImage from '../assets/sarosi_halo_nyito.jpg';
 
 interface City {
  id: number;
@@ -20,9 +21,18 @@ export default function Home({ cities }: Props) {
   <AppLayout>
    <Head title="Home" />
 
-   <div className="flex gap-6 px-6 py-6 md:flex-row md:items-stretch">
+   <div className="relative flex justify-center">
+    <img
+     src={mainImage}
+     alt=""
+     className="max-h-96 w-full rounded-2xl object-cover"
+    />
+    <div className="absolute inset-0 rounded-lg bg-chart-4 opacity-20"></div>
+   </div>
+
+   <div className="flex px-6 py-6 md:flex-row">
     <Card className="flex flex-col items-center justify-center px-3 md:flex-[2]">
-     <p className="text-3xl">Elérhető ingatlanok Budapesten és Szegeden.</p>
+     <p className="text-3xl">Kiadó ingatlanok Budapesten és Szegeden.</p>
      <hr className="w-full border-t border-chart-4" />
      <p className="">
       Weboldalunkon olyan kiadó és eladó lakóingatlanokat talál, amelyeknek
@@ -36,9 +46,7 @@ export default function Home({ cities }: Props) {
       kínálat szélesítése, ajánlás alapján a tulajdonosi kör bővítésével is.
      </p>
     </Card>
-    <div className="flex flex-col gap-6 md:flex-[1.8]"></div>
    </div>
-   <div className="py-4"></div>
   </AppLayout>
  );
 }
