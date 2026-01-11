@@ -1,3 +1,13 @@
+import {
+ AlertDialog,
+ AlertDialogAction,
+ AlertDialogCancel,
+ AlertDialogContent,
+ AlertDialogDescription,
+ AlertDialogFooter,
+ AlertDialogHeader,
+ AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -17,6 +27,7 @@ interface Media {
  image_url: string;
  id: number;
  alt_text?: string;
+ original_filename: string;
 }
 
 interface City {
@@ -41,6 +52,7 @@ export default function Media({ images, cities, properties }: Props) {
  const [selectedEntity, setSelectedEntity] = useState<number | null>(null);
  const [isFeatured, setIsFeatured] = useState(true);
  const [selectedImages, setSelectedImages] = useState<number[]>([]);
+ const [imageToDelete, setImageToDelete] = useState<Media | null>(null);
 
  const toggleImageSelection = (imageId: number) => {
   setSelectedImages((prev) =>
@@ -70,6 +82,17 @@ export default function Media({ images, cities, properties }: Props) {
   });
 
   setSelectedImages([]); // Reset selection after assignment
+ };
+
+ const confirmImageToDelete = () => {
+  if (!imageToDelete) return;
+
+  router.delete(`/media/${imageToDelete.id}`, {
+   preserveScroll: true,
+   onSuccess: () => {
+    setImageToDelete(null);
+   },
+  });
  };
 
  return (
@@ -133,27 +156,60 @@ export default function Media({ images, cities, properties }: Props) {
    </div>
    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
     {images.data.map((img) => (
-     <div key={img.id} className="relative rounded border border-ring p-6">
-      <div className="absolute top-2 left-2">
+     <div key={img.id} className="relative rounded border border-ring p-3">
+      <div className="mb-6">
        <Checkbox
         checked={selectedImages.includes(img.id)}
         onCheckedChange={() => toggleImageSelection(img.id)}
-        className="border border-ring"
+        className="absolute top-2 left-2 border border-ring"
        />
       </div>
       <img
        src={img.image_url}
        alt={img.alt_text || ''}
-       className="w-full rounded-3xl"
+       className="max-h-40 w-full rounded-3xl object-cover"
       />
       <div className="mt-2 text-center text-sm">
        {selectedImages.includes(img.id)
         ? 'Kiválasztva'
         : 'Kattints a kiválasztáshoz'}
       </div>
+      <div className="mt-6 flex items-center justify-center">
+       <Button
+        onClick={() => setImageToDelete(img)}
+        className="bg-red-700 text-white"
+       >
+        Kép törlése
+       </Button>
+      </div>
      </div>
     ))}
    </div>
+   {/* AlertDialog a kép törlésének megerősítéséhez */}
+   <AlertDialog
+    open={!!imageToDelete}
+    onOpenChange={(open) => !open && setImageToDelete(null)}
+   >
+    <AlertDialogContent>
+     <AlertDialogHeader>
+      <AlertDialogTitle>Biztosan törölni szeretnéd?</AlertDialogTitle>
+      <AlertDialogDescription>
+       Véglegesen törlöd ezt a képet:{' '}
+       <strong>{imageToDelete?.original_filename}</strong>
+       <br />
+       <br />
+       Ez a művelet nem vonható vissza, és a kép törlődik minden kategóriából
+       is!
+      </AlertDialogDescription>
+     </AlertDialogHeader>
+     <AlertDialogFooter>
+      <AlertDialogCancel>Mégse</AlertDialogCancel>
+      <AlertDialogAction onClick={confirmImageToDelete}>
+       Törlés
+      </AlertDialogAction>
+     </AlertDialogFooter>
+    </AlertDialogContent>
+   </AlertDialog>
   </AppLayout>
  );
 }

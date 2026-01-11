@@ -22,6 +22,8 @@ class MediaController extends Controller
             ->paginate(10);
 
             $cities = City::where('user_id', auth()->id())->get();
+
+            //Vissza adja az összes ingatlant ami a felhasználóhoz tartozik, ez jelneik meg a frontenden
             $properties = Property::where('user_id', auth()->id())->get();
 
         return Inertia::render('gallery/media', [
@@ -61,6 +63,7 @@ class MediaController extends Controller
 
             $uploadedImages = [];
 
+            //A $index-el párosítjuk a megfelelő alt_texts-et a megfelelő index-es képhez
             foreach ($request->file('images') as $index => $image) {
                 // Fájl mentése
                 $path = $image->store('media', 'public');
