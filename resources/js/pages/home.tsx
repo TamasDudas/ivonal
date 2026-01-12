@@ -1,12 +1,13 @@
 import { Card } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import mainImage from '../assets/sarosi_halo_nyito.jpg';
 
 interface City {
  id: number;
  name: string;
  slug: string;
+ featured_image: string;
  description: string;
 }
 interface Props {
@@ -27,13 +28,15 @@ export default function Home({ cities }: Props) {
      alt=""
      className="max-h-96 w-full rounded-2xl object-cover"
     />
-    <div className="absolute inset-0 rounded-lg bg-chart-4 opacity-20"></div>
+    <div className="absolute inset-0 rounded-lg bg-chart-4 opacity-10"></div>
    </div>
 
-   <div className="flex px-6 py-6 md:flex-row">
+   <div className="my-7 flex px-6 py-6 md:flex-row">
     <Card className="flex flex-col items-center justify-center px-3 md:flex-[2]">
-     <h2 className="text-4xl">Kiadó ingatlanok Budapesten és Szegeden.</h2>
-     <hr className="w-full border-t border-chart-4" />
+     <h2 className="text-4xl text-sidebar-accent">
+      Kiadó ingatlanok Budapesten és Szegeden.
+     </h2>
+     <hr className="w-full border-t border-sidebar-accent" />
      <p className="text-lg">
       Weboldalunkon olyan kiadó és eladó lakóingatlanokat talál, amelyeknek
       tulajdonosai régóta baráti társaságot alkotnak. Így az itt kínált lakások
@@ -46,6 +49,24 @@ export default function Home({ cities }: Props) {
       kínálat szélesítése, ajánlás alapján a tulajdonosi kör bővítésével is.
      </p>
     </Card>
+   </div>
+   <div className="grid grid-cols-2 gap-6">
+    {cities.data.map((city) => (
+     <Link href={`properties/city/${city.slug}`}>
+      <Card key={city.id} className="mb-4 rounded-3xl pt-0">
+       <img
+        src={city.featured_image}
+        alt=""
+        className="h-80 w-full rounded-3xl object-cover"
+       />
+       <h3 className="mt-2 text-center text-4xl font-bold text-sidebar-accent">
+        {city.name}
+       </h3>
+      </Card>
+     </Link>
+    ))}
+
+    <div>{/* Üres hely a jövőbeli tartalomnak */}</div>
    </div>
   </AppLayout>
  );

@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class CityResource extends JsonResource
 {
@@ -14,6 +15,12 @@ class CityResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'featured_image' => $this->featuredImage ? Storage::url($this->featuredImage->path) : null,
+            'description' => $this->description,
+        ];
     }
 }

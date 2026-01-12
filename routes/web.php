@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Nyilvános ingatlan és város megtekintés - ezek UTOLJÁRA kellenek, hogy a /create ne ütközzön velük
+Route::get('/properties/city/{city}', [PropertyController::class, 'listByCity'])->name('properties.by.city');
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 Route::get('/cities/{city}', [CityController::class, 'show'])->name('cities.show');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');

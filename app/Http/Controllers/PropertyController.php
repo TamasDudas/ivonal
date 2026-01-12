@@ -29,9 +29,9 @@ class PropertyController extends Controller
             abort(404, 'Város nem található');
         }
 
-        $properties = $city->properties()->select('id', 'street', 'featured_img_id', 'short_description' )->get();
+        $properties = $city->properties()->select('id', 'street', 'featured_img_id', 'short_description' )->with('featuredImage')->get();
 
-        return Inertia::render('property/propertiesByCities', ['city' => $city, 'propertis' => $properties]);
+        return Inertia::render('property/properties-by-city', ['city' => $city, 'properties' => PropertyResource::collection($properties)]);
     }
 
     /**

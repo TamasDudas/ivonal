@@ -33,4 +33,10 @@ class City extends Model
     {
         return $this->hasMany(Property::class);
     }
+
+    //Beépített laravel method, hogy a slug legyen használva az id helyett
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

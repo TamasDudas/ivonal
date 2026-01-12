@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class PropertyResource extends JsonResource
             //a whenLoad()-ok controllerben lesznek definiálva
             'user' => $this->whenLoaded('user'),
             'city' => $this->whenLoaded('city'),
-            'featured_image' => $this->whenLoaded('featuredImage'),
+           'featured_image' => $this->featuredImage ? Storage::url($this->featuredImage->path) : null,
             'media' => $this->whenLoaded('media'),
             'street' => $this->street,
             'slug' => $this->slug,
