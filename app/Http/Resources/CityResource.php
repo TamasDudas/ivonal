@@ -19,7 +19,7 @@ class CityResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'featured_image' => $this->featuredImage ? Storage::url($this->featuredImage->path) : null,
+            'featured_image' => $this->featuredImage?->url,
             'description' => $this->description,
         ];
     }

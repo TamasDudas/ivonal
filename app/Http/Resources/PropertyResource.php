@@ -20,7 +20,7 @@ class PropertyResource extends JsonResource
             //a whenLoad()-ok controllerben lesznek definiálva
             'user' => $this->whenLoaded('user'),
             'city' => $this->whenLoaded('city'),
-           'featured_image' => $this->featuredImage ? Storage::url($this->featuredImage->path) : null,
+            'featured_image' => $this->featuredImage?->url,
             'media' => $this->whenLoaded('media'),
             'street' => $this->street,
             'slug' => $this->slug,
