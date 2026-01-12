@@ -37,7 +37,7 @@ class Media extends Model
 
     public function properties(): BelongsToMany
     {
-        return $this->belongsToMany(Property::class, 'property_media')->withPivot('order')->orderBy('pivot_order');
+        return $this->belongsToMany(Property::class, 'property_media')->withPivot('order')->orderByPivot('order');
     }
 
     public function featuredInProperties(): HasMany

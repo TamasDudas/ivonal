@@ -55,7 +55,7 @@ class MediaController extends Controller
     {
         try {
             $validated = $request->validate([
-                'images' => 'required|array|min:1|max:10',
+                'images' => 'required|array|min:1|max:100',
                 'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
                 'alt_texts' => 'nullable|array',
                 'alt_texts.*' => 'nullable|string|max:255'
@@ -167,30 +167,29 @@ class MediaController extends Controller
     }
 
     /**
-     * Assign media to property gallery.
+     * Assign multiple media to property gallery.
      */
-    public function assignPropertyGallery(Request $request, Media $media)
+    public function assignMultipleToGallery(Request $request)
     {
         $request->validate([
             'property_id' => 'required|exists:properties,id',
+            'media_ids' => 'required|array',
+            'media_ids.*' => 'exists:media,id',
         ]);
-
-        // Ellenőrizzük, hogy a kép és az ingatlan a felhasználóhoz tartozik
-        if ($media->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized');
-        }
 
         $property = Property::where('id', $request->property_id)->where('user_id', auth()->id())->first();
         if (!$property) {
             abort(403, 'Unauthorized');
         }
 
-        // Hozzáadás a galériához, ha még nincs
-        if (!$property->media()->where('media_id', $media->id)->exists()) {
-            $property->media()->attach($media->id, ['order' => $property->media()->count() + 1]);
+        foreach ($request->media_ids as $mediaId) {
+            $media = Media::find($mediaId);
+            if ($media && $media->user_id === auth()->id() && !$property->media()->where('media_id', $mediaId)->exists()) {
+                $property->media()->attach($mediaId, ['order' => $property->media()->count() + 1]);
+            }
         }
 
-        return redirect()->back()->with('success', 'Kép hozzáadva az ingatlan galériájához.');
+        return redirect()->back()->with('success', 'Képek hozzáadva az ingatlan galériájához.');
     }
 
 

@@ -50,38 +50,62 @@ interface Props {
 export default function Media({ images, cities, properties }: Props) {
  const [selectedType, setSelectedType] = useState<'city' | 'property'>('city');
  const [selectedEntity, setSelectedEntity] = useState<number | null>(null);
- const [isFeatured, setIsFeatured] = useState(true);
+ const [isFeatured, setIsFeatured] = useState(false);
  const [selectedImages, setSelectedImages] = useState<number[]>([]);
  const [imageToDelete, setImageToDelete] = useState<Media | null>(null);
 
  const toggleImageSelection = (imageId: number) => {
-  setSelectedImages((prev) =>
-   prev.includes(imageId)
+  setSelectedImages((prev) => {
+   // Featured esetén csak egy képet engedünk
+   if (selectedType === 'property' && isFeatured) {
+    return prev.includes(imageId) ? [] : [imageId];
+   }
+
+   // Egyébként több képet is lehet választani
+   return prev.includes(imageId)
     ? prev.filter((id) => id !== imageId)
-    : [...prev, imageId],
-  );
+    : [...prev, imageId];
+  });
  };
 
  const handleAssignSelected = () => {
   if (!selectedEntity || selectedImages.length === 0) return;
 
-  selectedImages.forEach((mediaId) => {
-   if (selectedType === 'city') {
-    router.patch(`/media/${mediaId}/assign-city`, { city_id: selectedEntity });
-   } else {
-    if (isFeatured) {
-     router.patch(`/media/${mediaId}/assign-property`, {
-      property_id: selectedEntity,
-     });
-    } else {
-     router.patch(`/media/${mediaId}/assign-gallery`, {
-      property_id: selectedEntity,
-     });
-    }
-   }
-  });
+  // Galéria: egy kérésben küldjük
+  if (selectedType === 'property' && !isFeatured) {
+   router.post('/media/assign-gallery', {
+    property_id: selectedEntity,
+    media_ids: selectedImages,
+   });
+   setSelectedImages([]);
+   return;
+  }
 
-  setSelectedImages([]); // Reset selection after assignment
+  // Város vagy featured: sorban küldés
+  const sendImages = (index = 0) => {
+   if (index >= selectedImages.length) {
+    setSelectedImages([]);
+    router.reload();
+    return;
+   }
+
+   const url =
+    selectedType === 'city'
+     ? `/media/${selectedImages[index]}/assign-city`
+     : `/media/${selectedImages[index]}/assign-property`;
+
+   const data =
+    selectedType === 'city'
+     ? { city_id: selectedEntity }
+     : { property_id: selectedEntity };
+
+   router.patch(url, data, {
+    preserveState: true,
+    onSuccess: () => sendImages(index + 1),
+   });
+  };
+
+  sendImages();
  };
 
  const confirmImageToDelete = () => {
@@ -136,23 +160,17 @@ export default function Media({ images, cities, properties }: Props) {
      <label className="flex items-center gap-2">
       <Checkbox
        checked={isFeatured}
-       onCheckedChange={(checked) => setIsFeatured(checked === true)}
+       onCheckedChange={(checked) => {
+        setIsFeatured(checked === true);
+        // Featured váltáskor töröljük a kiválasztást
+        if (checked) {
+         setSelectedImages([]);
+        }
+       }}
       />
       Featured kép
      </label>
     )}
-    <Button
-     onClick={handleAssignSelected}
-     disabled={selectedImages.length === 0}
-    >
-     Hozzáadás{' '}
-     {selectedType === 'city'
-      ? 'város featured-ként'
-      : isFeatured
-        ? 'ingatlan featured-ként'
-        : 'ingatlan galériájához'}{' '}
-     ({selectedImages.length} kiválasztva)
-    </Button>
    </div>
    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
     {images.data.map((img) => (
@@ -184,6 +202,20 @@ export default function Media({ images, cities, properties }: Props) {
       </div>
      </div>
     ))}
+   </div>
+   <div className="mt-6 flex justify-center">
+    <Button
+     onClick={handleAssignSelected}
+     disabled={selectedImages.length === 0}
+    >
+     Hozzáadás{' '}
+     {selectedType === 'city'
+      ? 'város featured-ként'
+      : isFeatured
+        ? 'ingatlan featured-ként'
+        : 'ingatlan galériájához'}{' '}
+     ({selectedImages.length} kiválasztva)
+    </Button>
    </div>
    {/* AlertDialog a kép törlésének megerősítéséhez */}
    <AlertDialog

@@ -57,9 +57,9 @@ export default function Home({ cities }: Props) {
        <img
         src={city.featured_image}
         alt=""
-        className="h-80 w-full rounded-3xl object-cover"
+        className="h-60 w-full rounded-t-3xl object-cover"
        />
-       <h3 className="mt-2 text-center text-4xl font-bold text-sidebar-accent">
+       <h3 className="mt-2 text-center text-4xl font-light text-sidebar-accent">
         {city.name}
        </h3>
       </Card>
