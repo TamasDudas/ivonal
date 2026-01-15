@@ -1,4 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
+import { Link } from '@inertiajs/react';
 
 interface Property {
  id: number;
@@ -40,6 +41,7 @@ export default function PropertiesByCity({ properties, city }: Props) {
        {property.street}
       </h2>
       <p className="text-xl">{property.short_description}</p>
+      <Link href={`/properties/${property.id}`}>Megnézem</Link>
      </div>
     </div>
    ))}

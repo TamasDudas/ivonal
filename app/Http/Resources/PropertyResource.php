@@ -15,13 +15,13 @@ class PropertyResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+       
         return [
             'id' => $this->id,
             //a whenLoad()-ok controllerben lesznek definiálva
-            'user' => $this->whenLoaded('user'),
-            'city' => $this->whenLoaded('city'),
+            'city_name' => $this->city?->name,
             'featured_image' => $this->featuredImage?->url,
-            'media' => $this->whenLoaded('media'),
+            'images' => $this->media?->pluck('url')->toArray() ?? [],
             'street' => $this->street,
             'slug' => $this->slug,
             'latitude' => $this->latitude,

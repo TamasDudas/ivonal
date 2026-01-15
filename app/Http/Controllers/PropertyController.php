@@ -118,7 +118,9 @@ class PropertyController extends Controller
     {
         $property->load(['city', 'featuredImage', 'media']);
 
-        return Inertia::render('property/property', new PropertyResource($property));
+        return Inertia::render('property/property', [
+            'property' => new PropertyResource($property)
+        ]);
     }
 
     /**
