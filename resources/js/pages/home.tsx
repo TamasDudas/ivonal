@@ -65,8 +65,6 @@ export default function Home({ cities }: Props) {
       </Card>
      </Link>
     ))}
-
-    <div>{/* Üres hely a jövőbeli tartalomnak */}</div>
    </div>
   </AppLayout>
  );
