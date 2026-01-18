@@ -32,7 +32,7 @@ export default function PropertiesByCity({ properties, city }: Props) {
       <div className="flex items-center justify-center">
        <Link
         href={`/properties/${property.id}`}
-        className="inline-block w-50 rounded-3xl bg-accent px-3 py-2 text-center"
+        className="inline-block w-50 rounded-3xl bg-destructive px-3 py-2 text-center hover:bg-accent"
        >
         Megnézem
        </Link>

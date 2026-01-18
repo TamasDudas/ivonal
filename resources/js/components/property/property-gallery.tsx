@@ -20,7 +20,7 @@ export default function PropertyGallery({ images }: Props) {
 
  return (
   <div className="mt-8">
-   <h3 className="mb-4 text-2xl font-semibold text-sidebar-accent">Galéria</h3>
+   <h3 className="mb-4 text-2xl text-sidebar-accent">Galéria</h3>
 
    {/* Thumbnail grid - a kis előnézeti képek */}
    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">

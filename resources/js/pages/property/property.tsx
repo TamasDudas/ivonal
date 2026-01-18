@@ -18,6 +18,11 @@ export default function PropertyPage({ property }: Props) {
 
  return (
   <AppLayout>
+   <div className="py-6">
+    <h2 className="text-4xl font-extrabold text-sidebar-accent">
+     {propertyData.street}
+    </h2>
+   </div>
    {/* Featured Image */}
    <div className="relative flex justify-center">
     <img

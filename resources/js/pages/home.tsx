@@ -16,7 +16,6 @@ interface Props {
  };
 }
 export default function Home({ cities }: Props) {
- console.log(cities);
  const appUrl = import.meta.env.VITE_APP_URL || 'http://localhost:8000';
  return (
   <AppLayout>
@@ -52,8 +51,8 @@ export default function Home({ cities }: Props) {
    </div>
    <div className="grid grid-cols-2 gap-6">
     {cities.data.map((city) => (
-     <Link href={`properties/city/${city.slug}`}>
-      <Card key={city.id} className="mb-4 rounded-3xl pt-0">
+     <Link key={city.id} href={`properties/city/${city.slug}`}>
+      <Card className="mb-4 rounded-3xl pt-0">
        <img
         src={city.featured_image}
         alt=""

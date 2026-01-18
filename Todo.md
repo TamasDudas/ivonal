@@ -1,3 +1,4 @@
-* Hibakezelés az űrlapoknál
-* Fordítás
-* Pagination a képeknél
+- Hibakezelés az űrlapoknál
+- Fordítás
+- Pagination a képeknél
+- Footer
