@@ -24,12 +24,19 @@ export default function PropertiesByCity({ properties, city }: Props) {
       alt=""
       className="h-85 w-full rounded-3xl object-cover"
      />
-     <div className="flex flex-col justify-center gap-4">
+     <div className="flex flex-col justify-center gap-6">
       <h2 className="mb-2 text-center text-3xl font-semibold text-sidebar-accent">
        {property.street}
       </h2>
       <p className="text-xl">{property.short_description}</p>
-      <Link href={`/properties/${property.id}`}>Megnézem</Link>
+      <div className="flex items-center justify-center">
+       <Link
+        href={`/properties/${property.id}`}
+        className="inline-block w-50 rounded-3xl bg-accent px-3 py-2 text-center"
+       >
+        Megnézem
+       </Link>
+      </div>
      </div>
     </div>
    ))}

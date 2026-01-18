@@ -1,0 +1,3 @@
+* Hibakezelés az űrlapoknál
+* Fordítás
+* Pagination a képeknél

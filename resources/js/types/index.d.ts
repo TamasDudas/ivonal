@@ -99,8 +99,8 @@ export interface Property {
  heating_type: string;
  parking: boolean;
  air_conditioning: boolean;
- smoking: boolean;
- pets: boolean;
+ smoking: 'igen' | 'nem';
+ pets: 'igen' | 'nem';
  elevator: boolean;
  is_featured: boolean;
  floor_area: number;

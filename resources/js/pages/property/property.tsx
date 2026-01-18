@@ -1,3 +1,5 @@
+import PropertyDetails from '@/components/property/property-details';
+import PropertyGallery from '@/components/property/property-gallery';
 import AppLayout from '@/layouts/app-layout';
 import { Property } from '@/types';
 
@@ -9,5 +11,54 @@ interface Props {
 
 export default function PropertyPage({ property }: Props) {
  const propertyData = property.data;
- return <AppLayout>{propertyData.city_name}</AppLayout>;
+
+ const formatPrice = (price: number) => {
+  return new Intl.NumberFormat('hu-HU').format(price);
+ };
+
+ return (
+  <AppLayout>
+   {/* Featured Image */}
+   <div className="relative flex justify-center">
+    <img
+     src={propertyData.featured_image}
+     alt={propertyData.street}
+     className="max-h-96 w-full rounded-2xl object-cover"
+    />
+    <div className="absolute inset-0 rounded-2xl bg-chart-4 opacity-10"></div>
+   </div>
+
+   {/* Price and Size */}
+   <div className="mt-6 flex flex-col items-center justify-center gap-4 py-8 md:flex-row md:gap-12">
+    {propertyData.rental_price > 0 && (
+     <div className="text-center">
+      <p className="text-sm text-muted-foreground">Bérleti díj</p>
+      <p className="text-3xl font-semibold text-sidebar-accent">
+       {formatPrice(propertyData.rental_price)} Ft/hó
+      </p>
+     </div>
+    )}
+    {propertyData.sale_price > 0 && (
+     <div className="text-center">
+      <p className="text-sm text-muted-foreground">Eladási ár</p>
+      <p className="text-3xl font-semibold text-sidebar-accent">
+       {formatPrice(propertyData.sale_price)} Ft
+      </p>
+     </div>
+    )}
+    <div className="text-center">
+     <p className="text-sm text-muted-foreground">Alapterület</p>
+     <p className="text-3xl font-semibold text-sidebar-accent">
+      {propertyData.size} m²
+     </p>
+    </div>
+   </div>
+
+   {/* Property Details */}
+   <PropertyDetails property={propertyData} />
+
+   {/* Property Gallery */}
+   <PropertyGallery images={propertyData.images ?? []} />
+  </AppLayout>
+ );
 }
