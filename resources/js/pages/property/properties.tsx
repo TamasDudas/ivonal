@@ -1,12 +1,8 @@
 import EditableList from '@/components/editable-list';
 import AppLayout from '@/layouts/app-layout';
+import { Property } from '@/types';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
-
-interface Property {
- name: string;
- id: number;
-}
 
 interface Props {
  properties: {

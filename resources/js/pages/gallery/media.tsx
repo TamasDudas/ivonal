@@ -20,24 +20,9 @@ import {
  SelectValue,
 } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
+import { City, Media, Property } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
-
-interface Media {
- image_url: string;
- id: number;
- alt_text?: string;
- original_filename: string;
-}
-
-interface City {
- id: number;
- name: string;
-}
-interface Property {
- id: number;
- street: string;
-}
 
 interface Props {
  images: {
@@ -47,7 +32,7 @@ interface Props {
  properties: Property[];
 }
 
-export default function Media({ images, cities, properties }: Props) {
+export default function MediaGallery({ images, cities, properties }: Props) {
  const [selectedType, setSelectedType] = useState<'city' | 'property'>('city');
  const [selectedEntity, setSelectedEntity] = useState<number | null>(null);
  const [isFeatured, setIsFeatured] = useState(false);

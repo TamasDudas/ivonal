@@ -1,9 +1,5 @@
 import PropertyForm from '@/components/forms/property-form';
-
-interface City {
- id: number;
- name: string;
-}
+import { City } from '@/types';
 
 interface Props {
  cities: City[];

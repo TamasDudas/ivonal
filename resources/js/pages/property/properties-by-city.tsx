@@ -1,18 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
+import { City, Property } from '@/types';
 import { Link } from '@inertiajs/react';
-
-interface Property {
- id: number;
- title: string;
- street: string;
- short_description: string;
- featured_image: string;
-}
-
-interface City {
- id: number;
- name: string;
-}
 
 interface Props {
  properties: {

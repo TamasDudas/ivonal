@@ -10,14 +10,10 @@ import {
  AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import AppLayout from '@/layouts/app-layout';
+import { City } from '@/types';
 import { router } from '@inertiajs/react';
 
 import { useState } from 'react';
-
-interface City {
- name: string;
- id: number;
-}
 
 interface Props {
  cities: {

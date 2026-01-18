@@ -1,13 +1,5 @@
 import CityForm from '@/components/forms/city-form';
-
-interface City {
- id: number;
- name: string;
- description: string;
- meta_title: string;
- meta_description: string;
- meta_keywords: string;
-}
+import { City } from '@/types';
 
 interface Props {
  city?: City;
