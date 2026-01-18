@@ -29,7 +29,7 @@ export default function PropertyGallery({ images }: Props) {
       key={i}
       type="button"
       onClick={() => setIndex(i)} // Kattintásra megnyitja a lightbox-ot ennél a képnél
-      className="overflow-hidden rounded-xl focus:outline-none focus:ring-2 focus:ring-accent"
+      className="overflow-hidden rounded-xl focus:ring-2 focus:ring-accent focus:outline-none"
      >
       <img
        src={image}
