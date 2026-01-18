@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\PropertyResource;
+use Mews\Purifier\Facades\Purifier;
 
 class PropertyController extends Controller
 {
@@ -100,6 +101,14 @@ class PropertyController extends Controller
                 $validated['slug'] = $slug;
             }
 
+            // HTML mezők sanitizálása XSS védelem
+            if (!empty($validated['short_description'])) {
+                $validated['short_description'] = Purifier::clean($validated['short_description']);
+            }
+            if (!empty($validated['description'])) {
+                $validated['description'] = Purifier::clean($validated['description']);
+            }
+
             // User ID hozzáadása
             $validated['user_id'] = auth()->id();
 
@@ -179,6 +188,14 @@ class PropertyController extends Controller
                 'meta_description' => 'nullable|string|max:500',
                 'meta_keywords' => 'nullable|string|max:500',
             ]);
+
+            // HTML mezők sanitizálása XSS védelem
+            if (!empty($validated['short_description'])) {
+                $validated['short_description'] = Purifier::clean($validated['short_description']);
+            }
+            if (!empty($validated['description'])) {
+                $validated['description'] = Purifier::clean($validated['description']);
+            }
 
             // Automatikus slug generálás ha nincs megadva
             if (empty($validated['slug'])) {

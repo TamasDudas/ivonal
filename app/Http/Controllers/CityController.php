@@ -6,6 +6,7 @@ use App\Models\City;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Mews\Purifier\Facades\Purifier;
 use App\Http\Resources\CityResource;
 
 class CityController extends Controller
@@ -62,6 +63,10 @@ class CityController extends Controller
             // User ID hozzáadása
             $validated['user_id'] = auth()->id();
 
+            if(!empty($validated['description'])){
+                $validated['description'] = Purifier::clean($validated['description']);
+            }
+
             $city = City::create($validated);
 
             return redirect()->route('home')->with('success', 'Város sikeresen létrehozva!');
@@ -116,6 +121,11 @@ class CityController extends Controller
             // Automatikus slug generálás ha nincs megadva
             if (empty($validated['slug'])) {
                 $validated['slug'] = Str::slug($validated['name']);
+            }
+
+            // HTML mező sanitizálása XSS védelem
+            if (!empty($validated['description'])) {
+                $validated['description'] = Purifier::clean($validated['description']);
             }
 
             $city->update($validated);

@@ -8,6 +8,7 @@ import { Form } from '@inertiajs/react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { RichTextEditor } from '../ui/rich-text-editor';
 import {
  Select,
  SelectContent,
@@ -487,13 +488,11 @@ export default function PropertyForm({ cities, property }: Props) {
          >
           Rövid leírás
          </Label>
-         <Textarea
+         <RichTextEditor
           name="short_description"
           id="short_description"
-          rows={3}
-          maxLength={500}
           defaultValue={property?.short_description ?? ''}
-          className="w-full rounded-md px-3 py-2"
+          minHeight="100px"
          />
         </div>
 
@@ -501,12 +500,11 @@ export default function PropertyForm({ cities, property }: Props) {
          <Label htmlFor="description" className="block text-sm font-medium">
           Részletes leírás
          </Label>
-         <Textarea
+         <RichTextEditor
           name="description"
           id="description"
-          rows={6}
           defaultValue={property?.description ?? ''}
-          className="w-full rounded-md px-3 py-2"
+          minHeight="200px"
          />
         </div>
        </div>

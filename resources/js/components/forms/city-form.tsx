@@ -1,19 +1,12 @@
 import { store, update } from '@/actions/App/Http/Controllers/CityController';
 import AppLayout from '@/layouts/app-layout';
+import { City } from '@/types';
 import { Form } from '@inertiajs/react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { RichTextEditor } from '../ui/rich-text-editor';
 import { Textarea } from '../ui/textarea';
-
-interface City {
- id: number;
- name: string;
- description: string;
- meta_title: string;
- meta_description: string;
- meta_keywords: string;
-}
 
 interface Props {
  city?: City;
@@ -25,7 +18,7 @@ export default function CityForm({ city }: Props) {
   <AppLayout>
    <div className="flex min-h-screen items-center justify-center p-4">
     <Form
-     action={isEditing ? update.url(city.id) : store.url()}
+     action={isEditing ? update.url(city!.slug) : store.url()}
      method={isEditing ? 'patch' : 'post'}
      resetOnSuccess={!isEditing}
      className="w-3xl space-y-4 overflow-hidden px-4 py-6 shadow-xl sm:rounded-lg"
@@ -51,11 +44,11 @@ export default function CityForm({ city }: Props) {
       <Label htmlFor="description" className="text-sm font-medium">
        Város leírása
       </Label>
-      <Textarea
+      <RichTextEditor
        name="description"
        id="description"
-       defaultValue={city?.description || ''}
-       rows={4}
+       defaultValue={city?.description ?? ''}
+       minHeight="200px"
       />
      </div>
 
