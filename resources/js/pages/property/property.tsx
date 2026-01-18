@@ -38,7 +38,7 @@ export default function PropertyPage({ property }: Props) {
     {propertyData.rental_price > 0 && (
      <div className="text-center">
       <p className="text-sm text-muted-foreground">Bérleti díj</p>
-      <p className="text-3xl font-semibold text-sidebar-accent">
+      <p className="text-3xl font-medium text-sidebar-accent">
        {formatPrice(propertyData.rental_price)} Ft/hó
       </p>
      </div>
@@ -46,14 +46,14 @@ export default function PropertyPage({ property }: Props) {
     {propertyData.sale_price > 0 && (
      <div className="text-center">
       <p className="text-sm text-muted-foreground">Eladási ár</p>
-      <p className="text-3xl font-semibold text-sidebar-accent">
+      <p className="text-3xl font-medium text-sidebar-accent">
        {formatPrice(propertyData.sale_price)} Ft
       </p>
      </div>
     )}
     <div className="text-center">
      <p className="text-sm text-muted-foreground">Alapterület</p>
-     <p className="text-3xl font-semibold text-sidebar-accent">
+     <p className="text-3xl font-medium text-sidebar-accent">
       {propertyData.size} m²
      </p>
     </div>

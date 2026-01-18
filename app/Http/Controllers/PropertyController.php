@@ -114,7 +114,7 @@ class PropertyController extends Controller
 
             $property = Property::create($validated);
 
-            return redirect()->route('home')->with('success', 'Ingatlan sikeresen létrehozva!');
+            return back()->with('success', 'Ingatlan sikeresen létrehozva!');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['error' => 'Hiba történt az ingatlan létrehozása során: ' . $e->getMessage()]);
         }
@@ -214,7 +214,7 @@ class PropertyController extends Controller
 
             $property->update($validated);
 
-            return redirect()->route('properties.index')->with('success', 'Ingatlan sikeresen frissítve!');
+            return back()->with('success', 'Ingatlan sikeresen frissítve!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Hiba történt az ingatlan frissítése során: ' . $e->getMessage()]);
         }

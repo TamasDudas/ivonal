@@ -69,7 +69,7 @@ class CityController extends Controller
 
             $city = City::create($validated);
 
-            return redirect()->route('home')->with('success', 'Város sikeresen létrehozva!');
+            return back()->with('success', 'Város sikeresen létrehozva!');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['error' => 'Hiba történt a város létrehozása során: ' . $e->getMessage()]);
         }
@@ -130,7 +130,7 @@ class CityController extends Controller
 
             $city->update($validated);
 
-            return redirect()->route('home')->with('success', 'Város sikeresen frissítve!');
+            return back()->with('success', 'Város sikeresen frissítve!');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->withErrors(['error' => 'Hiba történt a város frissítése során: ' . $e->getMessage()]);
         }

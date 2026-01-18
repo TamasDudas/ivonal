@@ -10,6 +10,7 @@ import {
   Undo,
   Redo,
   Heading2,
+  Heading1
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -39,6 +40,7 @@ export function RichTextEditor({
       attributes: {
         class: cn(
           'prose prose-sm dark:prose-invert max-w-none focus:outline-none px-3 py-2',
+          '[&_p]:my-0 [&_ul]:my-1 [&_ol]:my-1 [&_h1]:mt-2 [&_h2]:mt-2', // Bekezdéseknél nincs térköz, listáknál és címeknél minimális
           'min-h-[150px]'
         ),
         style: `min-height: ${minHeight}`,
