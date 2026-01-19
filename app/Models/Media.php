@@ -30,6 +30,8 @@ class Media extends Model
         'height' => 'integer',
     ];
 
+    protected $appends = ['url'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

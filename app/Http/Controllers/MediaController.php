@@ -16,22 +16,13 @@ class MediaController extends Controller
      */
     public function index(Request $request)
     {
-        $images = Media::with(['featuredInCities', 'featuredInProperties', 'properties'])
-            ->where('user_id', auth()->id())
-            ->latest()
-            ->paginate(5);
-
         $cities = City::where('user_id', auth()->id())->get();
         $properties = Property::where('user_id', auth()->id())->get();
 
         return Inertia::render('gallery/media', [
-            'images' => [
-                'data' => MediaResource::collection($images->items())->toArray(request()),
-                'current_page' => $images->currentPage(),
-                'last_page' => $images->lastPage(),
-                'per_page' => $images->perPage(),
-                'total' => $images->total(),
-            ],
+            'images' => Inertia::scroll(fn () => Media::where('user_id', auth()->id())
+                ->latest()
+                ->paginate(12)),
             'cities' => $cities,
             'properties' => $properties
         ]);
