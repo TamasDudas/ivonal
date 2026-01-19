@@ -20,14 +20,12 @@ import {
  SelectValue,
 } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import { City, Media, Property } from '@/types';
+import { City, Media, PaginatedData, Property } from '@/types';
 import { Head, router } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Props {
- images: {
-  data: Media[];
- };
+ images: PaginatedData<Media>;
  cities: City[];
  properties: Property[];
 }
@@ -38,7 +36,53 @@ export default function MediaGallery({ images, cities, properties }: Props) {
  const [isFeatured, setIsFeatured] = useState(false);
  const [selectedImages, setSelectedImages] = useState<number[]>([]);
  const [imageToDelete, setImageToDelete] = useState<Media | null>(null);
+ const [loadedImages, setLoadedImages] = useState<Media[]>(images.data);
+ const [isLoading, setIsLoading] = useState(false);
+ const loaderRef = useRef<HTMLDivElement>(null);
+ const isLoadingRef = useRef(false);
 
+ const hasMore = loadedImages.length < images.total;
+ const nextPage = Math.floor(loadedImages.length / images.per_page) + 1;
+
+ const loadMore = () => {
+  if (!hasMore || isLoadingRef.current) return;
+
+  isLoadingRef.current = true;
+  setIsLoading(true);
+  router.get(
+   '/media',
+   { page: nextPage },
+   {
+    preserveState: true,
+    preserveScroll: true,
+    only: ['images'],
+    onSuccess: (page) => {
+     const newImages = page.props.images as PaginatedData<Media>;
+     setLoadedImages((prev) => [...prev, ...newImages.data]);
+    },
+    onFinish: () => {
+     isLoadingRef.current = false;
+     setIsLoading(false);
+    },
+   },
+  );
+ };
+
+ useEffect(() => {
+  const el = loaderRef.current;
+  if (!el || !hasMore) return;
+
+  const observer = new IntersectionObserver(
+   ([entry]) => {
+    if (entry.isIntersecting && !isLoadingRef.current) {
+     loadMore();
+    }
+   },
+   { threshold: 0.1 },
+  );
+  observer.observe(el);
+  return () => observer.disconnect();
+ }, [hasMore, loadedImages.length]);
  const toggleImageSelection = (imageId: number) => {
   setSelectedImages((prev) => {
    // Featured esetén csak egy képet engedünk
@@ -158,7 +202,7 @@ export default function MediaGallery({ images, cities, properties }: Props) {
     )}
    </div>
    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-    {images.data.map((img) => (
+    {loadedImages.map((img) => (
      <div key={img.id} className="relative rounded border border-ring p-3">
       <div className="mb-6">
        <Checkbox
@@ -188,6 +232,13 @@ export default function MediaGallery({ images, cities, properties }: Props) {
      </div>
     ))}
    </div>
+   {hasMore && (
+    <div ref={loaderRef} className="mt-4 flex justify-center">
+     <Button onClick={loadMore} disabled={isLoading} variant="outline">
+      {isLoading ? 'Betöltés...' : 'Több kép betöltése'}
+     </Button>
+    </div>
+   )}
    <div className="mt-6 flex justify-center">
     <Button
      onClick={handleAssignSelected}

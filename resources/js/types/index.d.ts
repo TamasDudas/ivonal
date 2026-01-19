@@ -150,3 +150,12 @@ export interface PropertyFormData {
  meta_description?: string | null;
  meta_keywords?: string | null;
 }
+
+export interface PaginatedData<T> {
+ data: T[];
+ current_page: number;
+ last_page: number;
+ per_page: number;
+ total: number;
+ links: Array<{ url: string | null; label: string; active: boolean }>;
+}

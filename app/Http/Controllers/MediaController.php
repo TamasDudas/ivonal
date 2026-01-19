@@ -14,17 +14,15 @@ class MediaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $images = Media::with(['featuredInCities', 'featuredInProperties', 'properties'])
             ->where('user_id', auth()->id())
             ->latest()
-            ->paginate(10);
+            ->paginate(5);
 
-            $cities = City::where('user_id', auth()->id())->get();
-
-            //Vissza adja az összes ingatlant ami a felhasználóhoz tartozik, ez jelneik meg a frontenden
-            $properties = Property::where('user_id', auth()->id())->get();
+        $cities = City::where('user_id', auth()->id())->get();
+        $properties = Property::where('user_id', auth()->id())->get();
 
         return Inertia::render('gallery/media', [
             'images' => [
@@ -33,7 +31,6 @@ class MediaController extends Controller
                 'last_page' => $images->lastPage(),
                 'per_page' => $images->perPage(),
                 'total' => $images->total(),
-                'links' => $images->linkCollection()->toArray()
             ],
             'cities' => $cities,
             'properties' => $properties
@@ -48,9 +45,6 @@ class MediaController extends Controller
         return Inertia::render('gallery/upload-image');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -59,6 +53,18 @@ class MediaController extends Controller
                 'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
                 'alt_texts' => 'nullable|array',
                 'alt_texts.*' => 'nullable|string|max:255'
+            ], [
+                'images.required' => 'Képek kiválasztása kötelező.',
+                'images.array' => 'A képek tömb formátumban kell legyenek.',
+                'images.min' => 'Legalább 1 képet kell kiválasztani.',
+                'images.max' => 'Maximum 100 képet lehet feltölteni egyszerre.',
+                'images.*.required' => 'Minden kép kötelező.',
+                'images.*.image' => 'Csak képfájlok tölthetők fel.',
+                'images.*.mimes' => 'Csak jpeg, png, jpg, gif vagy webp formátumú képek engedélyezettek.',
+                'images.*.max' => 'A képek maximum 2MB méretűek lehetnek.',
+                'alt_texts.array' => 'Az alt szövegek tömb formátumban kell legyenek.',
+                'alt_texts.*.string' => 'Az alt szöveg csak szöveget tartalmazhat.',
+                'alt_texts.*.max' => 'Az alt szöveg maximum 255 karakter lehet.',
             ]);
 
             $uploadedImages = [];
@@ -88,10 +94,9 @@ class MediaController extends Controller
                 $uploadedImages[] = $media;
             }
 
-            return redirect()->back()->with('success', 'Images uploaded successfully');
-
+            return back()->with('success', 'Képek sikeresen feltöltve!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['upload' => 'Error uploading images: ' . $e->getMessage()]);
+            return redirect()->back()->withInput()->withErrors(['error' => 'Hiba történt a képek feltöltése során: ' . $e->getMessage()]);
         }
     }
 
@@ -119,6 +124,9 @@ class MediaController extends Controller
     {
         $request->validate([
             'city_id' => 'required|exists:cities,id',
+        ], [
+            'city_id.required' => 'Város kiválasztása kötelező.',
+            'city_id.exists' => 'A kiválasztott város nem létezik.',
         ]);
 
         // Ellenőrizzük, hogy a kép és a város a felhasználóhoz tartozik
@@ -146,6 +154,9 @@ class MediaController extends Controller
     {
         $request->validate([
             'property_id' => 'required|exists:properties,id',
+        ], [
+            'property_id.required' => 'Ingatlan kiválasztása kötelező.',
+            'property_id.exists' => 'A kiválasztott ingatlan nem létezik.',
         ]);
 
         // Ellenőrizzük, hogy a kép és az ingatlan a felhasználóhoz tartozik
@@ -175,6 +186,12 @@ class MediaController extends Controller
             'property_id' => 'required|exists:properties,id',
             'media_ids' => 'required|array',
             'media_ids.*' => 'exists:media,id',
+        ], [
+            'property_id.required' => 'Ingatlan kiválasztása kötelező.',
+            'property_id.exists' => 'A kiválasztott ingatlan nem létezik.',
+            'media_ids.required' => 'Képek kiválasztása kötelező.',
+            'media_ids.array' => 'A képek tömb formátumban kell legyenek.',
+            'media_ids.*.exists' => 'Egy vagy több kiválasztott kép nem létezik.',
         ]);
 
         $property = Property::where('id', $request->property_id)->where('user_id', auth()->id())->first();
@@ -214,10 +231,9 @@ class MediaController extends Controller
 
             $media->delete();
 
-            return redirect()->route('media.index')->with('success', 'Image deleted successfully');
-
+            return redirect()->route('media.index')->with('success', 'Kép sikeresen törölve!');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['delete' => 'Error deleting image: ' . $e->getMessage()]);
+            return redirect()->back()->withErrors(['delete' => 'Hiba történt a kép törlése során: ' . $e->getMessage()]);
         }
     }
 }

@@ -1,104 +1,102 @@
 import { router } from '@inertiajs/react';
-import { FormEventHandler, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
 export default function UploadImageForm() {
  const [previews, setPreviews] = useState<string[]>([]);
- const [processing, setProcessing] = useState(false);
  const [images, setImages] = useState<File[]>([]);
  const [altTexts, setAltTexts] = useState<string[]>([]);
+ const [processing, setProcessing] = useState(false);
+ const [errors, setErrors] = useState<Record<string, string>>({});
+ const [wasSuccessful, setWasSuccessful] = useState(false);
 
- //Képek kezelése
  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const selectedFiles = Array.from(e.target.files || []);
-
   if (selectedFiles.length === 0) return;
 
   setImages((prev) => [...prev, ...selectedFiles]);
+  setAltTexts((prev) => [...prev, ...selectedFiles.map(() => '')]);
 
-  const newAltTexts = selectedFiles.map(() => '');
-  setAltTexts((prev) => [...prev, ...newAltTexts]);
-
-  const promises = selectedFiles.map(
-   (file) =>
-    new Promise<string>((resolve, reject) => {
-     const reader = new FileReader();
-     reader.onload = () => resolve(reader.result as string);
-     reader.onerror = () => reject(new Error('Fájl olvasási hiba'));
-     reader.readAsDataURL(file);
-    }),
-  );
-
-  Promise.all(promises)
-   .then((results) => {
-    setPreviews((prev) => [...prev, ...results]);
-   })
-   .catch((error) => {
-    console.error('Hiba a képek betöltésekor:', error);
-    // Ide egy toast notification kell még
-   });
+  Promise.all(
+   selectedFiles.map(
+    (file) =>
+     new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(new Error('Fájl olvasási hiba'));
+      reader.readAsDataURL(file);
+     }),
+   ),
+  ).then((results) => setPreviews((prev) => [...prev, ...results]));
 
   e.target.value = '';
  };
 
- //Képek törlése
  const removeImage = (index: number) => {
   setImages((prev) => prev.filter((_, i) => i !== index));
-  setPreviews((prev) => prev.filter((_, i) => i !== index));
   setAltTexts((prev) => prev.filter((_, i) => i !== index));
+  setPreviews((prev) => prev.filter((_, i) => i !== index));
  };
 
- //Form elküldése
- const handleSubmit: FormEventHandler = (e) => {
+ const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
-
-  if (images.length === 0) {
-   alert('Kérlek válassz legalább egy képet');
-   return;
-  }
+  if (images.length === 0) return;
 
   setProcessing(true);
+  setErrors({});
+  setWasSuccessful(false);
 
   const formData = new FormData();
-
-  images.forEach((file, index) => {
-   formData.append(`images[${index}]`, file);
-  });
-
-  altTexts.forEach((alt, index) => {
-   formData.append(`alt_texts[${index}]`, alt);
-  });
+  images.forEach((file, i) => formData.append(`images[${i}]`, file));
+  altTexts.forEach((alt, i) => formData.append(`alt_texts[${i}]`, alt));
 
   router.post('/media', formData, {
    onSuccess: () => {
-    setProcessing(false);
     setImages([]);
     setAltTexts([]);
     setPreviews([]);
+    setWasSuccessful(true);
    },
-   onError: () => {
-    setProcessing(false);
-   },
+   onError: (err) => setErrors(err),
+   onFinish: () => setProcessing(false),
   });
  };
+
  return (
   <div className="flex w-full flex-col items-center justify-center py-8">
    <form
     onSubmit={handleSubmit}
     className="flex w-full max-w-xl flex-col gap-4"
    >
+    {wasSuccessful && (
+     <div className="rounded-md bg-green-50 p-4 text-green-800 dark:bg-green-900/20 dark:text-green-400">
+      Képek sikeresen feltöltve!
+     </div>
+    )}
+
+    {errors.error && (
+     <div className="text-sm text-red-600 dark:text-red-400">
+      {errors.error}
+     </div>
+    )}
+
     <div>
-     <label htmlFor="images">Képek feltöltése</label>
+     <Label htmlFor="images">Képek feltöltése</Label>
      <Input
       id="images"
       type="file"
-      name="images[]"
       accept="image/*"
       multiple
       onChange={handleFileChange}
      />
+
+     {errors.images && (
+      <div className="text-sm text-red-600 dark:text-red-400">
+       {errors.images}
+      </div>
+     )}
 
      {previews.length > 0 && (
       <div className="mt-4">
@@ -135,7 +133,7 @@ export default function UploadImageForm() {
       </div>
      )}
     </div>
-    <Button type="submit" disabled={processing}>
+    <Button type="submit" disabled={processing || images.length === 0}>
      {processing ? 'Feltöltés...' : 'Feltöltés'}
     </Button>
    </form>

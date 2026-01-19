@@ -52,6 +52,16 @@ class CityController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
             'meta_keywords' => 'nullable|string|max:500',
+        ], [
+            'name.required' => 'A város neve kötelező.',
+            'name.string' => 'A város neve csak szöveget tartalmazhat.',
+            'name.max' => 'A város neve maximum 255 karakter lehet.',
+            'slug.unique' => 'Ez a slug már foglalt.',
+            'description.max' => 'A város leírása maximum 1000 karakter lehet.',
+            'featured_img_id.exists' => 'A kiválasztott kép nem létezik.',
+            'meta_title.max' => 'A meta cím maximum 255 karakter lehet.',
+            'meta_description.max' => 'A meta leírás maximum 500 karakter lehet.',
+            'meta_keywords.max' => 'A meta kulcsszavak maximum 500 karakter lehet.',
         ]);
 
         try {
@@ -115,6 +125,16 @@ class CityController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
             'meta_keywords' => 'nullable|string|max:500',
+        ], [
+            'name.required' => 'A város neve kötelező.',
+            'name.string' => 'A város neve csak szöveget tartalmazhat.',
+            'name.max' => 'A város neve maximum 255 karakter lehet.',
+            'slug.unique' => 'Ez a slug már foglalt.',
+            'description.max' => 'A város leírása maximum 1000 karakter lehet.',
+            'featured_img_id.exists' => 'A kiválasztott kép nem létezik.',
+            'meta_title.max' => 'A meta cím maximum 255 karakter lehet.',
+            'meta_description.max' => 'A meta leírás maximum 500 karakter lehet.',
+            'meta_keywords.max' => 'A meta kulcsszavak maximum 500 karakter lehet.',
         ]);
 
         try {
