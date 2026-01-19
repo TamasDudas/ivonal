@@ -22,7 +22,7 @@ class MediaController extends Controller
         return Inertia::render('gallery/media', [
             'images' => Inertia::scroll(fn () => Media::where('user_id', auth()->id())
                 ->latest()
-                ->paginate(12)),
+                ->paginate(5)),
             'cities' => $cities,
             'properties' => $properties
         ]);

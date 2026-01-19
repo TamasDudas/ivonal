@@ -108,101 +108,105 @@ export default function MediaGallery({ images, cities, properties }: Props) {
    <div className="my-6">
     <h2 className="text-center text-5xl">Galléria</h2>
    </div>
-   <div className="mb-6 flex flex-col gap-4 rounded border border-ring p-4">
-    <RadioGroup
-     value={selectedType}
-     onValueChange={(value) => setSelectedType(value as 'city' | 'property')}
-     className="flex items-center gap-4"
-    >
-     <div className="flex items-center gap-2">
-      <RadioGroupItem value="city" id="city" />
-      <Label htmlFor="city">Város</Label>
-     </div>
-     <div className="flex items-center gap-2">
-      <RadioGroupItem value="property" id="property" />
-      <Label htmlFor="property">Ingatlan</Label>
-     </div>
-    </RadioGroup>
-    <Select onValueChange={(value) => setSelectedEntity(Number(value))}>
-     <SelectTrigger className="w-64">
-      <SelectValue
-       placeholder={`Válassz ${selectedType === 'city' ? 'várost' : 'ingatlant'}`}
-      />
-     </SelectTrigger>
-     <SelectContent>
-      {(selectedType === 'city' ? cities : properties).map((entity) => (
-       <SelectItem key={entity.id} value={entity.id.toString()}>
-        {selectedType === 'city'
-         ? (entity as City).name
-         : (entity as Property).street}
-       </SelectItem>
-      ))}
-     </SelectContent>
-    </Select>
-    {selectedType === 'property' && (
-     <label className="flex items-center gap-2">
-      <Checkbox
-       checked={isFeatured}
-       onCheckedChange={(checked) => {
-        setIsFeatured(checked === true);
-        // Featured váltáskor töröljük a kiválasztást
-        if (checked) {
-         setSelectedImages([]);
-        }
-       }}
-      />
-      Featured kép
-     </label>
-    )}
-   </div>
-   <InfiniteScroll
-    data="images"
-    className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"
-    loading={<div className="col-span-full mt-4 text-center">Betöltés...</div>}
-   >
-    {images.data.map((img) => (
-     <div key={img.id} className="relative rounded border border-ring p-3">
-      <div className="mb-6">
-       <Checkbox
-        checked={selectedImages.includes(img.id)}
-        onCheckedChange={() => toggleImageSelection(img.id)}
-        className="absolute top-2 left-2 border border-ring"
+   <div className="mb-6 flex flex-col gap-4 rounded border border-ring p-4 lg:flex-row lg:items-end">
+    <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-center">
+     <RadioGroup
+      value={selectedType}
+      onValueChange={(value) => setSelectedType(value as 'city' | 'property')}
+      className="flex items-center gap-4"
+     >
+      <div className="flex items-center gap-2">
+       <RadioGroupItem value="city" id="city" />
+       <Label htmlFor="city">Város</Label>
+      </div>
+      <div className="flex items-center gap-2">
+       <RadioGroupItem value="property" id="property" />
+       <Label htmlFor="property">Ingatlan</Label>
+      </div>
+     </RadioGroup>
+     <Select onValueChange={(value) => setSelectedEntity(Number(value))}>
+      <SelectTrigger className="w-64">
+       <SelectValue
+        placeholder={`Válassz ${selectedType === 'city' ? 'várost' : 'ingatlant'}`}
        />
-      </div>
-      <img
-       src={img.url}
-       alt={img.alt_text || ''}
-       className="max-h-40 w-full rounded-3xl object-cover"
-      />
-      <div className="mt-2 text-center text-sm">
-       {selectedImages.includes(img.id)
-        ? 'Kiválasztva'
-        : 'Kattints a kiválasztáshoz'}
-      </div>
-      <div className="mt-6 flex items-center justify-center">
-       <Button
-        onClick={() => setImageToDelete(img)}
-        className="bg-red-700 text-white"
-       >
-        Kép törlése
-       </Button>
-      </div>
-     </div>
-    ))}
-   </InfiniteScroll>
-   <div className="mt-6 flex justify-center">
-    <Button
-     onClick={handleAssignSelected}
-     disabled={selectedImages.length === 0}
+      </SelectTrigger>
+      <SelectContent>
+       {(selectedType === 'city' ? cities : properties).map((entity) => (
+        <SelectItem key={entity.id} value={entity.id.toString()}>
+         {selectedType === 'city'
+          ? (entity as City).name
+          : (entity as Property).street}
+        </SelectItem>
+       ))}
+      </SelectContent>
+     </Select>
+     {selectedType === 'property' && (
+      <label className="flex items-center gap-2">
+       <Checkbox
+        checked={isFeatured}
+        onCheckedChange={(checked) => {
+         setIsFeatured(checked === true);
+         // Featured váltáskor töröljük a kiválasztást
+         if (checked) {
+          setSelectedImages([]);
+         }
+        }}
+       />
+       Featured kép
+      </label>
+     )}
+    </div>
+    <div className="flex-shrink-0">
+     <Button
+      onClick={handleAssignSelected}
+      disabled={selectedImages.length === 0}
+     >
+      Hozzáadás{' '}
+      {selectedType === 'city'
+       ? 'város featured-ként'
+       : isFeatured
+         ? 'ingatlan featured-ként'
+         : 'ingatlan galériájához'}{' '}
+      ({selectedImages.length} kiválasztva)
+     </Button>
+    </div>
+   </div>
+   <div className="max-h-[70vh] overflow-y-auto">
+    <InfiniteScroll
+     data="images"
+     className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-4"
+     loading={<div className="col-span-full mt-4 text-center">Betöltés...</div>}
     >
-     Hozzáadás{' '}
-     {selectedType === 'city'
-      ? 'város featured-ként'
-      : isFeatured
-        ? 'ingatlan featured-ként'
-        : 'ingatlan galériájához'}{' '}
-     ({selectedImages.length} kiválasztva)
-    </Button>
+     {images.data.map((img) => (
+      <div key={img.id} className="relative rounded border border-ring p-3">
+       <div className="mb-6">
+        <Checkbox
+         checked={selectedImages.includes(img.id)}
+         onCheckedChange={() => toggleImageSelection(img.id)}
+         className="absolute top-2 left-2 border border-ring"
+        />
+       </div>
+       <img
+        src={img.url}
+        alt={img.alt_text || ''}
+        className="max-h-40 w-full rounded-3xl object-cover"
+       />
+       <div className="mt-2 text-center text-sm">
+        {selectedImages.includes(img.id)
+         ? 'Kiválasztva'
+         : 'Kattints a kiválasztáshoz'}
+       </div>
+       <div className="mt-6 flex items-center justify-center">
+        <Button
+         onClick={() => setImageToDelete(img)}
+         className="bg-red-700 text-white"
+        >
+         Kép törlése
+        </Button>
+       </div>
+      </div>
+     ))}
+    </InfiniteScroll>
    </div>
    {/* AlertDialog a kép törlésének megerősítéséhez */}
    <AlertDialog
