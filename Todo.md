@@ -2,3 +2,4 @@
 - Fordítás
 - Pagination a képeknél
 - Footer
+- Dashboard oldalon leírni a kártyára, hogy melyik miért felel

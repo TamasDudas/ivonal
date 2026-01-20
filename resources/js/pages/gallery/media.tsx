@@ -109,7 +109,7 @@ export default function MediaGallery({ images, cities, properties }: Props) {
     <h2 className="text-center text-5xl">Galléria</h2>
    </div>
    <div className="mb-6 flex flex-col gap-4 rounded border border-ring p-4 lg:flex-row lg:items-end">
-    <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-center">
+    <div className="lg:items-centerö flex flex-1 flex-col gap-4 lg:flex-row">
      <RadioGroup
       value={selectedType}
       onValueChange={(value) => setSelectedType(value as 'city' | 'property')}

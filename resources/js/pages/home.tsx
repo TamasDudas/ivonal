@@ -30,7 +30,7 @@ export default function Home({ cities }: Props) {
     <div className="absolute inset-0 rounded-lg bg-chart-4 opacity-10"></div>
    </div>
 
-   <div className="my-7 flex px-6 py-6 md:flex-row">
+   <div className="my-7 flex py-6 md:flex-row md:px-6">
     <Card className="flex flex-col items-center justify-center px-3 md:flex-[2]">
      <h2 className="text-4xl text-sidebar-accent">
       Kiadó ingatlanok Budapesten és Szegeden.
@@ -49,7 +49,7 @@ export default function Home({ cities }: Props) {
      </p>
     </Card>
    </div>
-   <div className="grid grid-cols-2 gap-6">
+   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
     {cities.data.map((city) => (
      <Link key={city.id} href={`properties/city/${city.slug}`}>
       <Card className="mb-4 rounded-3xl pt-0">

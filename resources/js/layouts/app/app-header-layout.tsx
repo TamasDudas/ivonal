@@ -1,17 +1,19 @@
 import { AppContent } from '@/components/app-content';
 import { AppHeader } from '@/components/app-header';
 import { AppShell } from '@/components/app-shell';
+import Footer from '@/components/footer';
 import { type BreadcrumbItem } from '@/types';
 import type { PropsWithChildren } from 'react';
 
 export default function AppHeaderLayout({
-  children,
-  breadcrumbs,
+ children,
+ breadcrumbs,
 }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[] }>) {
-  return (
-    <AppShell>
-      <AppHeader breadcrumbs={breadcrumbs} />
-      <AppContent className="px-12 py-6">{children}</AppContent>
-    </AppShell>
-  );
+ return (
+  <AppShell>
+   <AppHeader breadcrumbs={breadcrumbs} />
+   <AppContent className="px-2 py-6 md:px-12">{children}</AppContent>
+   <Footer />
+  </AppShell>
+ );
 }
