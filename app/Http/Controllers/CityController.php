@@ -26,7 +26,7 @@ class CityController extends Controller
     }
 
     public function cities(){
-        $cities = City::with("featuredImage")->get();
+        $cities = City::with("featuredImage")->latest()->get();
 
         return Inertia::render('city/cities', ['cities'=>CityResource::collection($cities)]);
     }
