@@ -19,7 +19,7 @@ class CityResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'featured_image' => $this->featuredImage?->url,
+            'featured_image' => $this->featuredImage?->url, // Az URL-t használjuk a frontend-en a kép megjelenítéséhez, amit a Media model-ből kapunk a getUrlAttribute() által.
             'description' => $this->description,
         ];
     }

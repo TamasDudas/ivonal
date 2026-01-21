@@ -28,7 +28,10 @@ export default function PropertiesByCity({ properties, city }: Props) {
       <h2 className="mb-2 text-center text-3xl font-semibold text-sidebar-accent">
        {property.street}
       </h2>
-      <p className="text-xl">{property.short_description}</p>
+      <div
+       className="prose max-w-none text-xl dark:prose-invert"
+       dangerouslySetInnerHTML={{ __html: property.short_description }}
+      />
       <div className="flex items-center justify-center">
        <Link
         href={`/properties/${property.id}`}

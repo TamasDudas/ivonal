@@ -1,5 +1,5 @@
 - Hibakezelés az űrlapoknál
 - Fordítás
 - Pagination a képeknél
-- Footer
+- Kapcsolat
 - Dashboard oldalon leírni a kártyára, hogy melyik miért felel

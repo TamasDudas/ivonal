@@ -46,7 +46,7 @@ export default function cities({ cities }: Props) {
      title="Városok kezelése"
      displayField="name"
      missingItemsText="Nincs  megjelenítendő város"
-     onEdit={(id) => router.visit(`/cities/${id}/edit`)}
+     onEdit={(slug) => router.visit(`/cities/${slug}/edit`)}
      setItemsIdToDelete={setCityIdToDelete}
     />
    </AppLayout>

@@ -25,10 +25,16 @@ class CityController extends Controller
         ]);
     }
 
+    public function cities(){
+        $cities = City::with("featuredImage")->get();
+
+        return Inertia::render('city/cities', ['cities'=>CityResource::collection($cities)]);
+    }
+
     public function cityHandle(){
         $cities = City::all();
 
-        return Inertia::render('city/cities', ["cities" => CityResource::collection($cities)]);
+        return Inertia::render('city/city-handle', ["cities" => CityResource::collection($cities)]);
     }
 
     /**
