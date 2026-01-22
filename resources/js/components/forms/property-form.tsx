@@ -429,7 +429,7 @@ export default function PropertyForm({ cities, property }: Props) {
            <div className="text-sm text-red-600 dark:text-red-400">
             {errors.smoking}
            </div>
-          )}
+          )}P
          </div>
 
          <div className="space-y-2">

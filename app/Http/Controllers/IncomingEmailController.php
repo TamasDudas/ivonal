@@ -9,6 +9,7 @@ use App\Models\IncomingEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
 
 class IncomingEmailController extends Controller
 {
@@ -57,7 +58,7 @@ class IncomingEmailController extends Controller
       return back()->with('success', 'Köszönjük az üzenetét! Hamarosan válaszolunk.');
     } catch (\Exception $e) {
       // Hiba esetén logoljuk és visszaadjuk a hibát
-      \Log::error('Hiba történt az email küldése során: ' . $e->getMessage());
+      Log::error('Hiba történt az email küldése során: ' . $e->getMessage());
 
       return back()
         ->withInput()
