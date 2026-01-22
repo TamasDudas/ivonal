@@ -99,7 +99,7 @@ class CityController extends Controller
         $city->load(['featuredImage', 'properties']);
 
         return Inertia::render('city/city', [
-            'city' => $city
+            'city' => new CityResource($city) 
         ]);
     }
 
