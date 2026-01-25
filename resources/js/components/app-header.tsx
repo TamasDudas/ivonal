@@ -183,13 +183,14 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
        <div className="flex items-center space-x-2">
         <Link
          href={login()}
-         className="inline-block rounded-sm border border-neutral-300 px-5 py-1.5 text-sm leading-normal text-neutral-700 hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-800"
+         className="inline-block rounded-lg border  px-5 py-1.5 text-sm leading-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-destructive
+         "
         >
          Login
         </Link>
         <Link
          href={register()}
-         className="inline-block rounded-sm border border-neutral-300 px-5 py-1.5 text-sm leading-normal text-neutral-700 hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-800"
+         className="inline-block rounded-lg border  px-5 py-1.5 text-sm leading-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-destructive"
         >
          Register
         </Link>

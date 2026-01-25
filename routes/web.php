@@ -12,7 +12,8 @@ use App\Http\Controllers\IncomingEmailController;
 Route::get('/', [CityController::class, 'index'])->name('home');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/media', [MediaController::class, 'index'])->name('media.index');
-
+// Nyilvános kapcsolatfelvételi form - bárki küldhet email-t
+Route::get('/contact', [IncomingEmailController::class, 'contactPage'])->name('contact.page');
 // Nyilvános kapcsolatfelvételi form - bárki küldhet email-t
 Route::post('/contact', [IncomingEmailController::class, 'store'])->name('contact.store');
 
@@ -54,6 +55,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('incoming-emails/{incomingEmail}/mark-replied', [IncomingEmailController::class, 'markAsReplied'])->name('incoming-emails.mark-replied');
     Route::delete('incoming-emails/{incomingEmail}', [IncomingEmailController::class, 'destroy'])->name('incoming-emails.destroy');
 });
+
+
 
 // Nyilvános ingatlan és város megtekintés - ezek UTOLJÁRA kellenek, hogy a /create ne ütközzön velük
 Route::get('/properties/city/{city}', [PropertyController::class, 'listByCity'])->name('properties.by.city');

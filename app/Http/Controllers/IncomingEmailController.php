@@ -31,6 +31,11 @@ class IncomingEmailController extends Controller
     ]);
   }
 
+  public function contactPage()
+  {
+    return Inertia::render('contact');
+  }
+
   /**
    * Új bejövő email mentése (nyilvános endpoint)
    * Validáció után elmentjük az adatbázisba és email-t küldünk
@@ -45,13 +50,9 @@ class IncomingEmailController extends Controller
       // A Form Request már ellenőrizte az adatokat, így biztonságosan használhatjuk
       $incomingEmail = IncomingEmail::create($request->validated());
 
-      // Email küldése az adminisztrátornak
-      // A Mail::to() metódussal megadjuk a címzettet
-      // A config/mail.php fájlban van beállítva a MAIL_FROM_ADDRESS
-      // Ha nincs beállítva, akkor a .env fájlban kell beállítani
-      $adminEmail = config('mail.from.address', 'admin@example.com');
+     
       
-      Mail::to($adminEmail)->send(new ContactEmailNotification($incomingEmail));
+      Mail::to('tamasdudas230@gmail.com')->send(new ContactEmailNotification($incomingEmail));
 
       // Sikeres válasz visszaadása
       // Ha Inertia-t használunk, akkor with() metódussal adhatunk át flash üzenetet
