@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class StoreIncomingEmailRequest extends FormRequest
 {
@@ -56,5 +58,33 @@ class StoreIncomingEmailRequest extends FormRequest
       'message.string' => 'Az üzenet csak szöveget tartalmazhat.',
       'message.max' => 'Az üzenet maximum 5000 karakter lehet.',
     ];
+  }
+
+  /**
+   * Validációs hiba esetén visszaadjuk a beküldött input mezőket is (JSON kéréseknél).
+   *
+   * Miért jó?
+   * - Inertia/React oldalon így garantáltan vissza tudod tölteni a form mezőket,
+   *   még akkor is, ha nem klasszikus redirectes (web) validációról van szó.
+   * - Webes (nem JSON) kérésnél meghagyjuk a Laravel alap működését:
+   *   visszairányítás és old input flash-elése.
+   *
+   * @param \Illuminate\Contracts\Validation\Validator $validator
+   * @return void
+   */
+  protected function failedValidation(Validator $validator): void
+  {
+    if (!$this->expectsJson()) {
+      parent::failedValidation($validator);
+      return;
+    }
+
+    throw new HttpResponseException(
+      response()->json([
+        'message' => 'A megadott adatok érvénytelenek.',
+        'errors' => $validator->errors(),
+        'input' => $this->except($this->dontFlash),
+      ], 422)
+    );
   }
 }
