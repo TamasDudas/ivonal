@@ -19,7 +19,7 @@ export default function CityForm({ city }: Props) {
   <AppLayout>
    <div className="flex min-h-screen items-center justify-center p-4">
     <Form
-     action={isEditing ? update.url(city!.slug) : store.url()}
+     action={isEditing ? update.url(city!.id) : store.url()}
      method={isEditing ? 'patch' : 'post'}
      resetOnSuccess={!isEditing}
      onSuccess={() => {
@@ -128,8 +128,9 @@ export default function CityForm({ city }: Props) {
         <Button
          type="submit"
          disabled={processing}
-         className="py- w-80 rounded-md bg-chart-1 px-8 py-2"
-         variant="outline"
+         className="w-80"
+         variant="destructive"
+         size="lg"
         >
          {processing
           ? isEditing

@@ -44,7 +44,7 @@ export default function EditableList({
         >
          <div className="text-lg font-medium">{item[displayField]}</div>
          <div className="space-x-4">
-          <Button onClick={() => onEdit(item.slug)} variant={'outline'}>
+          <Button onClick={() => onEdit(item.id)} variant={'outline'}>
            {editText}
           </Button>
           <Button

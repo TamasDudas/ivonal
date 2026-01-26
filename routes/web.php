@@ -34,9 +34,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('cities/create', [CityController::class, 'create'])->name('cities.create');
     
     Route::post('cities', [CityController::class, 'store'])->name('cities.store');
-    Route::get('cities/{city}/edit', [CityController::class, 'edit'])->name('cities.edit');
-    Route::patch('cities/{city}', [CityController::class, 'update'])->name('cities.update');
-    Route::delete('cities/{city}', [CityController::class, 'destroy'])->name('cities.destroy');
+    Route::get('cities/{city:id}/edit', [CityController::class, 'edit'])->name('cities.edit');
+    Route::patch('cities/{city:id}', [CityController::class, 'update'])->name('cities.update');
+    Route::delete('cities/{city:id}', [CityController::class, 'destroy'])->name('cities.destroy');
     Route::get('cities', [CityController::class, 'cityHandle'])->name('cities.handle');
 
     // Média CRUD (védett)
@@ -59,9 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 // Nyilvános ingatlan és város megtekintés - ezek UTOLJÁRA kellenek, hogy a /create ne ütközzön velük
-Route::get('/properties/city/{city}', [PropertyController::class, 'listByCity'])->name('properties.by.city');
+Route::get('/properties/city/{city:slug}', [PropertyController::class, 'listByCity'])->name('properties.by.city');
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
-Route::get('/cities/{city}', [CityController::class, 'show'])->name('cities.show');
+Route::get('/cities/{city:slug}', [CityController::class, 'show'])->name('cities.show');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
 
 require __DIR__.'/settings.php';

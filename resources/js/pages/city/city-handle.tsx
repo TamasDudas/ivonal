@@ -14,6 +14,7 @@ import { City } from '@/types';
 import { router } from '@inertiajs/react';
 
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface Props {
  cities: {
@@ -30,6 +31,12 @@ export default function cities({ cities }: Props) {
    preserveScroll: true,
    onSuccess: () => {
     setCityIdToDelete(null);
+    toast.success('Város sikeresen törölve!');
+   },
+   onError: () => {
+    toast.error('Város törlése sikertelen', {
+     description: 'Ellenőrizd a kapcsolatot, és próbáld újra.',
+    });
    },
   });
  };
@@ -46,7 +53,7 @@ export default function cities({ cities }: Props) {
      title="Városok kezelése"
      displayField="name"
      missingItemsText="Nincs  megjelenítendő város"
-     onEdit={(slug) => router.visit(`/cities/${slug}/edit`)}
+     onEdit={(id) => router.visit(`/cities/${id}/edit`)}
      setItemsIdToDelete={setCityIdToDelete}
     />
    </AppLayout>

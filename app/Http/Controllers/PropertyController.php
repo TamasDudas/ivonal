@@ -19,7 +19,7 @@ class PropertyController extends Controller
     {
         $properties = Property::all();
 
-        return Inertia::render('property/properties', [
+        return Inertia::render('property/property-handle', [
             'properties' => PropertyResource::collection($properties)
         ]);
     }

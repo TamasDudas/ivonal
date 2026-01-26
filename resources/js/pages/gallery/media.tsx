@@ -23,6 +23,7 @@ import AppLayout from '@/layouts/app-layout';
 import { City, Media, PaginatedData, Property } from '@/types';
 import { Head, InfiniteScroll, router } from '@inertiajs/react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface Props {
  images: PaginatedData<Media>;
@@ -98,6 +99,12 @@ export default function MediaGallery({ images, cities, properties }: Props) {
    preserveScroll: true,
    onSuccess: () => {
     setImageToDelete(null);
+    toast.success('Kép sikeresen törölve!');
+   },
+   onError: () => {
+    toast.error('Kép törlése sikertelen', {
+     description: 'Ellenőrizd a kapcsolatot, és próbáld újra.',
+    });
    },
   });
  };
