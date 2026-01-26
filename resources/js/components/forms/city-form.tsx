@@ -40,12 +40,6 @@ export default function CityForm({ city }: Props) {
         {isEditing ? 'Város Szerkesztése' : 'Város Létrehozása'}
        </h2>
 
-       {errors.error && (
-        <div className="text-sm text-red-600 dark:text-red-400">
-         {errors.error}
-        </div>
-       )}
-
        <div className="space-y-2">
         <Label htmlFor="name" className="text-sm font-medium">
          Város neve

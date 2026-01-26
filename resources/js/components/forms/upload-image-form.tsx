@@ -1,5 +1,6 @@
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
@@ -10,7 +11,6 @@ export default function UploadImageForm() {
  const [altTexts, setAltTexts] = useState<string[]>([]);
  const [processing, setProcessing] = useState(false);
  const [errors, setErrors] = useState<Record<string, string>>({});
- const [wasSuccessful, setWasSuccessful] = useState(false);
 
  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const selectedFiles = Array.from(e.target.files || []);
@@ -46,7 +46,6 @@ export default function UploadImageForm() {
 
   setProcessing(true);
   setErrors({});
-  setWasSuccessful(false);
 
   const formData = new FormData();
   images.forEach((file, i) => formData.append(`images[${i}]`, file));
@@ -57,9 +56,14 @@ export default function UploadImageForm() {
     setImages([]);
     setAltTexts([]);
     setPreviews([]);
-    setWasSuccessful(true);
+    toast.success('Képek sikeresen feltöltve!');
    },
-   onError: (err) => setErrors(err),
+   onError: (err) => {
+    setErrors(err);
+    toast.error('Feltöltés sikertelen', {
+     description: err.error || 'Ellenőrizd a mezőket, és próbáld újra.',
+    });
+   },
    onFinish: () => setProcessing(false),
   });
  };
@@ -70,12 +74,6 @@ export default function UploadImageForm() {
     onSubmit={handleSubmit}
     className="flex w-full max-w-xl flex-col gap-4"
    >
-    {wasSuccessful && (
-     <div className="rounded-md bg-green-50 p-4 text-green-800 dark:bg-green-900/20 dark:text-green-400">
-      Képek sikeresen feltöltve!
-     </div>
-    )}
-
     {errors.error && (
      <div className="text-sm text-red-600 dark:text-red-400">
       {errors.error}

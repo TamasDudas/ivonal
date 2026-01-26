@@ -5,6 +5,7 @@ import {
 import AppLayout from '@/layouts/app-layout';
 import { City, PropertyFormData } from '@/types';
 import { Form } from '@inertiajs/react';
+import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
@@ -41,21 +42,33 @@ export default function PropertyForm({ cities, property }: Props) {
      options={{
       preserveScroll: true,
      }}
+     onSuccess={() => {
+      toast.success(
+       isEditing
+        ? 'Ingatlan sikeresen frissítve!'
+        : 'Ingatlan sikeresen létrehozva!',
+       {
+        description: isEditing
+         ? 'Az ingatlan adatai frissültek.'
+         : 'Az új ingatlan hozzáadva.',
+       },
+      );
+     }}
+     onError={() => {
+      toast.error(
+       isEditing ? 'Frissítés sikertelen' : 'Létrehozás sikertelen',
+       {
+        description: 'Ellenőrizd a mezőket, és próbáld újra.',
+       },
+      );
+     }}
      className="w-4xl"
     >
-     {({ errors, processing, wasSuccessful }) => (
+     {({ errors, processing }) => (
       <div className="bg- w-full space-y-4 overflow-hidden px-4 py-6 shadow-xl sm:rounded-lg">
        <h2 className="mb-6 text-2xl font-semibold">
         {isEditing ? 'Ingatlan szerkesztése' : 'Új ingatlan létrehozása'}
        </h2>
-
-       {wasSuccessful && (
-        <div className="rounded-md bg-green-50 p-4 text-green-800 dark:bg-green-900/20 dark:text-green-400">
-         {isEditing
-          ? 'Ingatlan sikeresen frissítve!'
-          : 'Ingatlan sikeresen létrehozva!'}
-        </div>
-       )}
 
        {/* Alapadatok */}
        <div className="space-y-4">
@@ -429,7 +442,8 @@ export default function PropertyForm({ cities, property }: Props) {
            <div className="text-sm text-red-600 dark:text-red-400">
             {errors.smoking}
            </div>
-          )}P
+          )}
+          P
          </div>
 
          <div className="space-y-2">
