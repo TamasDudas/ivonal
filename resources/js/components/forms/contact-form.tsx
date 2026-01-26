@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout'
 import { Form } from '@inertiajs/react'
-import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 import { store } from '@/routes/contact'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
@@ -9,39 +9,17 @@ import { Button } from '../ui/button'
 import { Spinner } from '../ui/spinner'
 
 export default function ContactForm() {
-  const [successToastMessage, setSuccessToastMessage] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (!successToastMessage) {
-      return
-    }
-
-    // Automatikus eltűnés: “toast” jellegű értesítés legyen, ne állandó üzenet.
-    const timeoutId = window.setTimeout(() => {
-      setSuccessToastMessage(null)
-    }, 6500)
-
-    return () => {
-      window.clearTimeout(timeoutId)
-    }
-  }, [successToastMessage])
-
   return (
     <div className='w-full max-w-3xl mx-auto flex justify-center items-center'>
-      {successToastMessage && (
-        <div className="fixed right-4 top-4 z-50 w-[min(360px,calc(100vw-2rem))] rounded-lg border bg-background p-4 shadow-lg">
-          <div className="text-sm font-medium">{successToastMessage}</div>
-          <div className="text-sm text-muted-foreground">
-            Köszönjük a leveledet! Hamarosan válaszolunk.
-          </div>
-        </div>
-      )}
-
       <Form
         action={store.url()}
         method="post"
         resetOnSuccess={true}
-        onSuccess={() => setSuccessToastMessage('Üzenet sikeresen elküldve')}
+        onSuccess={() => {
+          toast.success('Üzenet sikeresen elküldve', {
+            description: 'Köszönjük a leveledet! Hamarosan válaszolunk.',
+          })
+        }}
         className='w-full'
       >
         {({ errors, processing }) => (

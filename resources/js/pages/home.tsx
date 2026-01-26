@@ -37,11 +37,11 @@ export default function Home({ cities }: Props) {
      </h2>
      <hr className="w-full border-t border-sidebar-accent" />
      <p className="text-lg">
-      aaaaaaaaaa Weboldalunkon olyan kiadó és eladó lakóingatlanokat talál,
-      amelyeknek tulajdonosai régóta baráti társaságot alkotnak. Így az itt
-      kínált lakások műszaki állapota és berendezése hasonló színvonalat nyújt,
-      a bérlés feltételei szintén hasonlóak. Ez Önnek a személyesség garanciája
-      mellett a választás lehetőségét is nyújtja. Személyes, mert nem
+      Weboldalunkon olyan kiadó és eladó lakóingatlanokat talál, amelyeknek
+      tulajdonosai régóta baráti társaságot alkotnak. Így az itt kínált lakások
+      műszaki állapota és berendezése hasonló színvonalat nyújt, a bérlés
+      feltételei szintén hasonlóak. Ez Önnek a személyesség garanciája mellett a
+      választás lehetőségét is nyújtja. Személyes, mert nem
       ingatlanközvetítőkkel kell tárgyalnia, de több lehetősége is van, mintha
       egyetlen lakás tulajdonosával lépne kapcsolatba. Elsősorban Szegeden és
       Budapesten találhatóak a lakások. Későbbi terveink között szerepel a
