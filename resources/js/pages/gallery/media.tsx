@@ -115,7 +115,7 @@ export default function MediaGallery({ images, cities, properties }: Props) {
    <div className="my-6">
     <h2 className="text-center text-5xl">Galléria</h2>
    </div>
-   <div className="mb-6 flex flex-col gap-4 rounded border border-ring p-4 lg:flex-row lg:items-end">
+   <div className="mb-10 flex flex-col gap-4 rounded p-4 shadow-xl sm:rounded-lg lg:flex-row lg:items-end">
     <div className="lg:items-centerö flex flex-1 flex-col gap-4 lg:flex-row">
      <RadioGroup
       value={selectedType}
@@ -178,6 +178,7 @@ export default function MediaGallery({ images, cities, properties }: Props) {
      </Button>
     </div>
    </div>
+   {/* Képek */}
    <div className="max-h-[70vh] overflow-y-auto">
     <InfiniteScroll
      data="images"
@@ -185,7 +186,10 @@ export default function MediaGallery({ images, cities, properties }: Props) {
      loading={<div className="col-span-full mt-4 text-center">Betöltés...</div>}
     >
      {images.data.map((img) => (
-      <div key={img.id} className="relative rounded border border-ring p-3">
+      <div
+       key={img.id}
+       className="relative rounded p-3 shadow-xl sm:rounded-lg"
+      >
        <div className="mb-6">
         <Checkbox
          checked={selectedImages.includes(img.id)}
