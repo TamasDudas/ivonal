@@ -1,13 +1,4 @@
-import {
- AlertDialog,
- AlertDialogAction,
- AlertDialogCancel,
- AlertDialogContent,
- AlertDialogDescription,
- AlertDialogFooter,
- AlertDialogHeader,
- AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+import DeleteConfirmDialog from '@/components/delete-confirm-dialog';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -36,7 +27,7 @@ export default function MediaGallery({ images, cities, properties }: Props) {
  const [selectedEntity, setSelectedEntity] = useState<number | null>(null);
  const [isFeatured, setIsFeatured] = useState(false);
  const [selectedImages, setSelectedImages] = useState<number[]>([]);
- const [imageToDelete, setImageToDelete] = useState<Media | null>(null);
+ const [imageIdToDelete, setImageIdToDelete] = useState<number | null>(null);
 
  const toggleImageSelection = (imageId: number) => {
   setSelectedImages((prev) => {
@@ -93,12 +84,12 @@ export default function MediaGallery({ images, cities, properties }: Props) {
  };
 
  const confirmImageToDelete = () => {
-  if (!imageToDelete) return;
+  if (!imageIdToDelete) return;
 
-  router.delete(`/media/${imageToDelete.id}`, {
+  router.delete(`/media/${imageIdToDelete}`, {
    preserveScroll: true,
    onSuccess: () => {
-    setImageToDelete(null);
+    setImageIdToDelete(null);
     toast.success('Kép sikeresen törölve!');
    },
    onError: () => {
@@ -209,8 +200,8 @@ export default function MediaGallery({ images, cities, properties }: Props) {
        </div>
        <div className="mt-6 flex items-center justify-center">
         <Button
-         onClick={() => setImageToDelete(img)}
-         className="bg-red-700 text-white"
+         onClick={() => setImageIdToDelete(img.id)}
+         className="cursor-pointer bg-red-800 text-white hover:bg-red-700"
         >
          Kép törlése
         </Button>
@@ -219,31 +210,16 @@ export default function MediaGallery({ images, cities, properties }: Props) {
      ))}
     </InfiniteScroll>
    </div>
-   {/* AlertDialog a kép törlésének megerősítéséhez */}
-   <AlertDialog
-    open={!!imageToDelete}
-    onOpenChange={(open) => !open && setImageToDelete(null)}
-   >
-    <AlertDialogContent>
-     <AlertDialogHeader>
-      <AlertDialogTitle>Biztosan törölni szeretnéd?</AlertDialogTitle>
-      <AlertDialogDescription>
-       Véglegesen törlöd ezt a képet:{' '}
-       <strong>{imageToDelete?.original_filename}</strong>
-       <br />
-       <br />
-       Ez a művelet nem vonható vissza, és a kép törlődik minden kategóriából
-       is!
-      </AlertDialogDescription>
-     </AlertDialogHeader>
-     <AlertDialogFooter>
-      <AlertDialogCancel>Mégse</AlertDialogCancel>
-      <AlertDialogAction onClick={confirmImageToDelete}>
-       Törlés
-      </AlertDialogAction>
-     </AlertDialogFooter>
-    </AlertDialogContent>
-   </AlertDialog>
+   <DeleteConfirmDialog
+    title="Biztosan törölni szeretnéd?"
+    description="Ez a művelet nem vonható vissza, és a kép törlődik minden kategóriából is!"
+    confirmText="Törlés"
+    onConfirm={confirmImageToDelete}
+    items={images}
+    itemIdToDelete={imageIdToDelete}
+    setItemIdToDelete={setImageIdToDelete}
+    displayField="original_filename"
+   />
   </AppLayout>
  );
 }
