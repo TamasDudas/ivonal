@@ -1,11 +1,6 @@
-- Hibakezelés az űrlapoknál
-- Fordítás
-- Pagination a képeknél
-- Kapcsolat
-- Fordítások
-- Dashboard oldalon leírni a kártyára, hogy melyik miért felel
 - Meta adatok és title minden oldalon
 - Tesztek a CRUD-ra
 - Alert doboz külön komponensbe
 - Térkép
-- Kell egy ciries oldal
+- Kell egy cities oldal
+- Cookie

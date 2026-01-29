@@ -168,7 +168,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
          <Button variant="ghost" className="size-10 rounded-full p-1">
           <Avatar className="size-8 overflow-hidden rounded-full">
            <AvatarImage src={auth.user.avatar} alt={auth.user.name} />
-           <AvatarFallback className="bg-destructive text-destructive-foreground">
+           <AvatarFallback className="bg-destructive text-popover-foreground">
             {getInitials(auth.user.name)}
            </AvatarFallback>
           </Avatar>

@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Mews\Purifier\Facades\Purifier;
 use App\Http\Resources\CityResource;
+use App\Http\Requests\StoreCityRequest;
+use App\Http\Requests\UpdateCityRequest;
 
 class CityController extends Controller
 {
@@ -48,27 +50,9 @@ class CityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCityRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:cities,slug',
-            'description' => 'nullable|string|max:1000',
-            'featured_img_id' => 'nullable|exists:media,id',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:500',
-            'meta_keywords' => 'nullable|string|max:500',
-        ], [
-            'name.required' => 'A város neve kötelező.',
-            'name.string' => 'A város neve csak szöveget tartalmazhat.',
-            'name.max' => 'A város neve maximum 255 karakter lehet.',
-            'slug.unique' => 'Ez a slug már foglalt.',
-            'description.max' => 'A város leírása maximum 1000 karakter lehet.',
-            'featured_img_id.exists' => 'A kiválasztott kép nem létezik.',
-            'meta_title.max' => 'A meta cím maximum 255 karakter lehet.',
-            'meta_description.max' => 'A meta leírás maximum 500 karakter lehet.',
-            'meta_keywords.max' => 'A meta kulcsszavak maximum 500 karakter lehet.',
-        ]);
+        $validated = $request->validated();
 
         try {
             // Automatikus slug generálás ha nincs megadva
@@ -116,32 +100,14 @@ class CityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, City $city)
+    public function update(UpdateCityRequest $request, City $city)
     {
         // Ellenőrizzük, hogy a város a felhasználóhoz tartozik
         if ($city->user_id !== auth()->id()) {
             abort(403, 'Unauthorized');
         }
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:cities,slug,' . $city->id,
-            'description' => 'nullable|string|max:1000',
-            'featured_img_id' => 'nullable|exists:media,id',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:500',
-            'meta_keywords' => 'nullable|string|max:500',
-        ], [
-            'name.required' => 'A város neve kötelező.',
-            'name.string' => 'A város neve csak szöveget tartalmazhat.',
-            'name.max' => 'A város neve maximum 255 karakter lehet.',
-            'slug.unique' => 'Ez a slug már foglalt.',
-            'description.max' => 'A város leírása maximum 1000 karakter lehet.',
-            'featured_img_id.exists' => 'A kiválasztott kép nem létezik.',
-            'meta_title.max' => 'A meta cím maximum 255 karakter lehet.',
-            'meta_description.max' => 'A meta leírás maximum 500 karakter lehet.',
-            'meta_keywords.max' => 'A meta kulcsszavak maximum 500 karakter lehet.',
-        ]);
+        $validated = $request->validated();
 
         try {
             // Automatikus slug generálás ha nincs megadva

@@ -57,11 +57,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
+Route::get('/adatvedelmi-tajekoztato', function () {
+    return Inertia::render('terms-conditions');
+})->name('terms-conditions');
 
 // Nyilvános ingatlan és város megtekintés - ezek UTOLJÁRA kellenek, hogy a /create ne ütközzön velük
 Route::get('/properties/city/{city:slug}', [PropertyController::class, 'listByCity'])->name('properties.by.city');
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
 Route::get('/cities/{city:slug}', [CityController::class, 'show'])->name('cities.show');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
+
+
 
 require __DIR__.'/settings.php';
