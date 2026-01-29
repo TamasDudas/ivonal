@@ -1,21 +1,11 @@
+import DeleteConfirmDialog from '@/components/delete-confirm-dialog';
 import EditableList from '@/components/editable-list';
-import {
- AlertDialog,
- AlertDialogAction,
- AlertDialogCancel,
- AlertDialogContent,
- AlertDialogDescription,
- AlertDialogFooter,
- AlertDialogHeader,
- AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
 import AppLayout from '@/layouts/app-layout';
 import { City } from '@/types';
 import { router } from '@inertiajs/react';
-import { route } from 'ziggy-js';
-
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { route } from 'ziggy-js';
 
 interface Props {
  cities: {
@@ -58,33 +48,16 @@ export default function cities({ cities }: Props) {
      setItemsIdToDelete={setCityIdToDelete}
     />
    </AppLayout>
-   {/* Alert dialóg a város törlésének megerősítésére */}
-   <AlertDialog
-    open={!!cityIdToDelete}
-    onOpenChange={(open) => !open && setCityIdToDelete(null)}
-   >
-    <AlertDialogContent>
-     <AlertDialogHeader>
-      <AlertDialogTitle>Biztosan törölni akarod a várost?</AlertDialogTitle>
-      <AlertDialogDescription>
-       Törlöd ezt a várost:{' '}
-       <strong>
-        {cities.data.find((city) => city.id === cityIdToDelete)?.name}
-       </strong>
-       <br />
-       <br />
-       Ez a művelet nem vonható vissza. A város törlésre került, de a képek
-       maradnak a galériában.
-      </AlertDialogDescription>
-     </AlertDialogHeader>
-     <AlertDialogFooter>
-      <AlertDialogCancel>Mégse</AlertDialogCancel>
-      <AlertDialogAction onClick={confirmDeleteCity}>
-       Város törlése
-      </AlertDialogAction>
-     </AlertDialogFooter>
-    </AlertDialogContent>
-   </AlertDialog>
+   <DeleteConfirmDialog
+    title="Biztosan törölni akarod a várost?"
+    description="Ez a művelet nem vonható vissza. A város törlésre kerül, de a képek maradnak a galériában."
+    confirmText="Város törlése"
+    onConfirm={confirmDeleteCity}
+    items={cities}
+    itemIdToDelete={cityIdToDelete}
+    setItemIdToDelete={setCityIdToDelete}
+    displayField="name"
+   />
   </>
  );
 }
