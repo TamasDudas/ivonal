@@ -8,3 +8,4 @@
 - Tesztek a CRUD-ra
 - Alert doboz külön komponensbe
 - Térkép
+- Kell egy ciries oldal

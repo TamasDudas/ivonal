@@ -14,133 +14,114 @@ import { Label } from '@/components/ui/label';
 import { edit } from '@/routes/user-password';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Password settings',
-        href: edit().url,
-    },
+ {
+  title: 'Jelszó beállítások',
+  href: edit().url,
+ },
 ];
 
 export default function Password() {
-    const passwordInput = useRef<HTMLInputElement>(null);
-    const currentPasswordInput = useRef<HTMLInputElement>(null);
+ const passwordInput = useRef<HTMLInputElement>(null);
+ const currentPasswordInput = useRef<HTMLInputElement>(null);
 
-    return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Password settings" />
+ return (
+  <AppLayout breadcrumbs={breadcrumbs}>
+   <Head title="Jelszó beállítások" />
 
-            <SettingsLayout>
-                <div className="space-y-6">
-                    <HeadingSmall
-                        title="Update password"
-                        description="Ensure your account is using a long, random password to stay secure"
-                    />
+   <SettingsLayout>
+    <div className="space-y-6">
+     <HeadingSmall
+      title="Jelszó frissítése"
+      description="Biztosítsa, hogy fiókja hosszú, véletlenszerű jelszót használjon a biztonság érdekében"
+     />
 
-                    <Form
-                        {...PasswordController.update.form()}
-                        options={{
-                            preserveScroll: true,
-                        }}
-                        resetOnError={[
-                            'password',
-                            'password_confirmation',
-                            'current_password',
-                        ]}
-                        resetOnSuccess
-                        onError={(errors) => {
-                            if (errors.password) {
-                                passwordInput.current?.focus();
-                            }
+     <Form
+      {...PasswordController.update.form()}
+      options={{
+       preserveScroll: true,
+      }}
+      resetOnError={['password', 'password_confirmation', 'current_password']}
+      resetOnSuccess
+      onError={(errors) => {
+       if (errors.password) {
+        passwordInput.current?.focus();
+       }
 
-                            if (errors.current_password) {
-                                currentPasswordInput.current?.focus();
-                            }
-                        }}
-                        className="space-y-6"
-                    >
-                        {({ errors, processing, recentlySuccessful }) => (
-                            <>
-                                <div className="grid gap-2">
-                                    <Label htmlFor="current_password">
-                                        Current password
-                                    </Label>
+       if (errors.current_password) {
+        currentPasswordInput.current?.focus();
+       }
+      }}
+      className="space-y-6"
+     >
+      {({ errors, processing, recentlySuccessful }) => (
+       <>
+        <div className="grid gap-2">
+         <Label htmlFor="current_password">Jelenlegi jelszó</Label>
 
-                                    <Input
-                                        id="current_password"
-                                        ref={currentPasswordInput}
-                                        name="current_password"
-                                        type="password"
-                                        className="mt-1 block w-full"
-                                        autoComplete="current-password"
-                                        placeholder="Current password"
-                                    />
+         <Input
+          id="current_password"
+          ref={currentPasswordInput}
+          name="current_password"
+          type="password"
+          className="mt-1 block w-full"
+          autoComplete="current-password"
+          placeholder="Jelenlegi jelszó"
+         />
 
-                                    <InputError
-                                        message={errors.current_password}
-                                    />
-                                </div>
+         <InputError message={errors.current_password} />
+        </div>
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="password">
-                                        New password
-                                    </Label>
+        <div className="grid gap-2">
+         <Label htmlFor="password">Új jelszó</Label>
 
-                                    <Input
-                                        id="password"
-                                        ref={passwordInput}
-                                        name="password"
-                                        type="password"
-                                        className="mt-1 block w-full"
-                                        autoComplete="new-password"
-                                        placeholder="New password"
-                                    />
+         <Input
+          id="password"
+          ref={passwordInput}
+          name="password"
+          type="password"
+          className="mt-1 block w-full"
+          autoComplete="new-password"
+          placeholder="Új jelszó"
+         />
 
-                                    <InputError message={errors.password} />
-                                </div>
+         <InputError message={errors.password} />
+        </div>
 
-                                <div className="grid gap-2">
-                                    <Label htmlFor="password_confirmation">
-                                        Confirm password
-                                    </Label>
+        <div className="grid gap-2">
+         <Label htmlFor="password_confirmation">Jelszó megerősítése</Label>
 
-                                    <Input
-                                        id="password_confirmation"
-                                        name="password_confirmation"
-                                        type="password"
-                                        className="mt-1 block w-full"
-                                        autoComplete="new-password"
-                                        placeholder="Confirm password"
-                                    />
+         <Input
+          id="password_confirmation"
+          name="password_confirmation"
+          type="password"
+          className="mt-1 block w-full"
+          autoComplete="new-password"
+          placeholder="Jelszó megerősítése"
+         />
 
-                                    <InputError
-                                        message={errors.password_confirmation}
-                                    />
-                                </div>
+         <InputError message={errors.password_confirmation} />
+        </div>
 
-                                <div className="flex items-center gap-4">
-                                    <Button
-                                        disabled={processing}
-                                        data-test="update-password-button"
-                                    >
-                                        Save password
-                                    </Button>
+        <div className="flex items-center gap-4">
+         <Button disabled={processing} data-test="update-password-button">
+          Jelszó mentése
+         </Button>
 
-                                    <Transition
-                                        show={recentlySuccessful}
-                                        enter="transition ease-in-out"
-                                        enterFrom="opacity-0"
-                                        leave="transition ease-in-out"
-                                        leaveTo="opacity-0"
-                                    >
-                                        <p className="text-sm text-neutral-600">
-                                            Saved
-                                        </p>
-                                    </Transition>
-                                </div>
-                            </>
-                        )}
-                    </Form>
-                </div>
-            </SettingsLayout>
-        </AppLayout>
-    );
+         <Transition
+          show={recentlySuccessful}
+          enter="transition ease-in-out"
+          enterFrom="opacity-0"
+          leave="transition ease-in-out"
+          leaveTo="opacity-0"
+         >
+          <p className="text-sm text-neutral-600">Mentve</p>
+         </Transition>
+        </div>
+       </>
+      )}
+     </Form>
+    </div>
+   </SettingsLayout>
+  </AppLayout>
+ );
 }
