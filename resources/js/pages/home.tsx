@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 import mainImage from '../assets/sarosi_halo_nyito.jpg';
 
 interface City {
@@ -51,7 +52,10 @@ export default function Home({ cities }: Props) {
    </div>
    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
     {cities.data.map((city) => (
-     <Link key={city.id} href={`properties/city/${city.slug}`}>
+     <Link
+      key={city.id}
+      href={route('properties.by.city', { city: city.slug })}
+     >
       <Card className="mb-4 rounded-3xl pt-0">
        <img
         src={city.featured_image}

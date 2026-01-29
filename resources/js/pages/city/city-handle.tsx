@@ -12,6 +12,7 @@ import {
 import AppLayout from '@/layouts/app-layout';
 import { City } from '@/types';
 import { router } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -27,7 +28,7 @@ export default function cities({ cities }: Props) {
  const confirmDeleteCity = () => {
   if (!cityIdToDelete) return;
 
-  router.delete(`/cities/${cityIdToDelete}`, {
+  router.delete(route('cities.destroy', { city: cityIdToDelete }), {
    preserveScroll: true,
    onSuccess: () => {
     setCityIdToDelete(null);
@@ -53,7 +54,7 @@ export default function cities({ cities }: Props) {
      title="Városok kezelése"
      displayField="name"
      missingItemsText="Nincs  megjelenítendő város"
-     onEdit={(id) => router.visit(`/cities/${id}/edit`)}
+     onEdit={(id) => router.visit(route('cities.edit', { city: id }))}
      setItemsIdToDelete={setCityIdToDelete}
     />
    </AppLayout>

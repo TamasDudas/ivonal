@@ -160,3 +160,15 @@ export interface PaginatedData<T> {
  next_page_url: string | null;
  links: Array<{ url: string | null; label: string; active: boolean }>;
 }
+
+// Props for a reusable delete confirmation dialog component
+export interface DeleteConfirmationDialogProps {
+ open: boolean;
+ onOpenChange: (open: boolean) => void;
+ title: string;
+ description: string | React.ReactNode;
+ confirmText: string;
+ cancelText?: string;
+ onConfirm: () => void;
+ variant?: 'destructive' | 'default';
+}

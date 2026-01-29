@@ -4,6 +4,7 @@ import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Cog, Home, Image, PenLine, Upload } from 'lucide-react';
+import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
  {
@@ -20,30 +21,34 @@ export default function Dashboard() {
     <div className="grid auto-rows-min gap-4 md:grid-cols-2">
      <DashboardCard
       linkText="Városok Létrehozása"
-      linkHref="cities/create"
+      linkHref={route('cities.create')}
       icon={PenLine}
      />
      <DashboardCard
       linkText="Városok törlése és szerkesztése"
-      linkHref="cities"
+      linkHref={route('cities.list')}
       icon={Cog}
      />
      <DashboardCard
       linkText="Ingatlan Létrehozása"
-      linkHref="properties/create"
+      linkHref={route('properties.create')}
       icon={PenLine}
      />
      <DashboardCard
       linkText="Ingatlanok törlése és szerkesztése"
-      linkHref="properties"
+      linkHref={route('properties.index')}
       icon={Home}
      />
      <DashboardCard
       linkText="Kép feltöltése"
-      linkHref="media/create"
+      linkHref={route('media.create')}
       icon={Upload}
      />
-     <DashboardCard linkText="Kép Kezelése" linkHref="media" icon={Image} />
+     <DashboardCard
+      linkText="Kép Kezelése"
+      linkHref={route('media.index')}
+      icon={Image}
+     />
     </div>
    </div>
   </AppLayout>

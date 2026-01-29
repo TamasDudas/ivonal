@@ -32,7 +32,7 @@ class PropertyController extends Controller
             abort(404, 'Város nem található');
         }
 
-        $properties = $city->properties()->select('id', 'street', 'featured_img_id', 'short_description' )->with('featuredImage')->get();
+        $properties = $city->properties()->select('id', 'street', 'slug', 'featured_img_id', 'short_description' )->with('featuredImage')->get();
 
         return Inertia::render('property/properties-by-city', ['city' => $city, 'properties' => PropertyResource::collection($properties)]);
     }

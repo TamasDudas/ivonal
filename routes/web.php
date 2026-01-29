@@ -10,10 +10,10 @@ use App\Http\Controllers\IncomingEmailController;
 
 // Nyilvános route-ok (ingatlanok és városok megtekintése)
 Route::get('/', [CityController::class, 'index'])->name('home');
-Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+Route::get('/ingatlanok', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/media', [MediaController::class, 'index'])->name('media.index');
 // Nyilvános kapcsolatfelvételi form - bárki küldhet email-t
-Route::get('/contact', [IncomingEmailController::class, 'contactPage'])->name('contact.page');
+Route::get('/kapcsolat', [IncomingEmailController::class, 'contactPage'])->name('contact.page');
 // Nyilvános kapcsolatfelvételi form - bárki küldhet email-t
 Route::post('/contact', [IncomingEmailController::class, 'store'])->name('contact.store');
 
@@ -24,20 +24,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // Ingatlanok CRUD (védett műveletek)
-    Route::get('properties/create', [PropertyController::class, 'create'])->name('properties.create');
-    Route::post('properties', [PropertyController::class, 'store'])->name('properties.store');
-    Route::get('properties/{property}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
-    Route::patch('properties/{property}', [PropertyController::class, 'update'])->name('properties.update');
-    Route::delete('properties/{property}', [PropertyController::class, 'destroy'])->name('properties.destroy');
+    Route::get('ingatlanok/letrehozas', [PropertyController::class, 'create'])->name('properties.create');
+    Route::post('ingatlanok', [PropertyController::class, 'store'])->name('properties.store');
+    Route::get('ingatlanok/{property:id}/szerkesztes', [PropertyController::class, 'edit'])->name('properties.edit');
+    Route::patch('ingatlanok/{property:id}', [PropertyController::class, 'update'])->name('properties.update');
+    Route::delete('ingatlanok/{property:id}', [PropertyController::class, 'destroy'])->name('properties.destroy');
 
     // Városok CRUD (védett műveletek)
-    Route::get('cities/create', [CityController::class, 'create'])->name('cities.create');
+    Route::get('varosok/letrehozas', [CityController::class, 'create'])->name('cities.create');
     
-    Route::post('cities', [CityController::class, 'store'])->name('cities.store');
-    Route::get('cities/{city:id}/edit', [CityController::class, 'edit'])->name('cities.edit');
-    Route::patch('cities/{city:id}', [CityController::class, 'update'])->name('cities.update');
-    Route::delete('cities/{city:id}', [CityController::class, 'destroy'])->name('cities.destroy');
-    Route::get('cities', [CityController::class, 'cityHandle'])->name('cities.handle');
+    Route::post('varosok', [CityController::class, 'store'])->name('cities.store');
+    Route::get('varosok/{city:id}/szerkesztes', [CityController::class, 'edit'])->name('cities.edit');
+    Route::patch('varosok/{city:id}', [CityController::class, 'update'])->name('cities.update');
+    Route::delete('varosok/{city:id}', [CityController::class, 'destroy'])->name('cities.destroy');
 
     // Média CRUD (védett)
     Route::get('media/create', [MediaController::class, 'create'])->name('media.create');
@@ -56,16 +55,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('incoming-emails/{incomingEmail}', [IncomingEmailController::class, 'destroy'])->name('incoming-emails.destroy');
 });
 
-
+//Adatvédelmi tájékoztató oldal
 Route::get('/adatvedelmi-tajekoztato', function () {
     return Inertia::render('terms-conditions');
 })->name('terms-conditions');
 
 // Nyilvános ingatlan és város megtekintés - ezek UTOLJÁRA kellenek, hogy a /create ne ütközzön velük
-Route::get('/properties/city/{city:slug}', [PropertyController::class, 'listByCity'])->name('properties.by.city');
-Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
-Route::get('/cities/{city:slug}', [CityController::class, 'show'])->name('cities.show');
+Route::get('/ingatlanok/varos/{city:slug}', [PropertyController::class, 'listByCity'])->name('properties.by.city');
+Route::get('/ingatlanok/{property:slug}', [PropertyController::class, 'show'])->name('properties.show');
+Route::get('/varosok/{city:slug}', [CityController::class, 'show'])->name('cities.show');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/varosok', [CityController::class, 'cityHandle'])->name('cities.list');
+});
 
 
 

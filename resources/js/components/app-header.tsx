@@ -41,7 +41,7 @@ const mainNavItems: NavItem[] = [
  },
  {
   title: 'Kapcsolat',
-  href: '/contact',
+  href: '/kapcsolat',
  },
 ];
 

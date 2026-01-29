@@ -65,4 +65,9 @@ class Property extends Model
     {
         return $this->belongsToMany(Media::class, 'property_media')->withPivot('order')->orderByPivot('order');
     }
+    //Beépített laravel method, hogy a slug legyen használva az id helyett
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

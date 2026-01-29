@@ -1,6 +1,8 @@
 import AppLayout from '@/layouts/app-layout';
+
 import { City, Property } from '@/types';
 import { Link } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 
 interface Props {
  properties: {
@@ -34,7 +36,7 @@ export default function PropertiesByCity({ properties, city }: Props) {
       />
       <div className="flex items-center justify-center">
        <Link
-        href={`/properties/${property.id}`}
+        href={route('properties.show', { property: property.slug })}
         className="inline-block w-50 rounded-3xl bg-destructive px-3 py-2 text-center hover:bg-accent"
        >
         Megnézem
