@@ -84,7 +84,7 @@ export default function ContactForm() {
          type="submit"
          disabled={processing}
          className="w-80 gap-2"
-         variant="destructive"
+         variant="outline"
          size="lg"
         >
          {processing && <Spinner className="size-4" />}

@@ -131,9 +131,17 @@ export default function UploadImageForm() {
       </div>
      )}
     </div>
-    <Button type="submit" disabled={processing || images.length === 0}>
-     {processing ? 'Feltöltés...' : 'Feltöltés'}
-    </Button>
+    <div className="my-8 flex justify-center">
+     <Button
+      type="submit"
+      variant="outline"
+      className="w-80 gap-2"
+      size="lg"
+      disabled={processing || images.length === 0}
+     >
+      {processing ? 'Feltöltés...' : 'Feltöltés'}
+     </Button>
+    </div>
    </form>
   </div>
  );
