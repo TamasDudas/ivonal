@@ -1,8 +1,9 @@
-import { Card, CardContent } from '@/components/ui/card';
+import DashboardCard from '@/components/dashboard-card';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
+import { Cog, Home, Image, PenLine, Upload } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
  {
@@ -17,36 +18,32 @@ export default function Dashboard() {
    <Head title="Dashboard" />
    <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
     <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-     <Card className="flex h-50 items-center justify-center overflow-hidden">
-      <CardContent className="p-6">
-       <Link href="cities/create">Városok Létrehozása</Link>
-      </CardContent>
-     </Card>
-     <Card className="flex h-50 items-center justify-center overflow-hidden">
-      <CardContent className="p-6">
-       <Link href="cities">Városok kezelése</Link>
-      </CardContent>
-     </Card>
-     <Card className="flex h-50 items-center justify-center overflow-hidden">
-      <CardContent className="p-6">
-       <Link href="properties/create">Ingatlan Létrehozása</Link>
-      </CardContent>
-     </Card>
-     <Card className="flex h-50 items-center justify-center overflow-hidden">
-      <CardContent className="p-6">
-       <Link href="properties">Ingatlanok kezelése</Link>
-      </CardContent>
-     </Card>
-     <Card className="flex h-50 items-center justify-center overflow-hidden">
-      <CardContent className="p-6">
-       <Link href="media/create">Kép feltöltése</Link>
-      </CardContent>
-     </Card>
-     <Card className="flex h-50 items-center justify-center overflow-hidden">
-      <CardContent className="p-6">
-       <Link href="media">Kép Kezelése</Link>
-      </CardContent>
-     </Card>
+     <DashboardCard
+      linkText="Városok Létrehozása"
+      linkHref="cities/create"
+      icon={PenLine}
+     />
+     <DashboardCard
+      linkText="Városok törlése és szerkesztése"
+      linkHref="cities"
+      icon={Cog}
+     />
+     <DashboardCard
+      linkText="Ingatlan Létrehozása"
+      linkHref="properties/create"
+      icon={PenLine}
+     />
+     <DashboardCard
+      linkText="Ingatlanok törlése és szerkesztése"
+      linkHref="properties"
+      icon={Home}
+     />
+     <DashboardCard
+      linkText="Kép feltöltése"
+      linkHref="media/create"
+      icon={Upload}
+     />
+     <DashboardCard linkText="Kép Kezelése" linkHref="media" icon={Image} />
     </div>
    </div>
   </AppLayout>
