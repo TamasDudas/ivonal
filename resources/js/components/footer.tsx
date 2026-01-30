@@ -5,7 +5,7 @@ export default function Footer() {
   <div className="border-t border-t-chart-4">
    <div className="flex flex-col items-center justify-evenly gap-6 px-2 py-6 text-center md:flex-row md:px-12 md:text-left">
     <div className="flex flex-col gap-2 md:pt-4">
-     <Link href={route('cities.list')} className="text-lg">
+     <Link href={route('cities.public.list')} className="text-lg">
       Ingatlanjaink
      </Link>
      <Link href={route('contact.page')} className="text-lg">

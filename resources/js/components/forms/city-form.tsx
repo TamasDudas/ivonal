@@ -129,7 +129,7 @@ export default function CityForm({ city }: Props) {
          type="submit"
          disabled={processing}
          className="w-80"
-         variant="destructive"
+         variant="outline"
          size="lg"
         >
          {processing

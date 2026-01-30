@@ -65,9 +65,11 @@ Route::get('/ingatlanok/varos/{city:slug}', [PropertyController::class, 'listByC
 Route::get('/ingatlanok/{property:slug}', [PropertyController::class, 'show'])->name('properties.show');
 Route::get('/varosok/{city:slug}', [CityController::class, 'show'])->name('cities.show');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
+Route::get('varosok', [CityController::class, 'cities'])->name('cities.public.list');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/varosok', [CityController::class, 'cityHandle'])->name('cities.list');
+    Route::get('/varosok-kezelese', [CityController::class, 'cityHandle'])->name('cities.list');
 });
 
 

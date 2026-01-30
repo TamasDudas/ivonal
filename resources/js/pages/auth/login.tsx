@@ -84,6 +84,7 @@ export default function Login({
         tabIndex={4}
         disabled={processing}
         data-test="login-button"
+        variant="outline"
        >
         {processing && <Spinner />}
         Bejelentkezés

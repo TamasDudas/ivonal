@@ -1,6 +1,5 @@
 - Meta adatok és title minden oldalon
 - Tesztek a CRUD-ra
-- Alert doboz külön komponensbe
 - Térkép
 - Kell egy cities oldal
 - Cookie
