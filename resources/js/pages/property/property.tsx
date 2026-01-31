@@ -29,6 +29,8 @@ export default function PropertyPage({ property }: Props) {
      src={propertyData.featured_image}
      alt={propertyData.street}
      className="max-h-96 w-full rounded-2xl object-cover"
+     loading="eager"
+     decoding="async"
     />
     <div className="absolute inset-0 rounded-2xl bg-chart-4 opacity-10"></div>
    </div>

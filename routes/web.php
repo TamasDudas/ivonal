@@ -7,6 +7,10 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\IncomingEmailController;
+use App\Http\Controllers\SitemapController;
+
+// SEO - Sitemap
+Route::get('sitemap.xml', [SitemapController::class, 'index']);
 
 // Nyilvános route-ok (ingatlanok és városok megtekintése)
 Route::get('/', [CityController::class, 'index'])->name('home');

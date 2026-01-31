@@ -11,6 +11,7 @@ use App\Http\Resources\PropertyResource;
 use Mews\Purifier\Facades\Purifier;
 use App\Http\Requests\StorePropertyRequest;
 use App\Http\Requests\UpdatePropertyRequest;
+use App\Services\SeoService;
 
 class PropertyController extends Controller
 {
@@ -34,7 +35,37 @@ class PropertyController extends Controller
 
         $properties = $city->properties()->select('id', 'street', 'slug', 'featured_img_id', 'short_description' )->with('featuredImage')->get();
 
-        return Inertia::render('property/properties-by-city', ['city' => $city, 'properties' => PropertyResource::collection($properties)]);
+        $itemListElements = $properties->map(function($property, $index) {
+            return [
+                '@type' => 'ListItem',
+                'position' => $index + 1,
+                'item' => [
+                    '@type' => 'Accommodation',
+                    'name' => $property->street,
+                    'description' => strip_tags($property->short_description),
+                    'image' => $property->featured_image ?? asset('storage/default.jpg'),
+                    'url' => route('properties.show', ['property' => $property->slug]),
+                ],
+            ];
+        })->toArray();
+
+        return Inertia::render('property/properties-by-city', [
+            'city' => $city,
+            'properties' => PropertyResource::collection($properties),
+            'seo' => SeoService::generate([
+                'title' => $city->meta_title ?? "Ingatlanvonal - {$city->name} kiadó ingatlanok",
+                'description' => $city->meta_description ?? "Fedezze fel a {$city->name} kiadó ingatlanjait az Ingatlanvonal-on. Baráti társaság által kínált lakások személyes szolgáltatással.",
+                'keywords' => $city->meta_keywords ?? "kiadó ingatlanok {$city->name}, lakás {$city->name}, bérlés {$city->name}, ingatlanvonal",
+                'canonical' => route('properties.by.city', ['city' => $city->slug]),
+                'og_image' => $city->featured_image ?? asset('storage/nemes_halo_4.jpg'),
+                'schema' => SeoService::itemListSchema(
+                    "{$city->name} kiadó ingatlanok",
+                    "Fedezze fel a {$city->name} kiadó ingatlanjait az Ingatlanvonal-on.",
+                    route('properties.by.city', ['city' => $city->slug]),
+                    $itemListElements
+                ),
+            ]),
+        ]);
     }
 
     /**
@@ -98,8 +129,65 @@ class PropertyController extends Controller
     {
         $property->load(['city', 'featuredImage', 'media']);
 
+        // SEO meta adatok generálása
+        $priceText = '';
+        if ($property->rental_price > 0) {
+            $priceText = number_format($property->rental_price, 0, ',', ' ') . ' Ft/hó bérleti díj';
+        } elseif ($property->sale_price > 0) {
+            $priceText = number_format($property->sale_price, 0, ',', ' ') . ' Ft eladási ár';
+        }
+
+        $description = strip_tags($property->short_description ?? $property->description ?? '');
+        $description = mb_substr($description, 0, 155);
+
         return Inertia::render('property/property', [
-            'property' => new PropertyResource($property)
+            'property' => new PropertyResource($property),
+            'seo' => SeoService::generate([
+                'title' => $property->meta_title ?? "{$property->street} - {$property->city->name} | Ingatlanvonal",
+                'description' => $property->meta_description ?? ($description ?: "Ingatlan kiadó: {$property->street}, {$property->city->name}. {$priceText}, alapterület: {$property->size} m²"),
+                'keywords' => $property->meta_keywords ?? "kiadó ingatlan {$property->city->name}, {$property->street}, lakás bérlés {$property->city->name}, ingatlanvonal",
+                'canonical' => route('properties.show', ['property' => $property->slug]),
+                'og_image' => $property->featured_image ?? asset('storage/default.jpg'),
+                'schema' => [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'Accommodation',
+                    'name' => $property->street,
+                    'description' => strip_tags($property->short_description ?? $property->description ?? ''),
+                    'address' => [
+                        '@type' => 'PostalAddress',
+                        'addressLocality' => $property->city->name,
+                        'addressCountry' => 'HU',
+                    ],
+                    'image' => $property->featured_image ?? asset('storage/default.jpg'),
+                    'url' => route('properties.show', ['property' => $property->slug]),
+                    'floorSize' => [
+                        '@type' => 'QuantitativeValue',
+                        'value' => $property->size,
+                        'unitCode' => 'MTK',
+                    ],
+                    'numberOfRooms' => $property->rooms ?? null,
+                    'offers' => array_filter([
+                        $property->rental_price > 0 ? [
+                            '@type' => 'Offer',
+                            'price' => $property->rental_price,
+                            'priceCurrency' => 'HUF',
+                            'availability' => 'https://schema.org/InStock',
+                            'priceSpecification' => [
+                                '@type' => 'UnitPriceSpecification',
+                                'price' => $property->rental_price,
+                                'priceCurrency' => 'HUF',
+                                'unitText' => 'MONTH',
+                            ],
+                        ] : null,
+                        $property->sale_price > 0 ? [
+                            '@type' => 'Offer',
+                            'price' => $property->sale_price,
+                            'priceCurrency' => 'HUF',
+                            'availability' => 'https://schema.org/InStock',
+                        ] : null,
+                    ]),
+                ],
+            ]),
         ]);
     }
 

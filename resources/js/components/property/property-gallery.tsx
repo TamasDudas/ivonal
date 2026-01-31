@@ -35,6 +35,8 @@ export default function PropertyGallery({ images }: Props) {
        src={image}
        alt={`Kép ${i + 1}`}
        className="h-40 w-full object-cover transition-transform duration-300 hover:scale-105"
+       loading="lazy"
+       decoding="async"
       />
      </button>
     ))}

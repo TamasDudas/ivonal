@@ -10,6 +10,7 @@ use Mews\Purifier\Facades\Purifier;
 use App\Http\Resources\CityResource;
 use App\Http\Requests\StoreCityRequest;
 use App\Http\Requests\UpdateCityRequest;
+use App\Services\SeoService;
 
 class CityController extends Controller
 {
@@ -23,7 +24,14 @@ class CityController extends Controller
             ->get();
 
         return Inertia::render('home', [
-            'cities' => CityResource::collection($cities)
+            'cities' => CityResource::collection($cities),
+            'seo' => SeoService::generate([
+                'title' => 'Ingatlanvonal - Kiadó ingatlanok Budapesten és Szegeden',
+                'description' => 'Weboldalunkon baráti társaság által kínált kiadó és eladó lakóingatlanokat talál Budapesten és Szegeden. Személyes szolgáltatás, széles választék.',
+                'keywords' => 'kiadó ingatlanok, Budapest, Szeged, lakás, bérlés, eladó ingatlanok, ingatlanvonal',
+                'canonical' => url('/'),
+                'schema' => SeoService::organizationSchema(),
+            ]),
         ]);
     }
 

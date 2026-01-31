@@ -1,2 +1,12 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api
+Disallow: /varosok/letrehozas
+Disallow: /varosok-kezelese
+Disallow: /ingatlanok/letrehozas
+Disallow: /media/create
+Disallow: /incoming-emails
+
+Sitemap: https://ingatlanvonal.hu/sitemap.xml

@@ -7,7 +7,6 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { RichTextEditor } from '../ui/rich-text-editor';
-import { Textarea } from '../ui/textarea';
 
 interface Props {
  city?: City;
@@ -74,56 +73,6 @@ export default function CityForm({ city }: Props) {
         )}
        </div>
 
-       <div className="space-y-2">
-        <Label htmlFor="meta_title" className="text-sm font-medium">
-         SEO Meta cím
-        </Label>
-        <Input
-         type="text"
-         name="meta_title"
-         id="meta_title"
-         defaultValue={city?.meta_title || ''}
-        />
-        {errors.meta_title && (
-         <div className="text-sm text-red-600 dark:text-red-400">
-          {errors.meta_title}
-         </div>
-        )}
-       </div>
-
-       <div className="space-y-2">
-        <Label htmlFor="meta_description" className="text-sm font-medium">
-         SEO Meta leírás
-        </Label>
-        <Textarea
-         name="meta_description"
-         id="meta_description"
-         defaultValue={city?.meta_description || ''}
-         rows={3}
-        />
-        {errors.meta_description && (
-         <div className="text-sm text-red-600 dark:text-red-400">
-          {errors.meta_description}
-         </div>
-        )}
-       </div>
-
-       <div className="space-y-2">
-        <Label htmlFor="meta_keywords" className="text-sm font-medium">
-         SEO Meta kulcsszó
-        </Label>
-        <Input
-         type="text"
-         name="meta_keywords"
-         id="meta_keywords"
-         defaultValue={city?.meta_keywords || ''}
-        />
-        {errors.meta_keywords && (
-         <div className="text-sm text-red-600 dark:text-red-400">
-          {errors.meta_keywords}
-         </div>
-        )}
-       </div>
        <div className="flex justify-center py-4">
         <Button
          type="submit"
@@ -135,7 +84,7 @@ export default function CityForm({ city }: Props) {
          {processing
           ? isEditing
             ? 'Frissítés...'
-            : 'Létrehozás...'
+            : 'Létrehozása...'
           : isEditing
             ? 'Frissítés'
             : 'Létrehozás'}

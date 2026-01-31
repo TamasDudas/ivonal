@@ -35,4 +35,24 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Google Services
+    |--------------------------------------------------------------------------
+    |
+    | Google Analytics és Search Console konfigurációk
+    |
+    */
+
+    'google' => [
+        // Google Analytics Measurement ID (G-XXXXXXXXXX formátum)
+        'analytics_id' => env('GOOGLE_ANALYTICS_ID'),
+        
+        // Google Search Console verification kód
+        'search_console_verification' => env('GOOGLE_SEARCH_CONSOLE_VERIFICATION'),
+        
+        // Google Tag Manager ID (GTM-XXXXXXX formátum) - opcionális
+        'tag_manager_id' => env('GOOGLE_TAG_MANAGER_ID'),
+    ],
+
 ];

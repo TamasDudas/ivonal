@@ -1,4 +1,5 @@
 import { Property } from '@/types';
+import DOMPurify from 'dompurify';
 import { Card } from '../ui/card';
 
 interface Props {
@@ -90,8 +91,10 @@ export default function PropertyDetails({ property }: Props) {
     <Card className="px-6">
      <div
       className="prose max-w-none dark:prose-invert"
-      dangerouslySetInnerHTML={{ __html: property.description }}
-     />
+      dangerouslySetInnerHTML={{
+       __html: DOMPurify.sanitize(property.description),
+      }}
+     ></div>
     </Card>
    </div>
   </>

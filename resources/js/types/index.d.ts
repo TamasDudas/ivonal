@@ -71,7 +71,7 @@ export interface City {
  meta_description: string;
  meta_keywords: string;
  user?: User;
- featuredImage?: Media;
+ featured_image?: string;
  created_at: string;
  updated_at: string;
 }
