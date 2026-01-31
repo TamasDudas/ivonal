@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import {
  DropdownMenu,
  DropdownMenuContent,
+ DropdownMenuItem,
  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -26,7 +27,8 @@ import { cn, isSameUrl } from '@/lib/utils';
 import { dashboard, login, register } from '@/routes';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutGrid, Menu } from 'lucide-react';
+import { ChevronDown, LayoutGrid, Menu } from 'lucide-react';
+import { route } from 'ziggy-js';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -67,8 +69,14 @@ interface AppHeaderProps {
 
 export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
  const page = usePage<SharedData>();
- const { auth } = page.props;
+ const { auth, cities } = page.props;
  const getInitials = useInitials();
+
+ // Cities lehet Resource Collection (cities.data) vagy sima array
+ const cityList = Array.isArray(cities) ? cities : cities?.data || [];
+
+ console.log('Cities from props:', cities);
+ console.log('City list:', cityList);
 
  const displayNavItems = auth.user
   ? mainNavItems
@@ -106,6 +114,24 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
              <span>{item.title}</span>
             </Link>
            ))}
+
+           {/* Városok a mobil menüben */}
+           {cityList.length > 0 && (
+            <div className="border-t border-sidebar-border pt-4">
+             <p className="mb-2 text-xs font-semibold text-muted-foreground uppercase">
+              Városok
+             </p>
+             {cityList.map((city) => (
+              <Link
+               key={city.id}
+               href={route('properties.by.city', { city: city.slug })}
+               className="flex items-center space-x-2 py-2 font-medium"
+              >
+               <span>{city.name}</span>
+              </Link>
+             ))}
+            </div>
+           )}
           </div>
 
           {/* <div className="flex flex-col space-y-4">
@@ -157,6 +183,38 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
           )}
          </NavigationMenuItem>
         ))}
+
+        {/* Városok dropdown menü */}
+        {cityList.length > 0 && (
+         <NavigationMenuItem className="relative flex h-full items-center">
+          <DropdownMenu>
+           <DropdownMenuTrigger asChild>
+            <Button
+             variant="ghost"
+             className={cn(
+              navigationMenuTriggerStyle(),
+              'h-9 cursor-pointer px-3',
+             )}
+            >
+             Városok
+             <ChevronDown className="ml-1 h-4 w-4" />
+            </Button>
+           </DropdownMenuTrigger>
+           <DropdownMenuContent align="start">
+            {cityList.map((city) => (
+             <DropdownMenuItem key={city.id} asChild>
+              <Link
+               href={route('properties.by.city', { city: city.slug })}
+               className="w-full cursor-pointer"
+              >
+               {city.name}
+              </Link>
+             </DropdownMenuItem>
+            ))}
+           </DropdownMenuContent>
+          </DropdownMenu>
+         </NavigationMenuItem>
+        )}
        </NavigationMenuList>
       </NavigationMenu>
      </div>

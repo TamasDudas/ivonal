@@ -27,6 +27,9 @@ export interface SharedData {
  quote: { message: string; author: string };
  auth: Auth;
  sidebarOpen: boolean;
+ cities:
+  | Pick<City, 'id' | 'name' | 'slug'>[]
+  | { data: Pick<City, 'id' | 'name' | 'slug'>[] };
  [key: string]: unknown;
 }
 

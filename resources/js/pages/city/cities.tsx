@@ -13,7 +13,7 @@ export default function Cities({ cities }: Props) {
  return (
   <AppLayout>
    <div className="container mx-auto px-4 py-8">
-    <h1 className="mb-6 text-3xl font-bold">Cities</h1>
+    <h1 className="mb-6 text-3xl">Talád meg ingatlanod a kedvenc városodban</h1>
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
      {cities.data.map((city) => (
       <Card className="mb-4 rounded-3xl pt-0">
