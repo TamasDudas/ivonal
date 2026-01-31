@@ -84,7 +84,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
   : mainNavItems.filter((item) => !['Dashboard'].includes(item.title));
  return (
   <>
-   <div className="mt-4 border-b border-sidebar-border/80">
+   <div className="mt-2 mb-8 border-b border-sidebar-border/80">
     <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
      {/* Mobile Menu */}
      <div className="lg:hidden">
@@ -160,7 +160,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
      </Link>
 
      {/* Desktop Navigation */}
-     <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
+     <div className="mb-2 ml-6 hidden h-full items-center space-x-6 lg:flex">
       <NavigationMenu className="flex h-full items-stretch">
        <NavigationMenuList className="flex h-full items-stretch space-x-2">
         {displayNavItems.map((item, index) => (
