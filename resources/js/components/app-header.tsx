@@ -30,6 +30,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, LayoutGrid, Menu } from 'lucide-react';
 import { route } from 'ziggy-js';
 import AppLogo from './app-logo';
+import AppLogoIcon from './app-logo-icon';
 
 const mainNavItems: NavItem[] = [
  {
@@ -83,7 +84,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
   : mainNavItems.filter((item) => !['Dashboard'].includes(item.title));
  return (
   <>
-   <div className="border-b border-sidebar-border/80">
+   <div className="mt-4 border-b border-sidebar-border/80">
     <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
      {/* Mobile Menu */}
      <div className="lg:hidden">
@@ -99,7 +100,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
        >
         <SheetTitle className="sr-only">Navigációs menü</SheetTitle>
         <SheetHeader className="flex justify-start text-left">
-         {/* <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" /> */}
+         <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
         </SheetHeader>
         <div className="flex h-full flex-1 flex-col space-y-4 p-4">
          <div className="flex h-full flex-col justify-between text-sm">
@@ -154,7 +155,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
       </Sheet>
      </div>
 
-     <Link href="/" prefetch className="flex items-center space-x-2">
+     <Link href="/" prefetch className="mr-8 flex items-center space-x-2">
       <AppLogo />
      </Link>
 

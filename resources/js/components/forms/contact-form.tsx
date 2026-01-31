@@ -71,7 +71,12 @@ export default function ContactForm() {
 
        <div className="space-y-2">
         <Label htmlFor="message">Üzenet</Label>
-        <Textarea id="message" name="message" placeholder="Üzenet" />
+        <Textarea
+         id="message"
+         name="message"
+         placeholder="Üzenet"
+         className="min-h-52"
+        />
         {errors.message && (
          <div className="text-sm text-red-600 dark:text-red-400">
           {errors.message}
