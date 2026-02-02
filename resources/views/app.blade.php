@@ -38,7 +38,7 @@
         <meta name="google-site-verification" content="{{ config('services.google.search_console_verification') }}" />
     @endif
 
-    @if (config('services.google.analytics_id'))
+    @if (config('services.google.analytics_id') && \Spatie\CookieConsent\CookieConsent::hasConsentedTo('optional'))
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google.analytics_id') }}"></script>
         <script>
@@ -126,6 +126,8 @@
     @endif
 
     @inertia
+
+    @include('cookie-consent::index')
 </body>
 
 </html>

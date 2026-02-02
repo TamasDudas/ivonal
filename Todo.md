@@ -1,5 +1,4 @@
-- Meta adatok és title minden oldalon
 - Tesztek a CRUD-ra
 - Térkép
-- Kell egy cities oldal
 - Cookie
+- dark mód legyen mindenhol
