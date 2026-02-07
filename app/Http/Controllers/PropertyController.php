@@ -73,7 +73,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        $cities = City::select('id', 'name')->orderBy('name')->get();
+        $cities = City::select('id', 'name', 'slug')->orderBy('name')->get();
         
         return Inertia::render('property/property-create', [
             'cities' => $cities
@@ -196,7 +196,7 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        $cities = City::select('id', 'name')->orderBy('name')->get();
+        $cities = City::select('id', 'name', 'slug')->orderBy('name')->get();
         
         return Inertia::render('property/property-update', [
             'property' => $property,

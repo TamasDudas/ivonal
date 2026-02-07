@@ -76,9 +76,6 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
  // Cities lehet Resource Collection (cities.data) vagy sima array
  const cityList = Array.isArray(cities) ? cities : cities?.data || [];
 
- console.log('Cities from props:', cities);
- console.log('City list:', cityList);
-
  const displayNavItems = auth.user
   ? mainNavItems
   : mainNavItems.filter((item) => !['Dashboard'].includes(item.title));
@@ -122,15 +119,17 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
              <p className="mb-2 text-xs font-semibold text-muted-foreground uppercase">
               Városok
              </p>
-             {cityList.map((city) => (
-              <Link
-               key={city.id}
-               href={route('properties.by.city', { city: city.slug })}
-               className="flex items-center space-x-2 py-2 font-medium"
-              >
-               <span>{city.name}</span>
-              </Link>
-             ))}
+             {cityList
+              .filter((city) => city.slug)
+              .map((city) => (
+               <Link
+                key={city.id}
+                href={route('properties.by.city', { city: city.slug })}
+                className="flex items-center space-x-2 py-2 font-medium"
+               >
+                <span>{city.name}</span>
+               </Link>
+              ))}
             </div>
            )}
           </div>
@@ -202,16 +201,18 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
             </Button>
            </DropdownMenuTrigger>
            <DropdownMenuContent align="start">
-            {cityList.map((city) => (
-             <DropdownMenuItem key={city.id} asChild>
-              <Link
-               href={route('properties.by.city', { city: city.slug })}
-               className="w-full cursor-pointer"
-              >
-               {city.name}
-              </Link>
-             </DropdownMenuItem>
-            ))}
+            {cityList
+             .filter((city) => city.slug)
+             .map((city) => (
+              <DropdownMenuItem key={city.id} asChild>
+               <Link
+                href={route('properties.by.city', { city: city.slug })}
+                className="w-full cursor-pointer"
+               >
+                {city.name}
+               </Link>
+              </DropdownMenuItem>
+             ))}
            </DropdownMenuContent>
           </DropdownMenu>
          </NavigationMenuItem>

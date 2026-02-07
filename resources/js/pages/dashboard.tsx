@@ -1,6 +1,5 @@
 import DashboardCard from '@/components/dashboard-card';
 import AppLayout from '@/layouts/app-layout';
-import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Cog, Home, Image, PenLine, Upload } from 'lucide-react';
@@ -9,7 +8,7 @@ import { route } from 'ziggy-js';
 const breadcrumbs: BreadcrumbItem[] = [
  {
   title: 'Dashboard',
-  href: dashboard().url,
+  href: route('dashboard'),
  },
 ];
 
