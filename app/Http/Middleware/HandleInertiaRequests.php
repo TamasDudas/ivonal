@@ -47,6 +47,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            //Várodsok listája minden oldalra, hogy dropdown-okban használható legyen
             'cities' => City::select('id', 'name', 'slug')->orderBy('name')->get(),
         ];
     }

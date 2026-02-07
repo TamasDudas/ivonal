@@ -86,8 +86,8 @@ export interface Property {
  featured_img_id: number;
  street: string;
  slug: string;
- latitude: number;
- longitude: number;
+ latitude: number | null;
+ longitude: number | null;
  rental_price: number;
  size: number;
  sale_price: number;

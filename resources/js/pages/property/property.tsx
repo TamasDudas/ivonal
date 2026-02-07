@@ -1,3 +1,4 @@
+import Map from '@/components/map';
 import PropertyDetails from '@/components/property/property-details';
 import PropertyGallery from '@/components/property/property-gallery';
 import AppLayout from '@/layouts/app-layout';
@@ -63,9 +64,20 @@ export default function PropertyPage({ property }: Props) {
 
    {/* Property Details */}
    <PropertyDetails property={propertyData} />
-
    {/* Property Gallery */}
    <PropertyGallery images={propertyData.images ?? []} />
+
+   {/* Property Map */}
+   {propertyData.latitude && propertyData.longitude && (
+    <div className="mt-8">
+     <h3 className="mb-4 text-2xl font-semibold text-sidebar-accent">Hely</h3>
+     <Map
+      latitude={propertyData.latitude}
+      longitude={propertyData.longitude}
+      height="400px"
+     />
+    </div>
+   )}
   </AppLayout>
  );
 }
