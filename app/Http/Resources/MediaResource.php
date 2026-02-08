@@ -42,6 +42,7 @@ class MediaResource extends JsonResource
                 return [
                  'id' => $property->id,
                  'street' => $property->street,
+                 
                 ];
             });
         }),

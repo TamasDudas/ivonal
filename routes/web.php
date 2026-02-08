@@ -14,8 +14,8 @@ Route::get('sitemap.xml', [SitemapController::class, 'index']);
 
 // Nyilvános route-ok (ingatlanok és városok megtekintése)
 Route::get('/', [CityController::class, 'index'])->name('home');
-Route::get('/ingatlanok', [PropertyController::class, 'index'])->name('properties.index');
-Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+
+
 // Nyilvános kapcsolatfelvételi form - bárki küldhet email-t
 Route::get('/kapcsolat', [IncomingEmailController::class, 'contactPage'])->name('contact.page');
 // Nyilvános kapcsolatfelvételi form - bárki küldhet email-t
@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+    Route::get('/ingatlanok', [PropertyController::class, 'index'])->name('properties.index');
 
     // Ingatlanok CRUD (védett műveletek)
     Route::get('ingatlanok/letrehozas', [PropertyController::class, 'create'])->name('properties.create');
@@ -43,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('varosok/{city:id}', [CityController::class, 'destroy'])->name('cities.destroy');
 
     // Média CRUD (védett)
+    Route::get('/media', [MediaController::class, 'index'])->name('media.index');
     Route::get('media/create', [MediaController::class, 'create'])->name('media.create');
     Route::post('media', [MediaController::class, 'store'])->name('media.store');
     Route::patch('media/{media}/assign-city', [MediaController::class, 'assignCityFeatured'])->name('media.assign-city');

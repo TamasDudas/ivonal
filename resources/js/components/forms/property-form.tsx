@@ -443,7 +443,6 @@ export default function PropertyForm({ cities, property }: Props) {
             {errors.smoking}
            </div>
           )}
-          P
          </div>
 
          <div className="space-y-2">

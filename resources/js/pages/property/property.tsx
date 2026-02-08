@@ -70,7 +70,6 @@ export default function PropertyPage({ property }: Props) {
    {/* Property Map */}
    {propertyData.latitude && propertyData.longitude && (
     <div className="mt-8">
-     <h3 className="mb-4 text-2xl font-semibold text-sidebar-accent">Hely</h3>
      <Map
       latitude={propertyData.latitude}
       longitude={propertyData.longitude}

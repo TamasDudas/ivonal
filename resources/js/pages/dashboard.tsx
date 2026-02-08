@@ -17,7 +17,7 @@ export default function Dashboard() {
   <AppLayout breadcrumbs={breadcrumbs}>
    <Head title="Dashboard" />
    <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-    <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+    <div className="grid auto-rows-min gap-12 md:grid-cols-2">
      <DashboardCard
       linkText="Városok Létrehozása"
       linkHref={route('cities.create')}
