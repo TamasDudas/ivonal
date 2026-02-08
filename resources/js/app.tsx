@@ -1,8 +1,6 @@
 import '../css/app.css';
 import { Ziggy } from './ziggy';
 
-(window as any).Ziggy = Ziggy;
-
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { StrictMode } from 'react';
@@ -20,6 +18,10 @@ createInertiaApp({
    import.meta.glob('./pages/**/*.tsx'),
   ),
  setup({ el, App, props }) {
+  // Use dynamic Ziggy from server props, fallback to static for type inference
+  const pageProps = props.initialPage.props as any;
+  (window as any).Ziggy = pageProps.ziggy || Ziggy;
+
   const root = createRoot(el);
 
   root.render(

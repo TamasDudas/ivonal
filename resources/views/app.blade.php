@@ -111,6 +111,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
 
+    {{-- Override Ziggy URL from server config (temporary fix until rebuild) --}}
+    <script>
+        (function() {
+            var correctUrl = "{{ config('app.url') }}";
+            // Repeatedly check and patch Ziggy URL until it's set correctly
+            var patchZiggy = function() {
+                if (window.Ziggy && window.Ziggy.url !== correctUrl) {
+                    window.Ziggy.url = correctUrl;
+                    window.Ziggy.port = null;
+                }
+            };
+            // Run immediately and on various events
+            document.addEventListener('DOMContentLoaded', patchZiggy);
+            setInterval(patchZiggy, 50);
+            setTimeout(function() {
+                clearInterval(patchZiggy);
+            }, 3000);
+        })();
+    </script>
+
     @viteReactRefresh
     @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
     @inertiaHead
