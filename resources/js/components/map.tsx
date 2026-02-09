@@ -1,8 +1,8 @@
 import {
- GoogleMap as GoogleMapComponent,
- Marker,
- useLoadScript,
-} from '@react-google-maps/api';
+ AdvancedMarker,
+ APIProvider,
+ Map as GoogleMapComponent,
+} from '@vis.gl/react-google-maps';
 
 interface Props {
  latitude: number;
@@ -17,22 +17,6 @@ const containerStyle = {
  border: '1px solid #e5e7eb',
 };
 
-function LoadingComponent() {
- return (
-  <div className="flex h-96 items-center justify-center">
-   Térkép betöltése...
-  </div>
- );
-}
-
-function ErrorComponent() {
- return (
-  <div className="flex h-96 items-center justify-center text-red-500">
-   Hiba történt a térkép betöltésekor
-  </div>
- );
-}
-
 export default function Map({
  latitude,
  longitude,
@@ -40,11 +24,7 @@ export default function Map({
  height = '400px',
 }: Props) {
  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-
- const { isLoaded, loadError } = useLoadScript({
-  googleMapsApiKey: apiKey || '',
-  libraries: ['places'],
- });
+ const mapId = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
 
  if (!apiKey) {
   return (
@@ -54,14 +34,6 @@ export default function Map({
   );
  }
 
- if (loadError) {
-  return <ErrorComponent />;
- }
-
- if (!isLoaded) {
-  return <LoadingComponent />;
- }
-
  const center = {
   lat: latitude,
   lng: longitude,
@@ -69,19 +41,21 @@ export default function Map({
 
  return (
   <div style={{ height, ...containerStyle }}>
-   <GoogleMapComponent
-    mapContainerStyle={{ height: '100%', width: '100%' }}
-    center={center}
-    zoom={zoom}
-    options={{
-     mapTypeControl: false,
-     streetViewControl: false,
-     fullscreenControl: true,
-     zoomControl: true,
-    }}
-   >
-    <Marker position={center} title="Ingatlan helye" />
-   </GoogleMapComponent>
+   <APIProvider apiKey={apiKey}>
+    <GoogleMapComponent
+     style={{ height: '100%', width: '100%' }}
+     defaultCenter={center}
+     defaultZoom={zoom}
+     mapId={mapId}
+     disableDefaultUI={false}
+     mapTypeControl={false}
+     streetViewControl={false}
+     fullscreenControl={true}
+     zoomControl={true}
+    >
+     <AdvancedMarker position={center} title="Ingatlan helye" />
+    </GoogleMapComponent>
+   </APIProvider>
   </div>
  );
 }

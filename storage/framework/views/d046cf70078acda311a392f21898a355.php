@@ -1,33 +1,13 @@
 <!DOCTYPE html>
-<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>" class="<?php echo \Illuminate\Support\Arr::toCssClasses(['dark' => ($appearance ?? 'system') == 'dark']); ?>">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    
-    <script>
-        (function() {
-            const appearance = '<?php echo e($appearance ?? 'system'); ?>';
-
-            if (appearance === 'system') {
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-                if (prefersDark) {
-                    document.documentElement.classList.add('dark');
-                }
-            }
-        })();
-    </script>
-
-    
     <style>
         html {
-            background-color: oklch(1 0 0);
-        }
-
-        html.dark {
-            background-color: oklch(0.145 0 0);
+            background-color: oklch(0.2497 0.0305 234.1628);
         }
     </style>
 
