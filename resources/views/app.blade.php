@@ -31,7 +31,7 @@
         }
     </style>
 
-    <title inertia>{{ $page['props']['seo']['title'] ?? config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ $page['props']['seo']['title'] ?? config('app.name') }}</title>
 
     {{-- Google Services --}}
     @if (config('services.google.search_console_verification'))

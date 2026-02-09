@@ -31,7 +31,7 @@
         }
     </style>
 
-    <title inertia><?php echo e($page['props']['seo']['title'] ?? config('app.name', 'Laravel')); ?></title>
+    <title inertia><?php echo e($page['props']['seo']['title'] ?? config('app.name')); ?></title>
 
     
     <?php if(config('services.google.search_console_verification')): ?>

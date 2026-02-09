@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { City, Property } from '@/types';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
 export default function PropertiesByCity({ properties, city }: Props) {
  return (
   <AppLayout>
+   <Head title={city.name} />
    <h1 className="mb-6 text-4xl font-bold text-sidebar-accent">{city.name}</h1>
    {properties.data.map(
     (property) => (

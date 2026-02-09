@@ -3,6 +3,7 @@ import PropertyDetails from '@/components/property/property-details';
 import PropertyGallery from '@/components/property/property-gallery';
 import AppLayout from '@/layouts/app-layout';
 import { Property } from '@/types';
+import { Head } from '@inertiajs/react';
 
 interface Props {
  property: {
@@ -19,6 +20,7 @@ export default function PropertyPage({ property }: Props) {
 
  return (
   <AppLayout>
+   <Head title={propertyData.street} />
    <div className="py-6">
     <h2 className="text-4xl font-extrabold text-sidebar-accent">
      {propertyData.street}
