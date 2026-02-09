@@ -1,4 +1,0 @@
-- Tesztek a CRUD-ra
-- Térkép
-- Cookie
-- dark mód legyen mindenhol
