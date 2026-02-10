@@ -35,7 +35,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key_path: ~/.ssh/deploy_key
+          key: ~/.ssh/deploy_key
           script: |
             cd ivonal
             git pull origin main
@@ -49,7 +49,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key_path: ~/.ssh/deploy_key
+          key: ~/.ssh/deploy_key
           source: 'public/build/*'
           target: '/home/pxbalanc/public_html/'
           strip_components: 1
