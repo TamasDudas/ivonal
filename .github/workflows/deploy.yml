@@ -9,32 +9,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-
-      - name: Install NPM dependencies
-        run: npm ci
-
-      - name: Build assets
-        run: npm run build
-
-      - name: Upload build assets
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          source: 'public/build/'
-          target: '/home/pxbalanc/ivonal/public/'
-          overwrite: true
-          strip_components: 1
-
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@master
         with:
@@ -44,6 +18,8 @@ jobs:
           script: |
             cd /home/pxbalanc/ivonal
             git pull origin main
+            npm ci
+            npm run build
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
