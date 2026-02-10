@@ -3,8 +3,8 @@
 import { Button } from '@/components/ui/button';
 
 interface Item {
- [key: string]: any;
  id: number;
+ [key: string]: string | number | boolean | null | undefined;
 }
 
 interface Props {

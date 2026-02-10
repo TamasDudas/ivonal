@@ -9,8 +9,7 @@ import {
   ListOrdered,
   Undo,
   Redo,
-  Heading2,
-  Heading1
+  Heading2
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -18,7 +17,6 @@ interface RichTextEditorProps {
   name: string;
   id?: string;
   defaultValue?: string;
-  placeholder?: string;
   className?: string;
   minHeight?: string;
 }
@@ -27,7 +25,6 @@ export function RichTextEditor({
   name,
   id,
   defaultValue = '',
-  placeholder,
   className,
   minHeight = '150px',
 }: RichTextEditorProps) {

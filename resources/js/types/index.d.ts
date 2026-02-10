@@ -51,7 +51,7 @@ export interface Media {
  filename: string;
  path: string;
  original_filename: string;
- versions: Record<string, any>;
+ versions: Record<string, string | number | null>;
  size: number;
  mime_type: string;
  width: number;
@@ -172,7 +172,12 @@ export interface DeleteConfirmationDialogProps {
  cancelText?: string;
  onConfirm: () => void;
  variant?: 'destructive' | 'default';
- items: { data: Array<{ id: number; [key: string]: any }> };
+ items: {
+  data: Array<{
+   id: number;
+   [key: string]: string | number | boolean | null | undefined;
+  }>;
+ };
  itemIdToDelete: number | null;
  setItemIdToDelete: (id: number | null) => void;
  displayField?: string; // melyik mezőt jelenítsük meg (pl. 'name', 'street')

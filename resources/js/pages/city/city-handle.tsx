@@ -12,7 +12,7 @@ interface Props {
   data: City[];
  };
 }
-export default function cities({ cities }: Props) {
+export default function Cities({ cities }: Props) {
  const [cityIdToDelete, setCityIdToDelete] = useState<number | null>(null);
 
  const confirmDeleteCity = () => {

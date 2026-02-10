@@ -18,8 +18,8 @@ createInertiaApp({
   ),
  setup({ el, App, props }) {
   // Use dynamic Ziggy from server props, fallback to static for type inference
-  const pageProps = props.initialPage.props as any;
-  (window as any).Ziggy = pageProps.ziggy || Ziggy;
+  const pageProps = props.initialPage.props as Record<string, unknown>;
+  (window as Record<string, unknown>).Ziggy = pageProps.ziggy || Ziggy;
 
   const root = createRoot(el);
 
