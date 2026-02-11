@@ -9,35 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Kód lekérése
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Node.js beállítása
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
 
-      # 3. NPM függőségek telepítése
-      - name: Install NPM dependencies
-        run: npm ci
-
-      # 4. Build assets
-      - name: Build assets
-        run: npm run build
-
-      # 5. SSH a szerverre, pull és PHP telepítés
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          port: 22
           script: |
             set -e
+
             echo "== Go to project folder =="
             cd ~/ivonal
 
@@ -47,26 +36,19 @@ jobs:
             echo "== Install PHP dependencies =="
             php ~/composer.phar install --no-dev --optimize-autoloader
 
-            echo "== Laravel migrations and cache =="
-            php artisan migrate --force
+            echo "== Install Node dependencies =="
+            npm ci
+
+            echo "== Build assets =="
+            npm run build
+
+            echo "== Laravel cache clear =="
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
 
-            echo "== Server-side deployment complete =="
+            echo "== Sync build to live public_html/build =="
+            rsync -av --delete public/build/ ~/public_html/build/
 
-      # 6. Feltöltjük a build mappát
-      - name: Upload build assets
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          source: 'public/build/*'
-          target: '/home/pxbalanc/public_html/build/'
-          strip_components: 1
-          exclude: 'index.php,.htaccess'
-
-      - name: Deploy finished
-        run: echo "✅ Deployment finished successfully"
+            echo "== Deploy complete =="
