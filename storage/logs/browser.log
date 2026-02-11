@@ -24,3 +24,81 @@
 [2026-02-09 09:10:07] local.ERROR: Unhandled Promise Rejection TypeError Failed to fetch dynamically imported module: http://[::1]:5173/resources/js/pages/property/property.tsx?t=1770628177687 TypeError: Failed to fetch dynamically imported module: http://[::1]:5173/resources/js/pages/property/property.tsx?t=1770628177687 {"url":"http://localhost:8000/ingatlanok/tisza-utca-budapest","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-09T09:10:06.923Z"} 
 [2026-02-09 09:16:25] local.DEBUG: [vite] server connection lost. Polling for restart... {"url":"http://localhost:8000/ingatlanok/tisza-utca-budapest","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-09T09:16:25.029Z"} 
 [2026-02-10 18:14:52] local.INFO: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold {"url":"http://localhost:8000/","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-10T18:14:50.871Z"} 
+[2026-02-11 14:17:53] local.ERROR: Uncaught TypeError: store.form is not a function http://[::1]:5173/resources/js/pages/auth/login.tsx?t=1770818878601 42 16 TypeError store.form is not a function TypeError: store.form is not a function
+    at Login (http://[::1]:5173/resources/js/pages/auth/login.tsx?t=1770818878601:42:16)
+    at Object.react_stack_bottom_frame (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:18509:20)
+    at renderWithHooks (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:5654:24)
+    at updateFunctionComponent (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:7475:21)
+    at beginWork (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:8525:20)
+    at runWithFiberInDEV (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:997:72)
+    at performUnitOfWork (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:12561:98)
+    at workLoopSync (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:12424:43)
+    at renderRootSync (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:12408:13)
+    at performWorkOnRoot (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:11827:37) {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:17:52.773Z"} 
+[2026-02-11 14:17:53] local.ERROR: Uncaught TypeError: store.form is not a function http://[::1]:5173/resources/js/pages/auth/login.tsx?t=1770818878601 42 16 TypeError store.form is not a function TypeError: store.form is not a function
+    at Login (http://[::1]:5173/resources/js/pages/auth/login.tsx?t=1770818878601:42:16)
+    at Object.react_stack_bottom_frame (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:18509:20)
+    at renderWithHooks (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:5654:24)
+    at updateFunctionComponent (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:7475:21)
+    at beginWork (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:8525:20)
+    at runWithFiberInDEV (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:997:72)
+    at performUnitOfWork (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:12561:98)
+    at workLoopSync (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:12424:43)
+    at renderRootSync (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:12408:13)
+    at performWorkOnRoot (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:11827:37) {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:17:52.775Z"} 
+[2026-02-11 14:17:53] local.WARNING: %s
+
+%s An error occurred in the <Login> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:17:52.775Z"} 
+[2026-02-11 14:18:33] local.ERROR: Uncaught Error: The page object does not contain a scroll prop named "images". http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8 16175 11 Error The page object does not contain a scroll prop named "images". Error: The page object does not contain a scroll prop named "images".
+    at getScrollPropFromCurrentPage (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16175:11)
+    at resetState (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16186:24)
+    at useInfiniteScrollData (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16196:5)
+    at useInfiniteScroll (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16602:23)
+    at http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:18565:38
+    at Object.react_stack_bottom_frame (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:18567:20)
+    at runWithFiberInDEV (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:997:72)
+    at commitHookEffectListMount (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:9411:163)
+    at commitHookPassiveMountEffects (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:9465:60)
+    at commitPassiveMountOnFiber (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:11040:29) {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:18:33.227Z"} 
+[2026-02-11 14:18:33] local.ERROR: Uncaught Error: The page object does not contain a scroll prop named "images". http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8 16175 11 Error The page object does not contain a scroll prop named "images". Error: The page object does not contain a scroll prop named "images".
+    at getScrollPropFromCurrentPage (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16175:11)
+    at resetState (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16186:24)
+    at useInfiniteScrollData (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16196:5)
+    at useInfiniteScroll (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16602:23)
+    at http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:18565:38
+    at Object.react_stack_bottom_frame (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:18567:20)
+    at runWithFiberInDEV (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:997:72)
+    at commitHookEffectListMount (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:9411:163)
+    at commitHookPassiveMountEffects (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:9465:60)
+    at commitPassiveMountOnFiber (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:11040:29) {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:18:33.227Z"} 
+[2026-02-11 14:18:33] local.WARNING: %s
+
+%s An error occurred in the <InertiaInfiniteScroll> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:18:33.228Z"} 
+[2026-02-11 14:18:47] local.ERROR: Uncaught Error: The page object does not contain a scroll prop named "images". http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8 16175 11 Error The page object does not contain a scroll prop named "images". Error: The page object does not contain a scroll prop named "images".
+    at getScrollPropFromCurrentPage (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16175:11)
+    at resetState (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16186:24)
+    at useInfiniteScrollData (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16196:5)
+    at useInfiniteScroll (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16602:23)
+    at http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:18565:38
+    at Object.react_stack_bottom_frame (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:18567:20)
+    at runWithFiberInDEV (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:997:72)
+    at commitHookEffectListMount (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:9411:163)
+    at commitHookPassiveMountEffects (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:9465:60)
+    at commitPassiveMountOnFiber (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:11040:29) {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:18:46.778Z"} 
+[2026-02-11 14:18:47] local.ERROR: Uncaught Error: The page object does not contain a scroll prop named "images". http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8 16175 11 Error The page object does not contain a scroll prop named "images". Error: The page object does not contain a scroll prop named "images".
+    at getScrollPropFromCurrentPage (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16175:11)
+    at resetState (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16186:24)
+    at useInfiniteScrollData (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16196:5)
+    at useInfiniteScroll (http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:16602:23)
+    at http://[::1]:5173/node_modules/.vite/deps/@inertiajs_react.js?v=576dfba8:18565:38
+    at Object.react_stack_bottom_frame (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:18567:20)
+    at runWithFiberInDEV (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:997:72)
+    at commitHookEffectListMount (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:9411:163)
+    at commitHookPassiveMountEffects (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:9465:60)
+    at commitPassiveMountOnFiber (http://[::1]:5173/node_modules/.vite/deps/react-dom_client.js?v=576dfba8:11040:29) {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:18:46.778Z"} 
+[2026-02-11 14:18:47] local.WARNING: %s
+
+%s An error occurred in the <InertiaInfiniteScroll> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. {"url":"http://localhost:8000/login","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36","timestamp":"2026-02-11T14:18:46.779Z"} 
