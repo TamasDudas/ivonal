@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 import publicMethod from './public'
 /**
 * @see \App\Http\Controllers\CityController::create
@@ -43,6 +43,41 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\CityController::create
+ * @see app/Http/Controllers/CityController.php:53
+ * @route '/varosok/letrehozas'
+ */
+    const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: create.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\CityController::create
+ * @see app/Http/Controllers/CityController.php:53
+ * @route '/varosok/letrehozas'
+ */
+        createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: create.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\CityController::create
+ * @see app/Http/Controllers/CityController.php:53
+ * @route '/varosok/letrehozas'
+ */
+        createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: create.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    create.form = createForm
 /**
 * @see \App\Http\Controllers\CityController::store
  * @see app/Http/Controllers/CityController.php:61
@@ -77,6 +112,27 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     method: 'post',
 })
 
+    /**
+* @see \App\Http\Controllers\CityController::store
+ * @see app/Http/Controllers/CityController.php:61
+ * @route '/varosok'
+ */
+    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: store.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\CityController::store
+ * @see app/Http/Controllers/CityController.php:61
+ * @route '/varosok'
+ */
+        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: store.url(options),
+            method: 'post',
+        })
+    
+    store.form = storeForm
 /**
 * @see \App\Http\Controllers\CityController::edit
  * @see app/Http/Controllers/CityController.php:101
@@ -144,6 +200,41 @@ edit.head = (args: { city: number | { id: number } } | [city: number | { id: num
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\CityController::edit
+ * @see app/Http/Controllers/CityController.php:101
+ * @route '/varosok/{city}/szerkesztes'
+ */
+    const editForm = (args: { city: number | { id: number } } | [city: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: edit.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\CityController::edit
+ * @see app/Http/Controllers/CityController.php:101
+ * @route '/varosok/{city}/szerkesztes'
+ */
+        editForm.get = (args: { city: number | { id: number } } | [city: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\CityController::edit
+ * @see app/Http/Controllers/CityController.php:101
+ * @route '/varosok/{city}/szerkesztes'
+ */
+        editForm.head = (args: { city: number | { id: number } } | [city: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: edit.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    edit.form = editForm
 /**
 * @see \App\Http\Controllers\CityController::update
  * @see app/Http/Controllers/CityController.php:111
@@ -202,6 +293,37 @@ update.patch = (args: { city: number | { id: number } } | [city: number | { id: 
     method: 'patch',
 })
 
+    /**
+* @see \App\Http\Controllers\CityController::update
+ * @see app/Http/Controllers/CityController.php:111
+ * @route '/varosok/{city}'
+ */
+    const updateForm = (args: { city: number | { id: number } } | [city: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: update.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PATCH',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\CityController::update
+ * @see app/Http/Controllers/CityController.php:111
+ * @route '/varosok/{city}'
+ */
+        updateForm.patch = (args: { city: number | { id: number } } | [city: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: update.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PATCH',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    update.form = updateForm
 /**
 * @see \App\Http\Controllers\CityController::destroy
  * @see app/Http/Controllers/CityController.php:142
@@ -260,6 +382,37 @@ destroy.delete = (args: { city: number | { id: number } } | [city: number | { id
     method: 'delete',
 })
 
+    /**
+* @see \App\Http\Controllers\CityController::destroy
+ * @see app/Http/Controllers/CityController.php:142
+ * @route '/varosok/{city}'
+ */
+    const destroyForm = (args: { city: number | { id: number } } | [city: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: destroy.url(args, {
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'DELETE',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\CityController::destroy
+ * @see app/Http/Controllers/CityController.php:142
+ * @route '/varosok/{city}'
+ */
+        destroyForm.delete = (args: { city: number | { id: number } } | [city: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: destroy.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'DELETE',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    destroy.form = destroyForm
 /**
 * @see \App\Http\Controllers\CityController::show
  * @see app/Http/Controllers/CityController.php:89
@@ -327,6 +480,41 @@ show.head = (args: { city: string | { slug: string } } | [city: string | { slug:
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\CityController::show
+ * @see app/Http/Controllers/CityController.php:89
+ * @route '/varosok/{city}'
+ */
+    const showForm = (args: { city: string | { slug: string } } | [city: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: show.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\CityController::show
+ * @see app/Http/Controllers/CityController.php:89
+ * @route '/varosok/{city}'
+ */
+        showForm.get = (args: { city: string | { slug: string } } | [city: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\CityController::show
+ * @see app/Http/Controllers/CityController.php:89
+ * @route '/varosok/{city}'
+ */
+        showForm.head = (args: { city: string | { slug: string } } | [city: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    show.form = showForm
 /**
 * @see \App\Http\Controllers\CityController::list
  * @see app/Http/Controllers/CityController.php:44
@@ -369,6 +557,42 @@ list.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: list.url(options),
     method: 'head',
 })
+
+    /**
+* @see \App\Http\Controllers\CityController::list
+ * @see app/Http/Controllers/CityController.php:44
+ * @route '/varosok-kezelese'
+ */
+    const listForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: list.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\CityController::list
+ * @see app/Http/Controllers/CityController.php:44
+ * @route '/varosok-kezelese'
+ */
+        listForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: list.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\CityController::list
+ * @see app/Http/Controllers/CityController.php:44
+ * @route '/varosok-kezelese'
+ */
+        listForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: list.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    list.form = listForm
 const cities = {
     create: Object.assign(create, create),
 store: Object.assign(store, store),

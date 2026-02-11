@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\CityController::list
  * @see app/Http/Controllers/CityController.php:38
@@ -41,6 +41,42 @@ list.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: list.url(options),
     method: 'head',
 })
+
+    /**
+* @see \App\Http\Controllers\CityController::list
+ * @see app/Http/Controllers/CityController.php:38
+ * @route '/varosok'
+ */
+    const listForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: list.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\CityController::list
+ * @see app/Http/Controllers/CityController.php:38
+ * @route '/varosok'
+ */
+        listForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: list.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\CityController::list
+ * @see app/Http/Controllers/CityController.php:38
+ * @route '/varosok'
+ */
+        listForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: list.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    list.form = listForm
 const publicMethod = {
     list: Object.assign(list, list),
 }

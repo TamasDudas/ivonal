@@ -27,6 +27,7 @@ export default function PropertiesByCity({ properties, city }: Props) {
       loading="lazy"
       decoding="async"
      />
+
      <div className="flex flex-col justify-center gap-6">
       <h2 className="mb-2 text-center text-3xl font-semibold text-sidebar-accent">
        {property.street}

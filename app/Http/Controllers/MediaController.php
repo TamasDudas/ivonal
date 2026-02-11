@@ -192,7 +192,7 @@ class MediaController extends Controller
 
         foreach ($request->media_ids as $mediaId) {
             $media = Media::find($mediaId);
-            if ($media && $media->user_id === auth()->id() && !$property->media()->where('media_id', $mediaId)->exists()) {
+            if ($media && (int) $media->user_id === (int) auth()->id() && !$property->media()->where('media_id', $mediaId)->exists()) {
                 $property->media()->attach($mediaId, ['order' => $property->media()->count() + 1]);
             }
         }

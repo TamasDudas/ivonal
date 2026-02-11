@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\IncomingEmailController::page
  * @see app/Http/Controllers/IncomingEmailController.php:34
@@ -42,6 +42,41 @@ page.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
+    /**
+* @see \App\Http\Controllers\IncomingEmailController::page
+ * @see app/Http/Controllers/IncomingEmailController.php:34
+ * @route '/kapcsolat'
+ */
+    const pageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: page.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\IncomingEmailController::page
+ * @see app/Http/Controllers/IncomingEmailController.php:34
+ * @route '/kapcsolat'
+ */
+        pageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: page.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\IncomingEmailController::page
+ * @see app/Http/Controllers/IncomingEmailController.php:34
+ * @route '/kapcsolat'
+ */
+        pageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: page.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    page.form = pageForm
 /**
 * @see \App\Http\Controllers\IncomingEmailController::store
  * @see app/Http/Controllers/IncomingEmailController.php:46
@@ -75,6 +110,28 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(options),
     method: 'post',
 })
+
+    /**
+* @see \App\Http\Controllers\IncomingEmailController::store
+ * @see app/Http/Controllers/IncomingEmailController.php:46
+ * @route '/contact'
+ */
+    const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: store.url(options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\IncomingEmailController::store
+ * @see app/Http/Controllers/IncomingEmailController.php:46
+ * @route '/contact'
+ */
+        storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: store.url(options),
+            method: 'post',
+        })
+    
+    store.form = storeForm
 const contact = {
     page: Object.assign(page, page),
 store: Object.assign(store, store),
