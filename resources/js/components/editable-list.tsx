@@ -2,25 +2,20 @@
 // Use it to list properties and cities to edit in their components
 import { Button } from '@/components/ui/button';
 
-interface Item {
- id: number;
- [key: string]: string | number | boolean | null | undefined;
-}
-
-interface Props {
+interface Props<T extends { id: number }> {
  items: {
-  data: Item[];
+  data: T[];
  };
  editText: string;
  deleteText: string;
  missingItemsText: string;
  title: string;
- displayField?: string;
+ displayField?: keyof T;
  onEdit: (id: number) => void;
  setItemsIdToDelete: (id: number) => void;
 }
 
-export default function EditableList({
+export default function EditableList<T extends { id: number }>({
  items,
  editText,
  title,
@@ -28,8 +23,8 @@ export default function EditableList({
  onEdit,
  setItemsIdToDelete,
  missingItemsText,
- displayField = 'name',
-}: Props) {
+ displayField = 'name' as keyof T,
+}: Props<T>) {
  return (
   <div className="py-12">
    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -42,7 +37,9 @@ export default function EditableList({
          key={item.id}
          className="flex items-center justify-between rounded-lg border bg-card p-4"
         >
-         <div className="text-lg font-medium">{item[displayField]}</div>
+         <div className="text-lg font-medium">
+          {String(item[displayField] ?? '')}
+         </div>
          <div className="space-x-4">
           <Button onClick={() => onEdit(item.id)} variant={'outline'}>
            {editText}

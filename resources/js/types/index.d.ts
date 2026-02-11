@@ -165,7 +165,9 @@ export interface PaginatedData<T> {
 }
 
 // Props for a reusable delete confirmation dialog component
-export interface DeleteConfirmationDialogProps {
+export interface DeleteConfirmationDialogProps<
+ T extends { id: number } = { id: number; [key: string]: unknown },
+> {
  title: string;
  description: string | React.ReactNode;
  confirmText: string;
@@ -173,12 +175,9 @@ export interface DeleteConfirmationDialogProps {
  onConfirm: () => void;
  variant?: 'destructive' | 'default';
  items: {
-  data: Array<{
-   id: number;
-   [key: string]: string | number | boolean | null | undefined;
-  }>;
+  data: T[];
  };
  itemIdToDelete: number | null;
  setItemIdToDelete: (id: number | null) => void;
- displayField?: string; // melyik mezőt jelenítsük meg (pl. 'name', 'street')
+ displayField?: keyof T;
 }

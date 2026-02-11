@@ -18,18 +18,24 @@ export default function Cities({ cities }: Props) {
  const confirmDeleteCity = () => {
   if (!cityIdToDelete) return;
 
-  router.delete(route('cities.destroy', { city: cityIdToDelete }), {
-   preserveScroll: true,
-   onSuccess: () => {
-    setCityIdToDelete(null);
-    toast.success('Város sikeresen törölve!');
+  router.post(
+   route('cities.destroy', { city: cityIdToDelete }),
+   {
+    _method: 'DELETE',
    },
-   onError: () => {
-    toast.error('Város törlése sikertelen', {
-     description: 'Ellenőrizd a kapcsolatot, és próbáld újra.',
-    });
+   {
+    preserveScroll: true,
+    onSuccess: () => {
+     setCityIdToDelete(null);
+     toast.success('Város sikeresen törölve!');
+    },
+    onError: () => {
+     toast.error('Város törlése sikertelen', {
+      description: 'Ellenőrizd a kapcsolatot, és próbáld újra.',
+     });
+    },
    },
-  });
+  );
  };
 
  return (

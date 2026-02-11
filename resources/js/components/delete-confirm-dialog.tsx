@@ -10,7 +10,7 @@ import {
  AlertDialogTitle,
 } from './ui/alert-dialog';
 
-export default function DeleteConfirmDialog({
+export default function DeleteConfirmDialog<T extends { id: number }>({
  title,
  description,
  confirmText,
@@ -20,8 +20,8 @@ export default function DeleteConfirmDialog({
  items,
  itemIdToDelete,
  setItemIdToDelete,
- displayField = 'name',
-}: DeleteConfirmationDialogProps) {
+ displayField = 'name' as keyof T,
+}: DeleteConfirmationDialogProps<T>) {
  const itemToDelete = items.data.find((item) => item.id === itemIdToDelete);
 
  return (
@@ -35,7 +35,7 @@ export default function DeleteConfirmDialog({
      <AlertDialogDescription>
       {itemToDelete && (
        <>
-        Törlöd ezt: <strong>{itemToDelete[displayField]}</strong>
+        Törlöd ezt: <strong>{String(itemToDelete[displayField] ?? '')}</strong>
         <br />
         <br />
        </>

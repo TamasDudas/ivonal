@@ -21,18 +21,24 @@ export default function Properties({ properties }: Props) {
  const confirmDeleteProperty = () => {
   if (!propertyIdToDelete) return;
 
-  router.delete(route('properties.destroy', { property: propertyIdToDelete }), {
-   preserveScroll: true,
-   onSuccess: () => {
-    setPropertyIdToDelete(null);
-    toast.success('Ingatlan sikeresen törölve!');
+  router.post(
+   route('properties.destroy', { property: propertyIdToDelete }),
+   {
+    _method: 'DELETE',
    },
-   onError: () => {
-    toast.error('Ingatlan törlése sikertelen', {
-     description: 'Ellenőrizd a kapcsolatot, és próbáld újra.',
-    });
+   {
+    preserveScroll: true,
+    onSuccess: () => {
+     setPropertyIdToDelete(null);
+     toast.success('Ingatlan sikeresen törölve!');
+    },
+    onError: () => {
+     toast.error('Ingatlan törlése sikertelen', {
+      description: 'Ellenőrizd a kapcsolatot, és próbáld újra.',
+     });
+    },
    },
-  });
+  );
  };
 
  return (

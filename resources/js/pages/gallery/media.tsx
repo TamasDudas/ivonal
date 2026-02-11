@@ -71,10 +71,10 @@ export default function MediaGallery({ images, cities, properties }: Props) {
 
    const data =
     selectedType === 'city'
-     ? { city_id: selectedEntity }
-     : { property_id: selectedEntity };
+     ? { city_id: selectedEntity, _method: 'PATCH' }
+     : { property_id: selectedEntity, _method: 'PATCH' };
 
-   router.patch(url, data, {
+   router.post(url, data, {
     preserveState: true,
     onSuccess: () => sendImages(index + 1),
    });
@@ -86,18 +86,24 @@ export default function MediaGallery({ images, cities, properties }: Props) {
  const confirmImageToDelete = () => {
   if (!imageIdToDelete) return;
 
-  router.delete(`/media/${imageIdToDelete}`, {
-   preserveScroll: true,
-   onSuccess: () => {
-    setImageIdToDelete(null);
-    toast.success('Kép sikeresen törölve!');
+  router.post(
+   `/media/${imageIdToDelete}`,
+   {
+    _method: 'DELETE',
    },
-   onError: () => {
-    toast.error('Kép törlése sikertelen', {
-     description: 'Ellenőrizd a kapcsolatot, és próbáld újra.',
-    });
+   {
+    preserveScroll: true,
+    onSuccess: () => {
+     setImageIdToDelete(null);
+     toast.success('Kép sikeresen törölve!');
+    },
+    onError: () => {
+     toast.error('Kép törlése sikertelen', {
+      description: 'Ellenőrizd a kapcsolatot, és próbáld újra.',
+     });
+    },
    },
-  });
+  );
  };
 
  return (
