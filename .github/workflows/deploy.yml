@@ -31,12 +31,18 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd ivonal
+            cd ~/ivonal
             git pull origin main
             php ~/composer.phar install --no-dev --optimize-autoloader
+
             # Régi build törlése
             rm -rf ~/public_html/build/*
-            # Cache törlés ELŐBB
+
+            # Symlink létrehozása ha még nincs (Laravel manifest olvasáshoz)
+            rm -rf ~/ivonal/public/build
+            ln -sf ~/public_html/build ~/ivonal/public/build
+
+            # Cache törlés
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
