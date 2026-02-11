@@ -1,4 +1,4 @@
-import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
+import { queryParams, type RouteQueryOptions, type RouteDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\IncomingEmailController::index
  * @see app/Http/Controllers/IncomingEmailController.php:22
@@ -42,41 +42,6 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     method: 'head',
 })
 
-    /**
-* @see \App\Http\Controllers\IncomingEmailController::index
- * @see app/Http/Controllers/IncomingEmailController.php:22
- * @route '/incoming-emails'
- */
-    const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: index.url(options),
-        method: 'get',
-    })
-
-            /**
-* @see \App\Http\Controllers\IncomingEmailController::index
- * @see app/Http/Controllers/IncomingEmailController.php:22
- * @route '/incoming-emails'
- */
-        indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: index.url(options),
-            method: 'get',
-        })
-            /**
-* @see \App\Http\Controllers\IncomingEmailController::index
- * @see app/Http/Controllers/IncomingEmailController.php:22
- * @route '/incoming-emails'
- */
-        indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: index.url({
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    index.form = indexForm
 /**
 * @see \App\Http\Controllers\IncomingEmailController::show
  * @see app/Http/Controllers/IncomingEmailController.php:77
@@ -144,41 +109,6 @@ show.head = (args: { incomingEmail: number | { id: number } } | [incomingEmail: 
     method: 'head',
 })
 
-    /**
-* @see \App\Http\Controllers\IncomingEmailController::show
- * @see app/Http/Controllers/IncomingEmailController.php:77
- * @route '/incoming-emails/{incomingEmail}'
- */
-    const showForm = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-        action: show.url(args, options),
-        method: 'get',
-    })
-
-            /**
-* @see \App\Http\Controllers\IncomingEmailController::show
- * @see app/Http/Controllers/IncomingEmailController.php:77
- * @route '/incoming-emails/{incomingEmail}'
- */
-        showForm.get = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: show.url(args, options),
-            method: 'get',
-        })
-            /**
-* @see \App\Http\Controllers\IncomingEmailController::show
- * @see app/Http/Controllers/IncomingEmailController.php:77
- * @route '/incoming-emails/{incomingEmail}'
- */
-        showForm.head = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
-            action: show.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'HEAD',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'get',
-        })
-    
-    show.form = showForm
 /**
 * @see \App\Http\Controllers\IncomingEmailController::markRead
  * @see app/Http/Controllers/IncomingEmailController.php:95
@@ -237,37 +167,6 @@ markRead.patch = (args: { incomingEmail: number | { id: number } } | [incomingEm
     method: 'patch',
 })
 
-    /**
-* @see \App\Http\Controllers\IncomingEmailController::markRead
- * @see app/Http/Controllers/IncomingEmailController.php:95
- * @route '/incoming-emails/{incomingEmail}/mark-read'
- */
-    const markReadForm = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: markRead.url(args, {
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'PATCH',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
-
-            /**
-* @see \App\Http\Controllers\IncomingEmailController::markRead
- * @see app/Http/Controllers/IncomingEmailController.php:95
- * @route '/incoming-emails/{incomingEmail}/mark-read'
- */
-        markReadForm.patch = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: markRead.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PATCH',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    markRead.form = markReadForm
 /**
 * @see \App\Http\Controllers\IncomingEmailController::markReplied
  * @see app/Http/Controllers/IncomingEmailController.php:112
@@ -326,37 +225,6 @@ markReplied.patch = (args: { incomingEmail: number | { id: number } } | [incomin
     method: 'patch',
 })
 
-    /**
-* @see \App\Http\Controllers\IncomingEmailController::markReplied
- * @see app/Http/Controllers/IncomingEmailController.php:112
- * @route '/incoming-emails/{incomingEmail}/mark-replied'
- */
-    const markRepliedForm = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: markReplied.url(args, {
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'PATCH',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
-
-            /**
-* @see \App\Http\Controllers\IncomingEmailController::markReplied
- * @see app/Http/Controllers/IncomingEmailController.php:112
- * @route '/incoming-emails/{incomingEmail}/mark-replied'
- */
-        markRepliedForm.patch = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: markReplied.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PATCH',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    markReplied.form = markRepliedForm
 /**
 * @see \App\Http\Controllers\IncomingEmailController::destroy
  * @see app/Http/Controllers/IncomingEmailController.php:128
@@ -414,38 +282,6 @@ destroy.delete = (args: { incomingEmail: number | { id: number } } | [incomingEm
     url: destroy.url(args, options),
     method: 'delete',
 })
-
-    /**
-* @see \App\Http\Controllers\IncomingEmailController::destroy
- * @see app/Http/Controllers/IncomingEmailController.php:128
- * @route '/incoming-emails/{incomingEmail}'
- */
-    const destroyForm = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-        action: destroy.url(args, {
-                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'DELETE',
-                        ...(options?.query ?? options?.mergeQuery ?? {}),
-                    }
-                }),
-        method: 'post',
-    })
-
-            /**
-* @see \App\Http\Controllers\IncomingEmailController::destroy
- * @see app/Http/Controllers/IncomingEmailController.php:128
- * @route '/incoming-emails/{incomingEmail}'
- */
-        destroyForm.delete = (args: { incomingEmail: number | { id: number } } | [incomingEmail: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
-            action: destroy.url(args, {
-                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'DELETE',
-                            ...(options?.query ?? options?.mergeQuery ?? {}),
-                        }
-                    }),
-            method: 'post',
-        })
-    
-    destroy.form = destroyForm
 const incomingEmails = {
     index: Object.assign(index, index),
 show: Object.assign(show, show),

@@ -210,7 +210,7 @@ class PropertyController extends Controller
     public function update(UpdatePropertyRequest $request, Property $property)
     {
         // Ellenőrizzük, hogy az ingatlan a felhasználóhoz tartozik
-        if ($property->user_id !== auth()->id()) {
+        if ((int) $property->user_id !== (int) auth()->id()) {
             abort(403, 'Unauthorized');
         }
 
@@ -254,7 +254,7 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         // Ellenőrizzük, hogy az ingatlan a felhasználóhoz tartozik
-        if ($property->user_id !== auth()->id()) {
+        if ((int) $property->user_id !== (int) auth()->id()) {
             abort(403, 'Unauthorized');
         }
 

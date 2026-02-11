@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn, isSameUrl, resolveUrl } from '@/lib/utils';
 import { edit } from '@/routes/profile';
-import { show } from '@/routes/two-factor';
 import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
@@ -22,7 +21,7 @@ const sidebarNavItems: NavItem[] = [
  },
  {
   title: 'Kétfaktoros hitelesítés',
-  href: show(),
+  href: { url: '/settings/two-factor', method: 'get' as const },
   icon: null,
  },
 ];

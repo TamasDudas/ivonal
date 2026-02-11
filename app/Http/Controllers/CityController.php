@@ -111,7 +111,7 @@ class CityController extends Controller
     public function update(UpdateCityRequest $request, City $city)
     {
         // Ellenőrizzük, hogy a város a felhasználóhoz tartozik
-        if ($city->user_id !== auth()->id()) {
+        if ((int) $city->user_id !== (int) auth()->id()) {
             abort(403, 'Unauthorized');
         }
 
@@ -142,7 +142,7 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         // Ellenőrizzük, hogy a város a felhasználóhoz tartozik
-        if ($city->user_id !== auth()->id()) {
+        if ((int) $city->user_id !== (int) auth()->id()) {
             abort(403, 'Unauthorized');
         }
 

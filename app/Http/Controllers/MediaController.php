@@ -97,7 +97,7 @@ class MediaController extends Controller
     public function show(Media $media)
     {
         // Ellenőrizzük, hogy a kép a felhasználóhoz tartozik
-        if ($media->user_id !== auth()->id()) {
+        if ((int) $media->user_id !== (int) auth()->id()) {
             abort(403, 'Unauthorized');
         }
 
@@ -121,7 +121,7 @@ class MediaController extends Controller
         ]);
 
         // Ellenőrizzük, hogy a kép és a város a felhasználóhoz tartozik
-        if ($media->user_id !== auth()->id()) {
+        if ((int) $media->user_id !== (int) auth()->id()) {
             abort(403, 'Unauthorized');
         }
 
@@ -151,7 +151,7 @@ class MediaController extends Controller
         ]);
 
         // Ellenőrizzük, hogy a kép és az ingatlan a felhasználóhoz tartozik
-        if ($media->user_id !== auth()->id()) {
+        if ((int) $media->user_id !== (int) auth()->id()) {
             abort(403, 'Unauthorized');
         }
 
@@ -205,7 +205,7 @@ class MediaController extends Controller
     public function destroy(Media $media)
     {
         // Ellenőrizzük, hogy a kép a felhasználóhoz tartozik
-        if ($media->user_id !== auth()->id()) {
+        if ((int) $media->user_id !== (int) auth()->id()) {
             abort(403, 'Unauthorized');
         }
 
