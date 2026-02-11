@@ -36,6 +36,8 @@ jobs:
             php ~/composer.phar install --no-dev --optimize-autoloader
             # Régi build törlése
             rm -rf ~/public_html/build/*
+            # Cache törlés ELŐBB
+            php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
