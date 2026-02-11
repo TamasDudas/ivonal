@@ -9,21 +9,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Kód lekérése
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Node.js beállítása
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
 
+      # 3. NPM függőségek telepítése
       - name: Install NPM dependencies
         run: npm ci
 
+      # 4. Build assets
       - name: Build assets
         run: npm run build
 
+      # 5. SSH a szerverre, pull és PHP telepítés
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@master
         with:
@@ -42,12 +47,6 @@ jobs:
             echo "== Install PHP dependencies =="
             php ~/composer.phar install --no-dev --optimize-autoloader
 
-            echo "== Install Node dependencies =="
-            npm ci
-
-            echo "== Build assets =="
-            npm run build
-
             echo "== Laravel migrations and cache =="
             php artisan migrate --force
             php artisan optimize:clear
@@ -55,7 +54,19 @@ jobs:
             php artisan route:cache
             php artisan view:cache
 
-            echo "== Sync public/build to public_html/build (without overwriting index.php or .htaccess) =="
-            rsync -av --delete --exclude=index.php --exclude=.htaccess public/build/ ~/public_html/build/
+            echo "== Server-side deployment complete =="
 
-            echo "== Deploy complete =="
+      # 6. Feltöltjük a build mappát
+      - name: Upload build assets
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: 'public/build/*'
+          target: '/home/pxbalanc/public_html/build/'
+          strip_components: 1
+          exclude: 'index.php,.htaccess'
+
+      - name: Deploy finished
+        run: echo "✅ Deployment finished successfully"
