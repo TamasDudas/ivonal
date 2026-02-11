@@ -9,16 +9,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout a repo
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Node környezet beállítása GitHub-on
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
 
-      - name: Deploy to server via SSH
+      # 3️⃣ NPM build a runneren
+      - name: Build assets
+        run: |
+          npm ci
+          npm run build
+
+      # 4️⃣ Deploy PHP kód SSH-val a szerverre
+      - name: Deploy PHP code via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -27,7 +36,6 @@ jobs:
           port: 22
           script: |
             set -e
-
             echo "== Go to project folder =="
             cd ~/ivonal
 
@@ -37,12 +45,6 @@ jobs:
             echo "== Install PHP dependencies =="
             php ~/composer.phar install --no-dev --optimize-autoloader
 
-            echo "== Install Node dependencies =="
-            npm ci
-
-            echo "== Build assets =="
-            npm run build
-
             echo "== Laravel migrations and cache =="
             php artisan migrate --force
             php artisan optimize:clear
@@ -50,7 +52,13 @@ jobs:
             php artisan route:cache
             php artisan view:cache
 
-            echo "== Sync public folder to live =="
-            rsync -av --delete public/ ~/public_html/
-
-            echo "== Deploy complete =="
+      # 5️⃣ Upload teljes public mappa a szerverre
+      - name: Upload full public folder
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          source: 'public/*'
+          target: '/home/pxbalanc/public_html/'
+          strip_components: 1
