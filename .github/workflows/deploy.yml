@@ -42,19 +42,20 @@ jobs:
             echo "== Install PHP dependencies =="
             php ~/composer.phar install --no-dev --optimize-autoloader
 
+            echo "== Install Node dependencies =="
+            npm ci
+
+            echo "== Build assets =="
+            npm run build
+
             echo "== Laravel migrations and cache =="
             php artisan migrate --force
-            php artisan view:clear
-            php artisan cache:clear
-            php artisan config:clear
-            php artisan route:clear
+            php artisan optimize:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
 
-      - name: Upload full build folder
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          source: 'public/build/'
-          target: '/home/pxbalanc/public_html/build/'
-          strip_components: 0
+            echo "== Sync public/build to public_html/build (without overwriting index.php or .htaccess) =="
+            rsync -av --delete --exclude=index.php --exclude=.htaccess public/build/ ~/public_html/build/
+
+            echo "== Deploy complete =="
