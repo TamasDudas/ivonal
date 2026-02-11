@@ -214,3 +214,33 @@
 #5 C:/Users/Tamas/Desktop/ivonal/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
 #6 {main}
 "} 
+[2026-02-11 11:48:51] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php:694)
+[stacktrace]
+#0 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(743): Symfony/Component/Console/Application->findNamespace('ide-helper')
+#1 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(298): Symfony/Component/Console/Application->find('ide-helper:gene...')
+#2 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#3 C:/Users/Tamas/Desktop/ivonal/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#4 C:/Users/Tamas/Desktop/ivonal/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#5 C:/Users/Tamas/Desktop/ivonal/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#6 {main}
+"} 
+[2026-02-11 11:49:12] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php:694)
+[stacktrace]
+#0 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(743): Symfony/Component/Console/Application->findNamespace('ide-helper')
+#1 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(298): Symfony/Component/Console/Application->find('ide-helper:gene...')
+#2 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#3 C:/Users/Tamas/Desktop/ivonal/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#4 C:/Users/Tamas/Desktop/ivonal/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#5 C:/Users/Tamas/Desktop/ivonal/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#6 {main}
+"} 
+[2026-02-11 11:49:37] local.ERROR: There are no commands defined in the "ide-helper" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"ide-helper\" namespace. at C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php:694)
+[stacktrace]
+#0 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(743): Symfony/Component/Console/Application->findNamespace('ide-helper')
+#1 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(298): Symfony/Component/Console/Application->find('ide-helper:gene...')
+#2 C:/Users/Tamas/Desktop/ivonal/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#3 C:/Users/Tamas/Desktop/ivonal/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#4 C:/Users/Tamas/Desktop/ivonal/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#5 C:/Users/Tamas/Desktop/ivonal/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#6 {main}
+"} 

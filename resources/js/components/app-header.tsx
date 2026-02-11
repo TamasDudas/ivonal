@@ -61,8 +61,7 @@ const mainNavItems: NavItem[] = [
 //   },
 // ];
 
-const activeItemStyles =
- 'text-neutral-900 dark:bg-secondary dark:text-neutral-100';
+const activeItemStyles = 'bg-secondary text-neutral-100';
 
 interface AppHeaderProps {
  breadcrumbs?: BreadcrumbItem[];
@@ -97,7 +96,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
        >
         <SheetTitle className="sr-only">Navigációs menü</SheetTitle>
         <SheetHeader className="flex justify-start text-left">
-         <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
+         <AppLogoIcon className="h-6 w-6 fill-current text-white" />
         </SheetHeader>
         <div className="flex h-full flex-1 flex-col space-y-4 p-4">
          <div className="flex h-full flex-col justify-between text-sm">
@@ -179,7 +178,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
            {item.title}
           </Link>
           {isSameUrl(page.url, item.href) && (
-           <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
+           <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-white"></div>
           )}
          </NavigationMenuItem>
         ))}
@@ -242,13 +241,13 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
        <div className="flex items-center space-x-2">
         <Link
          href={login()}
-         className="inline-block rounded-lg border px-5 py-1.5 text-sm leading-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-destructive"
+         className="inline-block rounded-lg border border-neutral-600 px-5 py-1.5 text-sm leading-normal text-neutral-300 hover:bg-destructive"
         >
          Login
         </Link>
         <Link
          href={register()}
-         className="inline-block rounded-lg border px-5 py-1.5 text-sm leading-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-destructive"
+         className="inline-block rounded-lg border border-neutral-600 px-5 py-1.5 text-sm leading-normal text-neutral-300 hover:bg-destructive"
         >
          Register
         </Link>

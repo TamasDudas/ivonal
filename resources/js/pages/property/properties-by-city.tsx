@@ -38,7 +38,7 @@ export default function PropertiesByCity({ properties, city }: Props) {
       <div className="flex items-center justify-center">
        <Link
         href={route('properties.show', { property: property.slug })}
-        className="inline-block w-50 rounded-3xl border px-3 py-2 text-center shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+        className="inline-block w-50 rounded-3xl border border-input bg-input/30 px-3 py-2 text-center shadow-xs hover:bg-input/50"
        >
         Megnézem
        </Link>
