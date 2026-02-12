@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15 # Globális timeout
 
     steps:
       - name: Checkout code
@@ -30,23 +31,25 @@ jobs:
 
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@master
+        timeout-minutes: 10
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
+            set -e  # Leállítás hiba esetén
             cd ~/ivonal
             git pull origin main
-            php ~/composer.phar install --no-dev --optimize-autoloader
+            php ~/composer.phar install --no-dev --optimize-autoloader --no-interaction
 
             # Régi build törlése
             rm -rf ~/public_html/build/*
 
-            # Symlink létrehozása ha még nincs (Laravel manifest olvasáshoz)
+            # Symlink létrehozása ha még nincs
             rm -rf ~/ivonal/public/build
             ln -sf ~/public_html/build ~/ivonal/public/build
 
-            # Cache törlés (új cache-t az upload UTÁN hozunk létre)
+            # Cache törlés
             php artisan optimize:clear
 
       - name: Upload build assets
@@ -58,15 +61,31 @@ jobs:
           source: 'public/build/*'
           target: '/home/pxbalanc/public_html/'
           strip_components: 1
+          rm: false
 
-      - name: Rebuild cache after upload
+      - name: Rebuild cache and save deploy info
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
+            set -e
             cd ~/ivonal
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
+
+            # Deploy info mentése
+            echo "Deployed: $(date)" > DEPLOY_INFO
+            echo "Commit: ${{ github.sha }}" >> DEPLOY_INFO
+
+      - name: Log failure
+        if: failure()
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            echo "[ERROR] Deploy failed at $(date) - Commit: ${{ github.sha }}" >> ~/deploy_errors.log

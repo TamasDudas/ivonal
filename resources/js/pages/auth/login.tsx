@@ -26,7 +26,7 @@ export default function Login({
    title="Bejelentkezés a fiókodba"
    description="Add meg az email címed és jelszavad a folytatáshoz."
   >
-   <Head title="Log inn" />
+   <Head title="Log in" />
 
    <Form
     action="/login"
