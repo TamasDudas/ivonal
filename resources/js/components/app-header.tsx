@@ -154,7 +154,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
      </div>
 
      <Link href="/" prefetch className="mr-8 flex items-center space-x-2">
-      <AppLogo />
+      <AppLogo className="w-28" />
      </Link>
 
      {/* Desktop Navigation */}
