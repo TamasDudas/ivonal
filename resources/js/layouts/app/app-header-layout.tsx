@@ -12,7 +12,7 @@ export default function AppHeaderLayout({
  return (
   <AppShell>
    <AppHeader breadcrumbs={breadcrumbs} />
-   <AppContent className="px-6  py-6">{children}</AppContent>
+   <AppContent className="px-4 md:px-8  py-6">{children}</AppContent>
    <Footer />
   </AppShell>
  );
