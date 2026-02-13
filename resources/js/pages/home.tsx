@@ -63,7 +63,7 @@ export default function Home({ cities }: Props) {
         loading="lazy"
         decoding="async"
        />
-       <h3 className="mt-2 text-center text-4xl font-light text-sidebar-accent">
+       <h3 className="text-center text-4xl font-light text-sidebar-accent">
         {city.name}
        </h3>
       </Card>
