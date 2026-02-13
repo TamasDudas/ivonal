@@ -131,29 +131,37 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
               ))}
             </div>
            )}
+
+           {/* Auth linkek mobil menüben */}
+           {!auth.user && (
+            <div className="border-t border-sidebar-border pt-4">
+             <Link href={login()} className="block py-2 font-medium">
+              Login
+             </Link>
+             <Link href={register()} className="block py-2 font-medium">
+              Register
+             </Link>
+            </div>
+           )}
           </div>
 
-          {/* <div className="flex flex-col space-y-4">
-                      {rightNavItems.map((item) => (
-                        <a
-                          key={item.title}
-                          href={resolveUrl(item.href)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center space-x-2 font-medium"
-                        >
-                          {item.icon && <Icon iconNode={item.icon} className="h-5 w-5" />}
-                          <span>{item.title}</span>
-                        </a>
-                      ))}
-                    </div> */}
+          {/* User menu mobilban, ha be van jelentkezve */}
+          {auth.user && (
+           <div className="border-t border-sidebar-border pt-4">
+            <UserMenuContent user={auth.user} />
+           </div>
+          )}
          </div>
         </div>
        </SheetContent>
       </Sheet>
      </div>
 
-     <Link href="/" prefetch className="mr-8 flex items-center space-x-2">
+     <Link
+      href="/"
+      prefetch
+      className="mr-8 hidden items-center space-x-2 lg:flex"
+     >
       <AppLogo className="w-20 md:w-24 lg:w-28" />
      </Link>
 
@@ -220,7 +228,15 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
       </NavigationMenu>
      </div>
 
-     <div className="ml-auto flex items-center space-x-2">
+     {/* Logo mobilban jobbra */}
+     <div className="ml-auto flex items-center lg:hidden">
+      <Link href="/" prefetch className="flex items-center space-x-2">
+       <AppLogo className="w-20 md:w-24" />
+      </Link>
+     </div>
+
+     {/* Auth csak desktopban */}
+     <div className="ml-auto hidden items-center space-x-2 lg:flex">
       {auth.user ? (
        <DropdownMenu>
         <DropdownMenuTrigger asChild>
