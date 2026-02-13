@@ -81,7 +81,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
  return (
   <>
    <div className="mt-2 mb-8 border-b border-sidebar-border/80">
-    <div className="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
+    <div className="mx-auto flex h-16 items-center px-4">
      {/* Mobile Menu */}
      <div className="lg:hidden">
       <Sheet>
@@ -96,7 +96,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
        >
         <SheetTitle className="sr-only">Navigációs menü</SheetTitle>
         <SheetHeader className="flex justify-start text-left">
-         <AppLogoIcon className="h-6 w-6 fill-current text-white" />
+         <AppLogoIcon />
         </SheetHeader>
         <div className="flex h-full flex-1 flex-col space-y-4 p-4">
          <div className="flex h-full flex-col justify-between text-sm">
