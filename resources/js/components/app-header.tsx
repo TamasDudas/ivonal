@@ -86,8 +86,17 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
      <div className="lg:hidden">
       <Sheet>
        <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="mr-2 h-[34px] w-[34px]">
-         <Menu className="h-5 w-5" />
+        <Button
+         variant="ghost"
+         className="mr-2 p-0"
+         style={{
+          width: '20px',
+          height: '20px',
+          minWidth: '20px',
+          minHeight: '20px',
+         }}
+        >
+         <Menu className="h-7 w-7" style={{ width: '35px', height: '35px' }} />
         </Button>
        </SheetTrigger>
        <SheetContent
