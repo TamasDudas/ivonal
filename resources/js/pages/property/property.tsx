@@ -31,7 +31,7 @@ export default function PropertyPage({ property }: Props) {
     <img
      src={propertyData.featured_image}
      alt={propertyData.street}
-     className="max-h-96 w-full rounded-2xl object-cover"
+     className="aspect-[3/2] max-h-100 w-full rounded-2xl object-cover"
      loading="eager"
      decoding="async"
     />
