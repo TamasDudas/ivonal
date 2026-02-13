@@ -18,12 +18,12 @@ export default function PropertiesByCity({ properties, city }: Props) {
    {properties.data.map((property) => (
     <div
      key={property.id}
-     className="border- mb-6 grid grid-cols-1 gap-8 border-b border-sidebar-accent pb-6 md:grid-cols-2"
+     className="mb-6 grid grid-cols-1 gap-12 border-b border-sidebar-accent pb-6 md:grid-cols-2"
     >
      <img
       src={property.featured_image}
       alt={`${property.street} - Ingatlanvonal`}
-      className="h-85 w-full rounded-3xl object-cover"
+      className="aspect-[3/2] max-h-90 w-full rounded-3xl object-cover"
       loading="lazy"
       decoding="async"
      />

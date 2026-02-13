@@ -49,7 +49,7 @@ export default function Home({ cities }: Props) {
      </p>
     </Card>
    </div>
-   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+   <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
     {cities.data.map((city) => (
      <Link
       key={city.id}
@@ -59,7 +59,7 @@ export default function Home({ cities }: Props) {
        <img
         src={city.featured_image}
         alt={`Ingatlanvonal - ${city.name} kiadó ingatlanok`}
-        className="h-60 w-full rounded-t-3xl object-cover"
+        className="aspect-[3/2] max-h-60 w-full rounded-t-3xl object-cover"
         loading="lazy"
         decoding="async"
        />
