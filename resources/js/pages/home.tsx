@@ -23,7 +23,7 @@ export default function Home({ cities }: Props) {
     <img
      src={mainImage}
      alt="Ingatlanvonal - Kiadó ingatlanok Budapesten és Szegeden - fő kép"
-     className="max-h-96 w-full rounded-2xl object-cover"
+     className="aspect-[3/1] min-h-60 w-full rounded-3xl object-cover md:min-h-90"
      loading="eager"
      decoding="async"
     />
@@ -59,7 +59,7 @@ export default function Home({ cities }: Props) {
        <img
         src={city.featured_image}
         alt={`Ingatlanvonal - ${city.name} kiadó ingatlanok`}
-        className="aspect-[3/1] min-h-60 w-full rounded-t-3xl object-cover"
+        className="aspect-[3/1] min-h-50 w-full rounded-t-3xl object-cover lg:min-h-60"
         loading="lazy"
         decoding="async"
        />
