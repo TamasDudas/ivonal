@@ -30,8 +30,8 @@ export default function Home({ cities }: Props) {
     <div className="absolute inset-0 rounded-lg bg-chart-4 opacity-10"></div>
    </div>
 
-   <div className="my-7 flex py-6 md:flex-row md:px-6">
-    <Card className="flex flex-col items-center justify-center px-3 md:flex-[2]">
+   <div className="my-7 flex py-6 md:flex-row">
+    <Card className="flex flex-col items-center justify-center px-2 md:flex-[2] md:px-6">
      <h1 className="text-4xl text-sidebar-accent">
       Ingatlanvonal - Kiadó ingatlanok Budapesten és Szegeden.
      </h1>

@@ -88,7 +88,7 @@ export default function PropertyDetails({ property }: Props) {
     </div>
    </div>
    <div className="mt-8 grid grid-cols-1 gap-x-36 gap-y-4 md:px-24">
-    <Card className="px-6">
+    <Card className="px-2 md:px-6">
      <div
       className="prose max-w-none dark:prose-invert"
       dangerouslySetInnerHTML={{
