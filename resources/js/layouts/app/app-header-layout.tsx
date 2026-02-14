@@ -12,7 +12,7 @@ export default function AppHeaderLayout({
  return (
   <AppShell>
    <AppHeader breadcrumbs={breadcrumbs} />
-   <AppContent className="mx-auto max-w-7xl px-4">{children}</AppContent>
+   <AppContent className="mx-auto my-10 max-w-7xl px-4">{children}</AppContent>
    <Footer />
   </AppShell>
  );

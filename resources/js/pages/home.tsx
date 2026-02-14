@@ -59,7 +59,7 @@ export default function Home({ cities }: Props) {
        <img
         src={city.featured_image}
         alt={`Ingatlanvonal - ${city.name} kiadó ingatlanok`}
-        className="aspect-[3/1] min-h-50 w-full rounded-t-3xl object-cover lg:min-h-60"
+        className="max-h-50 w-full rounded-t-3xl object-cover md:max-h-60"
         loading="lazy"
         decoding="async"
        />

@@ -23,7 +23,7 @@ export default function PropertiesByCity({ properties, city }: Props) {
      <img
       src={property.featured_image}
       alt={`${property.street} - Ingatlanvonal`}
-      className="aspect-[3/1] min-h-60 w-full rounded-3xl object-cover md:min-h-90"
+      className="max-h-60 w-full rounded-3xl object-cover md:max-h-80"
       loading="lazy"
       decoding="async"
      />
