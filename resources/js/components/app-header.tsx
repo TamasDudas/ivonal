@@ -80,8 +80,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
   : mainNavItems.filter((item) => !['Dashboard'].includes(item.title));
  return (
   <>
-   <div className="mt-2 mb-8 border-b border-sidebar-border/80">
-    <div className="mx-auto flex h-16 items-center px-8">
+   <div className="border-b border-sidebar-border/80 px-4">
+    <div className="mx-auto mt-2 flex h-16 max-w-7xl items-center px-8">
      {/* Mobile Menu */}
      <div className="lg:hidden">
       <Sheet>
