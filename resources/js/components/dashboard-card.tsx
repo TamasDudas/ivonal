@@ -14,7 +14,7 @@ export default function DashboardCard({
 }: DashboardCardProps) {
  return (
   <Link href={linkHref}>
-   <Card className="flex h-50 items-center justify-center overflow-hidden">
+   <Card className="flex h-40 items-center justify-center overflow-hidden">
     <CardContent className="flex flex-col items-center justify-center p-6 text-xl font-bold">
      <Icon className="mb-2 h-10 w-10" />
      <span>{linkText}</span>

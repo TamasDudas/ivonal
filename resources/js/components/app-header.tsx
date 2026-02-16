@@ -81,7 +81,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
  return (
   <>
    <div className="border-b border-sidebar-border/80 px-4">
-    <div className="mx-auto mt-2 flex h-16 max-w-7xl items-center px-8">
+    <div className="mx-auto mt-2 flex h-16 max-w-screen-2xl items-center px-8">
      {/* Mobile Menu */}
      <div className="lg:hidden">
       <Sheet>
@@ -157,7 +157,22 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
           {/* User menu mobilban, ha be van jelentkezve */}
           {auth.user && (
            <div className="border-t border-sidebar-border pt-4">
-            <UserMenuContent user={auth.user} />
+            <div className="flex flex-col space-y-2">
+             <Link
+              href="/settings/profile"
+              className="flex items-center space-x-2 py-2 font-medium"
+             >
+              <span>Beállítások</span>
+             </Link>
+             <Link
+              href="/logout"
+              method="post"
+              as="button"
+              className="flex items-center space-x-2 py-2 text-left font-medium"
+             >
+              <span>Kijelentkezés</span>
+             </Link>
+            </div>
            </div>
           )}
          </div>
@@ -283,7 +298,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
    </div>
    {breadcrumbs.length > 1 && (
     <div className="flex w-full border-b border-sidebar-border/70">
-     <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
+     <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-screen-2xl">
       <Breadcrumbs breadcrumbs={breadcrumbs} />
      </div>
     </div>

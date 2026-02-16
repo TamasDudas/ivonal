@@ -40,7 +40,7 @@ export default function Cities({ cities }: Props) {
 
  return (
   <>
-   <AppLayout>
+   <AppLayout className="my-10 w-full px-4 md:w-2/3">
     {/* Megjeleníti a listát a szerkesztéshez
     Show the list to edit */}
     <EditableList

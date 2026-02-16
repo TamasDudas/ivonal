@@ -9,7 +9,7 @@ import { Textarea } from '../ui/textarea';
 
 export default function ContactForm() {
  return (
-  <div className="mx-auto flex w-full max-w-3xl items-center justify-center">
+  <div className="mx-auto flex w-full items-center justify-center md:w-2/3">
    <Form
     action={store.url()}
     method="post"

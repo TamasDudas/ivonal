@@ -5,19 +5,18 @@ import { Head } from '@inertiajs/react';
 import { Cog, Home, Image, PenLine, Upload } from 'lucide-react';
 import { route } from 'ziggy-js';
 
-const breadcrumbs: BreadcrumbItem[] = [
- {
-  title: 'Dashboard',
-  href: route('dashboard'),
- },
-];
-
 export default function Dashboard() {
+ const breadcrumbs: BreadcrumbItem[] = [
+  {
+   title: 'Dashboard',
+   href: route('dashboard'),
+  },
+ ];
  return (
-  <AppLayout breadcrumbs={breadcrumbs}>
+  <AppLayout>
    <Head title="Dashboard" />
-   <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-    <div className="grid auto-rows-min gap-12 md:grid-cols-2">
+   <div className="mx-auto flex flex-col rounded-xl">
+    <div className="grid gap-12 md:grid-cols-2">
      <DashboardCard
       linkText="Városok Létrehozása"
       linkHref={route('cities.create')}

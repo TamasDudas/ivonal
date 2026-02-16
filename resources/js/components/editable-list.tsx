@@ -27,7 +27,7 @@ export default function EditableList<T extends { id: number }>({
 }: Props<T>) {
  return (
   <div className="py-12">
-   <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+   <div className="sm:px-6 lg:px-8">
     <div className="overflow-hidden shadow-xl sm:rounded-lg">
      <div className="p-6">
       <h2 className="mb-6 text-2xl font-bold">{title}</h2>
