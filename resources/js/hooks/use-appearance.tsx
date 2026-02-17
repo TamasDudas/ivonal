@@ -18,8 +18,8 @@ export function useAppearance() {
  }, []);
 
  const updateAppearance = (_appearance: Appearance) => {
-  // This app enforces dark mode everywhere. Ignore requested value
-  // and ensure dark classes/attributes are present.
+  // Reference the parameter to satisfy the linter; app enforces dark mode.
+  void _appearance;
   applyDarkTheme();
  };
 

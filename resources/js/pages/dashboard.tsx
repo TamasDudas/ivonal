@@ -1,17 +1,10 @@
 import DashboardCard from '@/components/dashboard-card';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Cog, Home, Image, PenLine, Upload } from 'lucide-react';
 import { route } from 'ziggy-js';
 
 export default function Dashboard() {
- const breadcrumbs: BreadcrumbItem[] = [
-  {
-   title: 'Dashboard',
-   href: route('dashboard'),
-  },
- ];
  return (
   <AppLayout>
    <Head title="Dashboard" />
