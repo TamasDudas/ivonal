@@ -29,13 +29,13 @@ export default function EditableList<T extends { id: number }>({
   <div className="py-12">
    <div className="sm:px-6 lg:px-8">
     <div className="overflow-hidden shadow-xl sm:rounded-lg">
-     <div className="p-6">
+     <div className="p-4">
       <h2 className="mb-6 text-2xl font-bold">{title}</h2>
       <div className="space-y-4">
        {items.data.map((item) => (
         <div
          key={item.id}
-         className="flex items-center justify-between rounded-lg border bg-card p-4"
+         className="flex flex-col items-center justify-between gap-6 rounded-lg border bg-card p-4 md:flex-row"
         >
          <div className="text-lg font-medium">
           {String(item[displayField] ?? '')}

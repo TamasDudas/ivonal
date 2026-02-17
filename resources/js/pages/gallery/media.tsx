@@ -112,8 +112,8 @@ export default function MediaGallery({ images, cities, properties }: Props) {
    <div className="my-6">
     <h2 className="text-center text-5xl">Galléria</h2>
    </div>
-   <div className="mb-10 flex flex-col gap-4 rounded p-4 shadow-xl sm:rounded-lg lg:flex-row lg:items-end">
-    <div className="lg:items-centerö flex flex-1 flex-col gap-4 lg:flex-row">
+   <div className="mb-10 flex flex-col  items-center gap-4 rounded px-2 md:px-4 shadow-xl sm:rounded-lg lg:flex-row">
+    <div className=" flex flex-1 flex-col gap-2 lg:flex-row">
      <RadioGroup
       value={selectedType}
       onValueChange={(value) => setSelectedType(value as 'city' | 'property')}
@@ -164,14 +164,15 @@ export default function MediaGallery({ images, cities, properties }: Props) {
      <Button
       onClick={handleAssignSelected}
       disabled={selectedImages.length === 0}
+      className="my-4 py-6"
      >
-      Hozzáadás{' '}
+      Hozzáadás <br />
       {selectedType === 'city'
        ? 'város featured-ként'
        : isFeatured
          ? 'ingatlan featured-ként'
-         : 'ingatlan galériájához'}{' '}
-      ({selectedImages.length} kiválasztva)
+         : 'ingatlan galériájához'}
+      {''}({selectedImages.length} kiválasztva)
      </Button>
     </div>
    </div>

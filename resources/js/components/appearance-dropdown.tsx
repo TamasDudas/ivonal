@@ -19,8 +19,7 @@ export default function AppearanceToggleDropdown({
   switch (appearance) {
    case 'dark':
     return <Moon className="h-5 w-5" />;
-   case 'light':
-    return <Sun className="h-5 w-5" />;
+
    default:
     return <Monitor className="h-5 w-5" />;
   }
